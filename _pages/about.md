@@ -9,9 +9,10 @@ profile:
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
-    <p>Developer portfolio</p>
-    <p>Robotics + automation</p>
+    <p>Software engineer</p>
+    <p>Robotics • automation • product-minded building</p>
     <p><a href="https://github.com/bhaskarsuper9000">GitHub</a></p>
+    <p><a href="https://linkedin.com/in/oscarbandy">LinkedIn</a></p>
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
@@ -27,10 +28,16 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I’m Bhaskar Bandyopadhyay, a software engineer with a strong interest in robotics, automation, and practical product development. My work sits at the intersection of code, systems, data, AI, and user-focused problem solving.
+I’m Bhaskar Bandyopadhyay, a software engineer focused on robotics, automation, and practical product development. I build tools that connect code, hardware, and real-world workflows.
 
-I like building tools that make complex tasks simpler, whether that means controlling robots, exploring data visually, or turning an idea into a working prototype. Across my projects, I’ve been working with JavaScript, Python, robotics workflows, and automation-focused engineering.
+My work sits at the intersection of software craft and problem solving: robot control systems, automation experiments, visualization tooling, and small-scale intelligent infrastructure. I care about building systems that are useful, understandable, and reliable when they are used in the real world.
 
-My GitHub projects include robot control systems, smart streetlight infrastructure, plotting tools, and experiments around real-world automation. I’m especially interested in the space where software design, embedded systems, and product thinking meet.
+I enjoy turning rough ideas into working prototypes and making complex systems simpler to operate. Across my projects, I’ve worked with JavaScript, Python, automation workflows, and robotics-oriented engineering.
 
-This portfolio is a place to share my engineering work, project experiments, and technical writing. I’m currently focused on building useful, reliable software with a bias toward clarity, impact, and execution.
+### What I build
+- Robotics and automation systems
+- Developer tooling and visual dashboards
+- Smart infrastructure experiments and prototypes
+- Software that turns product ideas into working solutions
+
+I’m currently focused on building thoughtful engineering work with a bias toward clarity, execution, and practical impact.
