@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects | Bhaskar Bandyopadhyay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-section="projects">
+<a class="skip" href="#list">Skip to project list</a>
+<div id="nav"></div>
+<main class="wrap">
+  <h1>Projects</h1>
+  <p class="lede">Everything I have built that I can point at, in one list: newest first, grouped by where I was at the time. Filters only narrow the list; they never reorder it.</p>
+
+  <p class="erajump" id="erajump" aria-label="Jump to period"></p>
+
+  <section class="filters" aria-label="Filter projects">
+    <div class="fgroup" role="group" aria-label="Filter by kind"><span>Kind</span><span id="kinds" style="width:auto;display:contents"></span></div>
+    <div class="fgroup" role="group" aria-label="Filter by disclosure"><span>Disclosure</span><span id="discs" style="width:auto;display:contents"></span></div>
+  </section>
+  <div class="status" role="status" aria-live="polite"><span id="count"></span><button type="button" id="reset" hidden>Clear filters</button></div>
+
+  <div id="list"></div>
+
+  <dl class="legend">
+    <dt><span class="badge" data-d="text">text</span></dt><dd>Confidential: a few lines only, no visuals.</dd>
+    <dt><span class="badge" data-d="diagram">diagram</span></dt><dd>Animated, generic architecture diagram built from public facts.</dd>
+    <dt><span class="badge" data-d="demo">demo</span></dt><dd>Something you can play with.</dd>
+    <dt><span class="badge" data-d="writeup">write-up</span></dt><dd>A page of prose, images and links.</dd>
+  </dl>
+  <p class="legend">Prototype note: only two rows have a built detail page (Smart streetlights, and the Gatik simulator as the text-only variant). Other rows open a stub. Order inside an era is approximate where the resumes give no dates.</p>
+</main>
+<div class="footer"><div class="wrap">Prototype. Placeholder wiring; not the final site.</div></div>
+<script src="projects.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const KINDS = [['work','Work'],['academic','Academic'],['hackathon','Hackathon'],['opensource','Open source'],['personal','Personal']];
+  const KLABEL = Object.fromEntries(KINDS);
+  const DISCS = [['text','text'],['diagram','diagram'],['demo','demo'],['writeup','write-up']];
+  const DLABEL = Object.fromEntries(DISCS);
+  const BUILT = { 'iitb-streetlights': 'project.html', 'gatik-sim': 'project.html?variant=confidential' };
+  const state = { kind: 'all', disc: 'all' };
+  const q = new URLSearchParams(location.search);
+  if (KLABEL[q.get('kind')]) state.kind = q.get('kind');
+  if (DLABEL[q.get('disc')]) state.disc = q.get('disc');
+
+  const list = document.getElementById('list');
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  list.innerHTML = ERAS.map(e => {
+    const rows = PROJECTS.filter(p => p.era === e.id).map(p => {
+      const href = BUILT[p.id] || ('project.html?p=' + p.id);
+      return '<li class="prow' + (BUILT[p.id] ? ' built' : '') + '" data-kind="' + p.kind + '" data-disc="' + p.disc + '">' +
+        '<span class="yr">' + p.year + '</span>' +
+        '<div class="main"><a class="ttl" href="' + href + '">' + esc(p.title) + '</a><p class="sum">' + esc(p.summary) + '</p>' +
+        '<ul class="tags">' + p.tags.map(t => '<li>' + esc(t) + '</li>').join('') + '</ul></div>' +
+        '<span class="kind">' + KLABEL[p.kind] + '</span>' +
+        '<span class="dsc"><span class="badge" data-d="' + p.disc + '">' + DLABEL[p.disc] + '</span></span></li>';
+    }).join('');
+    return '<section class="eraBlock" id="era-' + e.id + '" aria-labelledby="h-' + e.id + '"><div class="era"><h2 id="h-' + e.id + '">' + e.name + '</h2>' +
+      '<span class="range">' + e.range + '</span><span class="none" hidden>no matches in this period</span><span class="role">' + e.role + '</span></div><ul class="plist">' + rows + '</ul></section>';
+  }).join('');
+  document.getElementById('erajump').innerHTML = 'Jump to: ' + ERAS.map(e => '<a href="#era-' + e.id + '">' + e.name + ' ' + e.range + '</a> ').join('');
+
+  function chips(host, items, key, label) {
+    host.innerHTML = [['all','All']].concat(items).map(([v, t]) => {
+      const n = v === 'all' ? PROJECTS.length : PROJECTS.filter(p => p[key] === v).length;
+      return '<button type="button" class="chip" data-key="' + key + '" data-v="' + v + '">' + t + '<small>' + n + '</small></button>';
+    }).join('');
+  }
+  chips(document.getElementById('kinds'), KINDS, 'kind');
+  chips(document.getElementById('discs'), DISCS, 'disc');
+
+  function apply() {
+    let shown = 0;
+    document.querySelectorAll('.prow').forEach(r => {
+      const ok = (state.kind === 'all' || r.dataset.kind === state.kind) && (state.disc === 'all' || r.dataset.disc === state.disc);
+      r.hidden = !ok; if (ok) shown++;
+    });
+    document.querySelectorAll('.eraBlock').forEach(b => {
+      const any = b.querySelector('.prow:not([hidden])');
+      b.querySelector('.none').hidden = !!any;
+      b.querySelector('.era').style.opacity = any ? '' : '.55';
+    });
+    document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', String(state[c.dataset.key] === c.dataset.v)));
+    const filtered = state.kind !== 'all' || state.disc !== 'all';
+    document.getElementById('count').textContent = 'Showing ' + shown + ' of ' + PROJECTS.length + ' projects, newest first' + (filtered ? ' (filtered)' : '') + '.';
+    document.getElementById('reset').hidden = !filtered;
+    const u = new URLSearchParams(); if (state.kind !== 'all') u.set('kind', state.kind); if (state.disc !== 'all') u.set('disc', state.disc);
+    try { history.replaceState(null, '', location.pathname + (u.toString() ? '?' + u : '')); } catch (e) {}
+  }
+  document.querySelector('.filters').addEventListener('click', e => {
+    const c = e.target.closest('.chip'); if (!c) return; state[c.dataset.key] = c.dataset.v; apply();
+  });
+  document.getElementById('reset').addEventListener('click', () => { state.kind = state.disc = 'all'; apply(); });
+  apply();
+})();
+</script>
+</body>
+</html>

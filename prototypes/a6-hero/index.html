@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-default-theme="dark" data-swatches="Cyan,Green,Amber,Orange,Sky,Magenta" data-lens="all">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bhaskar Bandyopadhyay | autonomous vehicles, robotics, data, full stack</title>
+<meta name="description" content="Software engineer, 8+ years: autonomous vehicles, robotics, simulation and safety metrics, data platforms, full-stack apps and visualization.">
+<script src="settings.js"></script>
+<script>
+  /* audience lens before first paint: ?lens= wins, then the saved choice */
+  (function () { var q = new URLSearchParams(location.search).get('lens'), s = null; try { s = localStorage.getItem('bb-lens-v1'); } catch (e) {}
+    var l = /^(all|av|robotics|data|fullstack)$/.test(q) ? q : /^(all|av|robotics|data|fullstack)$/.test(s) ? s : 'all'; document.documentElement.setAttribute('data-lens', l); })();
+</script>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="hero.css">
+</head>
+<body data-style="hud">
+<a class="skip" href="#main">Skip to content</a>
+<div class="pgrid" aria-hidden="true"><i class="pgrid-hi"></i></div>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="index.html"><span class="brand-mark">BB</span><span class="brand-name">Bhaskar Bandyopadhyay</span></a>
+  <nav aria-label="Main"><ul>
+    <li><a href="index.html" aria-current="page">Home</a></li>
+    <li><a href="../a2-resume-v2/index.html">Resume</a></li>
+    <li><a href="../a3-story-v2/index.html">Story</a></li>
+    <li><a href="../a4-pages/index.html">Projects</a></li>
+    <li><a href="../a4-pages/blog.html">Blog</a></li>
+  </ul></nav>
+  <button class="btn btn-settings" type="button" data-settings-toggle aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg><span>Settings</span></button>
+</div></header>
+
+<main id="main">
+<section class="hero" id="hero" aria-labelledby="hero-name">
+  <div class="stage" id="stage">
+    <canvas id="still" class="cv cv-still" aria-hidden="true"></canvas>
+    <canvas id="gl" class="cv cv-gl" role="img" aria-label="Live toy simulation" aria-describedby="scene-desc"></canvas>
+    <p id="scene-desc" class="vh">An autonomous box truck drives a looped road past a car, a cyclist, a pedestrian at a crossing and parked obstacles.</p>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="tags3d" id="tags3d" aria-hidden="true"></div>
+    <div class="rulers" aria-hidden="true"><i class="ru ru-t"></i><i class="ru ru-r"></i></div>
+    <button class="btn stage-play" id="stage-play" type="button" hidden>&#9654; Play simulation</button>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="eyebrow">Software engineer &middot; 8+ years</p>
+      <h1 id="hero-name" class="hero-name"><span>Bhaskar</span> <span>Bandyopadhyay</span></h1>
+      <p class="hero-pos" id="pos">I build the simulators, safety metrics and data tools that help autonomous vehicles and robots get safely onto real roads.</p>
+
+      <fieldset class="lens" id="lens">
+        <legend>I&rsquo;m hiring for</legend>
+        <div class="lens-row">
+          <input type="radio" name="lens" id="lens-all" value="all" checked><label for="lens-all">Everything</label>
+          <input type="radio" name="lens" id="lens-robotics" value="robotics"><label for="lens-robotics">Robotics</label>
+          <input type="radio" name="lens" id="lens-av" value="av"><label for="lens-av">AV</label>
+          <input type="radio" name="lens" id="lens-data" value="data"><label for="lens-data">Data</label>
+          <input type="radio" name="lens" id="lens-fullstack" value="fullstack"><label for="lens-fullstack">Full stack</label>
+        </div>
+      </fieldset>
+
+      <ol class="proofs" id="proofs" aria-label="Proof points">
+        <li><a class="proof" href="../a4-pages/project.html?p=autox-mrc"><b class="pf-n">93%</b><span class="pf-t">Minimum Risk Condition</span><span class="pf-d">Led a team of 4; graceful recovery in 93% of failure cases.</span><span class="pf-w">AutoX</span></a></li>
+        <li><a class="proof" href="../a4-pages/project.html?p=autox-bindeploy"><b class="pf-n">$800K<small>/yr</small></b><span class="pf-t">Binary Deployment</span><span class="pf-d">Proposed and led it with a team of 3; about $800K saved a year.</span><span class="pf-w">AutoX</span></a></li>
+        <li><a class="proof" href="../a4-pages/project.html?p=autox-obs"><b class="pf-n">$300K<small>/yr</small></b><span class="pf-t">Observability and KPI metrics</span><span class="pf-d">Grafana and InfluxDB; about $300K of developer time saved a year.</span><span class="pf-w">AutoX</span></a></li>
+      </ol>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="../a2-resume-v2/index.html">Read the resume</a>
+        <a class="btn" href="../a3-story-v2/index.html">Play the story</a>
+        <a class="btn btn-ghost" href="#relevant">Most relevant work &darr;</a>
+      </div>
+    </div>
+
+    <aside class="readouts" id="readouts" aria-label="Live readouts from the simulation">
+      <div class="ro-head"><span class="ro-live"><i></i>Live</span><span id="ro-era">Ego: autonomous box truck</span></div>
+      <div class="ro-list" id="ro-list"></div>
+      <figure class="chart" id="chart">
+        <figcaption><span class="ch-a" id="ch-a">TTC</span> <span class="ch-b" id="ch-b">Speed</span> <span class="ch-w">last 20 s</span></figcaption>
+        <canvas id="chart-cv" aria-hidden="true"></canvas>
+      </figure>
+      <p class="ro-cap">Toy simulation running in your browser. Metrics are computed live from the scene.</p>
+    </aside>
+  </div>
+
+  <div class="era-cap" id="era-cap" aria-live="polite"><span class="era-y" id="era-y">2025&ndash;26</span><span class="era-n" id="era-n">Gatik</span><span class="era-t" id="era-t">Autonomous trucks: AV simulation, safety metrics, data platforms.</span></div>
+
+  <div class="scrub-bar">
+    <div class="wrap scrub-in">
+      <button class="btn scrub-play" id="play" type="button" aria-pressed="false"><span class="ic" aria-hidden="true">&#9664;&#9664;</span><span class="lbl">Play my story backwards</span></button>
+      <div class="track-wrap">
+        <div class="track" id="track" role="slider" tabindex="0" aria-label="Career timeline" aria-valuemin="1990" aria-valuemax="2026" aria-valuenow="2026" aria-valuetext="2025 to 2026, Gatik">
+          <div class="track-ticks" id="track-ticks" aria-hidden="true"></div>
+          <div class="track-fill" id="track-fill" aria-hidden="true"></div>
+          <div class="handle" id="handle" aria-hidden="true"><b id="handle-y">2026</b></div>
+        </div>
+        <div class="era-ticks" id="era-ticks"></div>
+      </div>
+      <button class="btn btn-ghost sim-pause" id="sim-pause" type="button" aria-pressed="false" title="Pause the simulation"><span aria-hidden="true">&#10074;&#10074;</span><span class="vh">Pause simulation</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="sec good" id="good" aria-labelledby="good-h">
+  <header class="wrap sec-h"><span class="sec-n">01</span><h2 class="sec-t" id="good-h">What I&rsquo;m good at</h2><span class="sec-m">six areas &middot; two projects each</span></header>
+  <ul class="wrap caps" id="caps">
+    <li class="capa" data-lens-hit="av"><h3>Autonomous vehicles</h3><p>Fallback behaviour, permit-critical systems and simulation for robotaxis and trucks.</p><p class="capa-l"><a href="../a4-pages/project.html?p=autox-mrc">Minimum Risk Condition</a><a href="../a4-pages/project.html?variant=confidential">AV simulator</a></p></li>
+    <li class="capa" data-lens-hit="robotics"><h3>Robotics</h3><p>ROS2 on embedded QNX, an underwater vehicle, a humanoid and a delivery robot.</p><p class="capa-l"><a href="../a4-pages/project.html?p=autox-qnx">ROS2 on QNX</a><a href="../a4-pages/project.html?p=iitb-auv">Matsya AUV</a></p></li>
+    <li class="capa" data-lens-hit="av data"><h3>Simulation &amp; safety metrics</h3><p>Simulator backend, playback and in-browser metrics; safety metrics from simulation and road data.</p><p class="capa-l"><a href="../a4-pages/project.html?variant=confidential">AV simulator</a><a href="../a4-pages/project.html?p=gatik-metrics">Safety metrics</a></p></li>
+    <li class="capa" data-lens-hit="data"><h3>Data &amp; ETL</h3><p>Pipelines and KPI platforms on Grafana, InfluxDB and TimescaleDB that people use every day.</p><p class="capa-l"><a href="../a4-pages/project.html?p=autox-obs">Observability, $300K/yr</a><a href="../a4-pages/project.html?p=usc-scry">Scry Analytics, 20&times;</a></p></li>
+    <li class="capa" data-lens-hit="fullstack"><h3>Full-stack apps</h3><p>TypeScript and React front ends on cloud-native backends, plus the deployment tooling under them.</p><p class="capa-l"><a href="../a4-pages/project.html?p=gatik-saas">Leadership data platform</a><a href="../a4-pages/project.html?p=autox-bindeploy">Binary Deployment, $800K/yr</a></p></li>
+    <li class="capa" data-lens-hit="data fullstack"><h3>Visualization</h3><p>Dashboards, graph visualization and in-browser 3D, like the simulation above.</p><p class="capa-l"><a href="../a4-pages/project.html?p=oss-flamegraph">Grafana flamegraph panel</a><a href="../a4-pages/project.html?p=mum-graphics">Turbo C graphics</a></p></li>
+  </ul>
+</section>
+
+<section class="sec" id="relevant" aria-labelledby="rel-h">
+  <header class="wrap sec-h"><span class="sec-n">02</span><h2 class="sec-t" id="rel-h">Most relevant work</h2><span class="sec-m" id="rel-m">ordered for: everything</span></header>
+  <ol class="wrap plist" id="plist"></ol>
+  <p class="wrap more-l"><a href="../a4-pages/index.html">All projects, newest first &rarr;</a></p>
+</section>
+
+<section class="sec" id="explore" aria-labelledby="ex-h">
+  <header class="wrap sec-h"><span class="sec-n">03</span><h2 class="sec-t" id="ex-h">Four ways to explore</h2><span class="sec-m">pick one</span></header>
+  <ul class="wrap modes">
+    <li><a class="mode" href="../a2-resume-v2/index.html"><span class="mode-n">01</span><strong>TL;DR resume</strong><span>One page. Hover, focus or tap a line to see more.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+    <li><a class="mode" href="../a3-story-v2/index.html"><span class="mode-n">02</span><strong>Story mode</strong><span>A small pixel-art walk backwards, from today to the toddler.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+    <li><a class="mode" href="../a4-pages/index.html"><span class="mode-n">03</span><strong>Projects</strong><span>Everything I have built, newest first.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+    <li><a class="mode" href="../a4-pages/blog.html"><span class="mode-n">04</span><strong>Blog</strong><span>Occasional articles.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Bhaskar Bandyopadhyay</span>
+    <a href="https://github.com/bhaskarsuper9000">GitHub</a>
+    <a href="https://www.linkedin.com/in/oscarbandy">LinkedIn</a>
+    <a href="mailto:bhaskarsuper9000@gmail.com">bhaskarsuper9000@gmail.com</a>
+    <span class="foot-n">Prototype A6. The hero is a toy written from scratch for this page; it does not show any employer&rsquo;s software.</span>
+  </div>
+</footer>
+<div class="dbg" id="dbg" hidden></div>
+
+<script src="sim.js"></script>
+<script src="render3d.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

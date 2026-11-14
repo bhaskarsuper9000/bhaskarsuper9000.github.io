@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bhaskar Bandyopadhyay, software engineer</title>
+<style>
+:root{--bg:#f6f3ec;--fg:#1d1b18;--mute:#6d675d;--line:#cfc8b9;--acc:#a8431f;--card:#efeadf}
+:root[data-theme=dark]{--bg:#14130f;--fg:#ece6d8;--mute:#9a9384;--line:#3a372f;--acc:#e08a5c;--card:#1d1b16}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14130f;--fg:#ece6d8;--mute:#9a9384;--line:#3a372f;--acc:#e08a5c;--card:#1d1b16}}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--fg);font:18px/1.6 "Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;-webkit-font-smoothing:antialiased}
+.sans{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 clamp(20px,5vw,56px)}
+header.top{display:flex;justify-content:space-between;align-items:center;padding:28px 0;font-size:14px;color:var(--mute)}
+header.top button{font:inherit;background:none;border:1px solid var(--line);color:var(--mute);border-radius:99px;padding:4px 12px;cursor:pointer}
+header.top button:hover{color:var(--fg);border-color:var(--fg)}
+h1{font-weight:400;font-size:clamp(40px,6.4vw,76px);line-height:1.02;letter-spacing:-.02em;margin:clamp(24px,6vh,64px) 0 20px}
+h1 em{font-style:italic;color:var(--acc)}
+.lede{font-size:clamp(20px,2.4vw,27px);line-height:1.4;max-width:30em;margin:0 0 12px}
+.sub{color:var(--mute);font-size:16px;max-width:36em;margin:0}
+/* timeline */
+.tl{margin:clamp(36px,6vh,64px) 0 0}
+.tl-head{display:flex;justify-content:space-between;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin-bottom:22px}
+.rail{position:relative;height:44px}
+.rail::before{content:"";position:absolute;left:0;right:0;top:21px;height:1px;background:var(--line)}
+.rail .fill{position:absolute;left:0;top:21px;height:1px;background:var(--acc);width:0;transition:width .25s}
+.pt{position:absolute;top:10px;width:24px;height:24px;margin-left:-12px;border:0;background:none;padding:0;cursor:pointer}
+.pt::after{content:"";position:absolute;left:8px;top:8px;width:8px;height:8px;border-radius:50%;background:var(--bg);border:1.5px solid var(--mute);transition:.2s}
+.pt:hover::after,.pt:focus-visible::after,.pt.on::after{background:var(--acc);border-color:var(--acc);transform:scale(1.5)}
+.pt.now::after{background:var(--fg);border-color:var(--fg)}
+.yrs{position:relative;height:18px;font-size:12px;color:var(--mute)}
+.yrs span{position:absolute;transform:translateX(-50%)}
+.yrs span:first-child{transform:none}.yrs span:last-child{transform:translateX(-100%)}
+.cap{min-height:4.2em;margin:18px 0 0;max-width:38em}
+.cap b{font-weight:400;font-style:italic;color:var(--acc);margin-right:.4em}
+.cap small{display:block;color:var(--mute);font-size:14px;margin-top:6px}
+/* modes */
+.modes{margin:clamp(24px,4vh,40px) 0 0;border-top:1px solid var(--fg);padding:0;list-style:none}
+.modes li{border-bottom:1px solid var(--line)}
+.modes a{display:grid;grid-template-columns:3.2em 1fr auto;gap:4px 20px;align-items:baseline;padding:20px 4px;text-decoration:none;transition:background .2s,padding .2s}
+.modes a:hover,.modes a:focus-visible{background:var(--card);padding-left:16px;padding-right:16px}
+.num{color:var(--mute);font-size:14px}
+.ttl{font-size:clamp(26px,3.4vw,38px);line-height:1.15}
+.desc{grid-column:2;color:var(--mute);font-size:16px;max-width:34em}
+.meta{grid-column:3;grid-row:1;font-size:13px;color:var(--mute);white-space:nowrap}
+.arrow{color:var(--acc);margin-left:.4em;display:inline-block;transition:transform .2s}
+.modes a:hover .arrow,.modes a:focus-visible .arrow{transform:translateX(6px)}
+.modes .safe .ttl::after{content:"start here";font:12px ui-sans-serif,system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:2px 10px;margin-left:14px;vertical-align:middle}
+.modes .story .ttl{font-style:italic}
+footer{margin:clamp(56px,10vh,100px) 0 60px;display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:space-between;align-items:baseline;font-size:15px}
+footer nav{display:flex;gap:24px;flex-wrap:wrap}
+footer a{text-underline-offset:4px;text-decoration-color:var(--line)}footer a:hover{text-decoration-color:var(--acc)}
+footer span{color:var(--mute)}
+@media(max-width:640px){
+ body{font-size:17px}
+ .modes a{grid-template-columns:2.2em 1fr;padding:22px 2px}
+ .meta{grid-column:2;grid-row:auto;order:3}
+ .desc{order:2}
+ .modes .safe .ttl::after{display:block;width:max-content;margin:8px 0 0}
+ .tl-head span:last-child{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top sans"><span>bhaskarsuper9000</span><button id="theme" type="button" aria-label="Toggle light or dark">light / dark</button></header>
+
+<main>
+<h1>Bhaskar <em>Bandyopadhyay</em></h1>
+<p class="lede">Software engineer. I build the simulation, platform and tooling that make autonomous vehicles and robots safe to ship.</p>
+<p class="sub">8+ years, mostly autonomous vehicles, robotics, simulation and data visualization. C++, Python, TypeScript, ROS2, cloud native.</p>
+
+<section class="tl" aria-label="Timeline from 1990 to today">
+ <div class="tl-head sans"><span>1990 &rarr; today</span><span>The story mode walks this line backwards</span></div>
+ <div class="rail" id="rail"><div class="fill" id="fill"></div></div>
+ <div class="yrs sans" id="yrs"></div>
+ <p class="cap" id="cap" aria-live="polite"></p>
+</section>
+
+<ol class="modes">
+ <li class="safe"><a href="../../a2-resume/index.html">
+  <span class="num sans">01</span><span class="ttl">TL;DR resume<span class="arrow">&rarr;</span></span><span class="meta sans">about 1 minute</span>
+  <span class="desc">The whole career on one page. Hover or tap any role to open the projects behind it.</span></a></li>
+ <li class="story"><a href="../../a3-story/index.html">
+  <span class="num sans">02</span><span class="ttl">Story mode<span class="arrow">&rarr;</span></span><span class="meta sans">5 to 10 minutes</span>
+  <span class="desc">A small pixel-art walk backwards from today to a toddler who loved trucks. See how much of it you can find.</span></a></li>
+ <li><a href="../../a4-pages/index.html">
+  <span class="num sans">03</span><span class="ttl">Projects<span class="arrow">&rarr;</span></span><span class="meta sans">browse at your pace</span>
+  <span class="desc">Every project in order, from a Turbo C image editor to a driverless-vehicle simulator.</span></a></li>
+ <li><a href="#">
+  <span class="num sans">04</span><span class="ttl">Blog<span class="arrow">&rarr;</span></span><span class="meta sans">3 to 8 minutes a post</span>
+  <span class="desc">Occasional articles on things I had to figure out the hard way.</span></a></li>
+</ol>
+</main>
+
+<footer class="sans">
+ <nav aria-label="Contact"><a href="https://github.com/bhaskarsuper9000">GitHub</a><a href="https://linkedin.com/in/oscarbandy">LinkedIn</a><a href="mailto:bhaskarsuper9000@gmail.com">bhaskarsuper9000@gmail.com</a></nav>
+ <span>Open to conversations about autonomy, simulation and platforms.</span>
+</footer>
+</div>
+<script>
+const START=1990,END=2026;
+const pts=[
+ [1990,"Born.","Fascinated by cars and trucks. Wanted to visit car garages."],
+ [1995,"The kid.","Learned programming in 5th grade from his mother. Read the DOS and Windows 98 manuals for fun."],
+ [2008,"University of Mumbai.","Computer Engineering. 16-bit graphics in Turbo C and assembly, Java games, web-controlled robots."],
+ [2013,"IIT Bombay.","MTech Geo-Informatics. An underwater vehicle team, a Kinect road-defect mapper, a 36-hour hackathon win."],
+ [2015,"Oracle, Bangalore.","Applications engineer, cloud CRM scripts and add-ins."],
+ [2016,"USC.","MS Computer Science. Kernels, a game engine, robots, hackathons, DARPA research."],
+ [2018,"AutoX.","Senior engineer on a driverless fleet: fault recovery, deployment, observability, sensors."],
+ [2025,"Gatik AI.","Senior engineer, platform. Simulation and safety metrics for autonomous trucks."],
+ [2026,"Here.","Pick a way in below."]
+];
+const rail=document.getElementById("rail"),yrs=document.getElementById("yrs"),cap=document.getElementById("cap"),fill=document.getElementById("fill");
+const pos=y=>(y-START)/(END-START)*100;
+function show(i){
+ const [y,t,d]=pts[i];
+ cap.innerHTML=`<b>${y===2026?"now":y}</b>${t}<small>${d}</small>`;
+ fill.style.width=pos(y)+"%";
+ rail.querySelectorAll(".pt").forEach((p,j)=>p.classList.toggle("on",j===i));
+}
+pts.forEach(([y,t],i)=>{
+ const b=document.createElement("button");b.type="button";b.className="pt"+(i===pts.length-1?" now":"");
+ b.style.left=pos(y)+"%";b.setAttribute("aria-label",y+": "+t);
+ ["mouseenter","focus","click"].forEach(e=>b.addEventListener(e,()=>show(i)));
+ rail.appendChild(b);
+});
+[1990,2000,2010,2020,2026].forEach(y=>{const s=document.createElement("span");s.textContent=y===2026?"today":y;s.style.left=pos(y)+"%";yrs.appendChild(s)});
+rail.addEventListener("mousemove",e=>{ // snap to nearest on pointer
+ const r=rail.getBoundingClientRect(),y=START+(e.clientX-r.left)/r.width*(END-START);
+ let bi=0;pts.forEach((p,i)=>{if(Math.abs(p[0]-y)<Math.abs(pts[bi][0]-y))bi=i});show(bi);
+});
+rail.addEventListener("mouseleave",()=>show(pts.length-1));
+show(pts.length-1);
+const q=new URLSearchParams(location.search);
+if(q.get("demo")==="hover")show(6);
+const root=document.documentElement;
+if(q.get("theme"))root.dataset.theme=q.get("theme");
+document.getElementById("theme").onclick=()=>{
+ const dark=root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches;
+ root.dataset.theme=dark?"light":"dark";
+};
+</script>
+</body>
+</html>

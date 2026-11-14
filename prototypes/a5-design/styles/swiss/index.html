@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-default-theme="system" data-swatches="Signal red,Cobalt,Green,Amber,Teal,Ink">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Swiss / International | design language sample</title>
+<script src="../../settings.js"></script>
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body data-style="swiss">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap nav-in">
+  <a class="brand" href="#hero"><span class="brand-mark">BB</span><span class="brand-name">Bhaskar Bandyopadhyay</span></a>
+  <nav aria-label="Main"><ul>
+    <li><a href="#hero" aria-current="page">Home</a></li><li><a href="#resume">Resume</a></li><li><a href="#story">Story</a></li><li><a href="#projects">Projects</a></li><li><a href="#blog">Blog</a></li>
+  </ul></nav>
+  <button class="btn btn-settings" type="button" data-settings-toggle aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg><span>Settings</span></button>
+</div></header>
+<div class="x x-brut ticker" aria-hidden="true"><span>AUTONOMOUS VEHICLES &#9679; ROBOTICS &#9679; SIMULATION &#9679; PLATFORMS &#9679; DATA VIZ &#9679; AUTONOMOUS VEHICLES &#9679; ROBOTICS &#9679; SIMULATION &#9679;</span></div>
+
+<main id="main">
+<!-- 01 LANDING -->
+<section id="hero" class="sec sec-hero" aria-labelledby="hero-name">
+  <header class="wrap sec-h"><span class="sec-n">01</span><h2 class="sec-t">Landing hero</h2><span class="sec-m">index.html</span><span class="x x-bp tb"><i>Sheet</i><b>01/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap hero">
+    <p class="eyebrow">Software engineer &middot; 8+ years</p>
+    <h1 id="hero-name" class="hero-name"><span>Bhaskar</span> <span>Bandyopadhyay</span></h1>
+    <span class="x x-bp dim" aria-hidden="true"><i></i><b>1990 &rarr; 2026</b><i></i></span>
+    <p class="hero-pos">I build the platforms, simulators and tools that help autonomous vehicles and robots get safely out into the real world.</p>
+    <div class="hero-cta"><a class="btn btn-primary" href="#resume">Read the resume</a> <a class="btn" href="#story">Play the story</a></div>
+    <ol class="timeline" aria-label="Timeline from 1990 to today">
+      <li><b>1990</b><span>Born, loves trucks</span></li>
+      <li><b>1995</b><span>First code, DOS manuals</span></li>
+      <li><b>2008</b><span>Computer Engineering, Mumbai</span></li>
+      <li><b>2013</b><span>IIT Bombay</span></li>
+      <li><b>2016</b><span>USC</span></li>
+      <li><b>2018</b><span>AutoX</span></li>
+      <li><b>2025</b><span>Gatik</span></li>
+      <li><b>Today</b><span>You are here</span><span class="x x-hud scrub" aria-hidden="true"></span></li>
+    </ol>
+    <ul class="modes" aria-label="Ways to explore">
+      <li><a class="mode m1" href="#resume"><span class="mode-n">01</span><strong>Resume</strong><span>The one-page TL;DR. Hover or tap to dig deeper.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a class="mode m2" href="#story"><span class="mode-n">02</span><strong>Story</strong><span>Walk a pixel-art world backwards, from today to the toddler.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a class="mode m3" href="#projects"><span class="mode-n">03</span><strong>Projects</strong><span>Everything I have built, newest first.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+      <li><a class="mode m4" href="#blog"><span class="mode-n">04</span><strong>Blog</strong><span>Occasional articles on how things work.</span><span class="mode-go" aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 02 RESUME -->
+<section id="resume" class="sec" aria-labelledby="resume-h">
+  <header class="wrap sec-h"><span class="sec-n">02</span><h2 class="sec-t" id="resume-h">Resume fragment</h2><span class="sec-m">resume.html</span><span class="x x-bp tb"><i>Sheet</i><b>02/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap resume">
+    <article class="role role-conf">
+      <header class="role-h"><h3>Gatik AI</h3><p class="role-t">Senior Software Engineer, Platform</p><p class="role-d">Jan 2025 &ndash; Oct 2026</p><span class="badge badge-conf">Confidential &middot; text only</span></header>
+      <ul class="plain">
+        <li>Designed the core backend of an in-house autonomous-vehicle simulator, then added playback, users, browser-based metrics and LLM-assisted safety analysis.</li>
+        <li>Built a full-stack SaaS app that brings company data from many sources into dashboards for leadership.</li>
+      </ul>
+    </article>
+    <article class="role role-open">
+      <header class="role-h"><h3>AutoX Technologies</h3><p class="role-t">Senior Software Engineer</p><p class="role-d">Jan 2018 &ndash; Oct 2024</p><span class="badge badge-gen">Generic diagrams</span></header>
+      <ul class="explore">
+        <li><button class="item" type="button" aria-expanded="true" aria-controls="d1"><span class="item-t">Minimum Risk Condition</span><span class="item-s">Led a team of 4; graceful recovery in 93% of failure cases.</span><span class="item-hint">Close</span></button>
+          <div class="detail" id="d1">
+            <div><p>When something goes wrong on a driverless vehicle, it should end up in a safe state, not just stop. I led the team of four that built that recovery path.</p><p style="margin-top:.6rem">Tap an item to open or close its detail.</p>
+              <span class="x x-hud gauge" style="--v:93" aria-hidden="true"><b>93%</b><i>recovered</i></span></div>
+            <figure><svg class="diagram" viewBox="0 0 330 120" role="img" aria-label="Placeholder diagram: fault detected, choose recovery, minimum risk state">
+<rect class="dg-box" x="4" y="38" width="86" height="44"/><text class="dg-t" x="47" y="64">Fault</text>
+<rect class="dg-box" x="122" y="38" width="86" height="44"/><text class="dg-t" x="165" y="64">Recovery</text>
+<rect class="dg-box" x="240" y="38" width="86" height="44"/><text class="dg-t" x="283" y="64">Safe state</text>
+<path class="dg-ln" d="M90 60H116"/><path class="dg-ar" d="M122 60l-8-5v10z"/>
+<path class="dg-ln" d="M208 60H234"/><path class="dg-ar" d="M240 60l-8-5v10z"/>
+<text class="dg-t" x="165" y="20" style="font-size:9px;opacity:.7">PLACEHOLDER</text></svg><figcaption>Diagram placeholder. Generic, resume-level facts only.</figcaption></figure>
+          </div></li>
+        <li><button class="item" type="button" aria-expanded="false" aria-controls="d2"><span class="item-t">Binary Deployment</span><span class="item-s">Proposed and led (team of 3); about $800K saved a year.</span><span class="item-hint">Open</span></button><div class="detail" id="d2" hidden><p>Detail panel for this item.</p></div></li>
+        <li><button class="item" type="button" aria-expanded="false" aria-controls="d3"><span class="item-t">Observability and KPI metrics</span><span class="item-s">Grafana and InfluxDB; about $300K of developer time a year.</span><span class="item-hint">Open</span></button><div class="detail" id="d3" hidden><p>Detail panel for this item.</p></div></li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- 03 PROJECTS -->
+<section id="projects" class="sec" aria-labelledby="proj-h">
+  <header class="wrap sec-h"><span class="sec-n">03</span><h2 class="sec-t" id="proj-h">Project list fragment</h2><span class="sec-m">projects.html</span><span class="x x-bp tb"><i>Sheet</i><b>03/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap"><ol class="plist">
+    <li class="prow"><time>2025</time><div class="prow-m"><h3><a href="#projects">Autonomous-vehicle simulator</a></h3><p>Backend, playback and in-browser safety metrics.</p></div><ul class="tags"><li><span class="tag">Simulation</span></li><li><span class="tag">Platform</span></li><li><span class="tag">LLM</span></li></ul><span class="badge badge-conf">Confidential</span></li>
+    <li class="prow"><time>2018&ndash;24</time><div class="prow-m"><h3><a href="#projects">Binary Deployment</a></h3><p>A faster, safer way to ship vehicle software.</p></div><ul class="tags"><li><span class="tag">Cloud native</span></li><li><span class="tag">C++</span></li></ul><span class="badge badge-gen">Generic</span></li>
+    <li class="prow"><time>2016</time><div class="prow-m"><h3><a href="#projects">Fullerene</a></h3><p>Phone as a game controller; top 4 at Caltech HackTech.</p></div><ul class="tags"><li><span class="tag">Game</span></li><li><span class="tag">Mobile</span></li></ul><span class="badge badge-pub">Public</span></li>
+    <li class="prow"><time>2008&ndash;12</time><div class="prow-m"><h3><a href="#projects">Turbo C graphics</a></h3><p>16-bit SVGA, an image editor and a BMP codec.</p></div><ul class="tags"><li><span class="tag">C</span></li><li><span class="tag">Assembly</span></li></ul><span class="badge badge-pub">Public</span></li>
+  </ol></div>
+</section>
+
+<!-- 04 BLOG -->
+<section id="blog" class="sec" aria-labelledby="blog-h">
+  <header class="wrap sec-h"><span class="sec-n">04</span><h2 class="sec-t" id="blog-h">Blog fragment</h2><span class="sec-m">blog/post.html</span><span class="x x-bp tb"><i>Sheet</i><b>04/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap blog">
+    <article class="post"><p class="meta">Placeholder post &middot; 4 min read</p><h3 class="post-t">What a DOS manual taught me about interfaces</h3><p>I read the DOS manual for fun long before I had a reason to. Years later, it is still how I judge a tool: can you learn it by reading one page?</p><a class="more" href="#blog">Read the post &rarr;</a></article>
+    <div class="prose"><h3>Pixels before frameworks</h3>
+      <p>In college I drew everything myself in Turbo C: pick a video mode, write bytes to memory, see colour. No library, just the machine.</p>
+      <pre><code><span class="c">/* mode 13h: 320x200, 256 colours */</span>
+<span class="k">unsigned char far</span> *vga = (<span class="k">unsigned char far</span> *)<span class="n">0xA0000000L</span>;
+<span class="k">void</span> plot(<span class="k">int</span> x, <span class="k">int</span> y, <span class="k">unsigned char</span> c) {
+    vga[y * <span class="n">320</span> + x] = c;
+}</code></pre>
+      <p>That one line of arithmetic is still the best explanation of a framebuffer I know.</p></div>
+  </div>
+</section>
+
+<!-- 05 STORY -->
+<section id="story" class="sec" aria-labelledby="story-h">
+  <header class="wrap sec-h"><span class="sec-n">05</span><h2 class="sec-t" id="story-h">Story mode fragment (game HUD and card)</h2><span class="sec-m">story/</span><span class="x x-bp tb"><i>Sheet</i><b>05/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap">
+    <div class="game" role="group" aria-label="Mock game screen">
+      <span class="canvas-label">Game canvas placeholder<br>(pixel-art world goes here)</span><span class="avatar" aria-hidden="true"></span>
+      <div class="hud">
+        <div class="hud-l"><span class="era">Era 7</span><span class="era-n">The kid <span style="font-weight:400;opacity:.8">c. 1995&ndash;2008</span></span>
+          <span class="prog"><span class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="67" aria-label="Exploration progress"><i></i></span><span>2 / 3 visited <b>67%</b></span></span></div>
+        <a class="btn btn-primary" href="#resume">Skip the game: read the resume &rarr;</a>
+      </div>
+      <article class="card"><p class="meta">Landmark &middot; The family PC</p><h3>Manuals for fun</h3><p>I learned programming in 5th grade from my mother, and I read the Windows 3.1, Windows 98 and DOS manuals the way other kids read comics.</p><div class="card-a"><button class="btn btn-primary" type="button">Next landmark</button><button class="btn" type="button">Close</button></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- 06 COMPONENTS -->
+<section id="states" class="sec" aria-labelledby="comp-h">
+  <header class="wrap sec-h"><span class="sec-n">06</span><h2 class="sec-t" id="comp-h">Components and states</h2><span class="sec-m">default / hover / focus / pressed / disabled</span><span class="x x-bp tb"><i>Sheet</i><b>06/07</b><i>Rev</i><b>A</b></span></header>
+  <div class="wrap"><div class="scroll"><div class="states">
+<span></span><span class="h">Default</span><span class="h">Hover</span><span class="h">Focus</span><span class="h">Pressed</span><span class="h">Disabled</span>
+<span class="r">Primary</span><span><button class="btn btn-primary " type="button">Get in touch</button></span><span><button class="btn btn-primary is-hover" type="button">Get in touch</button></span><span><button class="btn btn-primary is-focus" type="button">Get in touch</button></span><span><button class="btn btn-primary is-active" type="button">Get in touch</button></span><span><button class="btn btn-primary is-disabled" type="button" disabled>Get in touch</button></span>
+<span class="r">Secondary</span><span><button class="btn " type="button">Read resume</button></span><span><button class="btn is-hover" type="button">Read resume</button></span><span><button class="btn is-focus" type="button">Read resume</button></span><span><button class="btn is-active" type="button">Read resume</button></span><span><button class="btn is-disabled" type="button" disabled>Read resume</button></span>
+<span class="r">Ghost</span><span><button class="btn btn-ghost " type="button">Skip</button></span><span><button class="btn btn-ghost is-hover" type="button">Skip</button></span><span><button class="btn btn-ghost is-focus" type="button">Skip</button></span><span><button class="btn btn-ghost is-active" type="button">Skip</button></span><span><button class="btn btn-ghost is-disabled" type="button" disabled>Skip</button></span>
+<span class="r">Link</span><span><a href="#states" class="">All projects</a></span><span><a href="#states" class="is-hover">All projects</a></span><span><a href="#states" class="is-focus">All projects</a></span><span><a href="#states" class="is-active">All projects</a></span><span class="na">n/a</span>
+<span class="r">Tag</span><span><button class="tag " type="button">ROS2</button></span><span><button class="tag is-hover" type="button">ROS2</button></span><span><button class="tag is-focus" type="button">ROS2</button></span><span><button class="tag is-active" type="button">ROS2</button></span><span class="na">n/a</span>
+<span class="r">Text field</span><span><input class="field " type="text" placeholder="you@example.com" aria-label="Email default"></span><span><input class="field is-hover" type="text" placeholder="you@example.com" aria-label="Email is-hover"></span><span><input class="field is-focus" type="text" placeholder="you@example.com" aria-label="Email is-focus"></span><span><input class="field is-active" type="text" placeholder="you@example.com" aria-label="Email is-active"></span><span><input class="field is-disabled" type="text" placeholder="you@example.com" aria-label="Email is-disabled" disabled></span>
+<span class="r">Checkbox</span><span><label class="lab"><input class="cb " type="checkbox" checked aria-label="Option default">Remember</label></span><span><label class="lab"><input class="cb is-hover" type="checkbox" checked aria-label="Option is-hover">Remember</label></span><span><label class="lab"><input class="cb is-focus" type="checkbox" checked aria-label="Option is-focus">Remember</label></span><span><label class="lab"><input class="cb is-active" type="checkbox" checked aria-label="Option is-active">Remember</label></span><span class="na">n/a</span>
+<span class="r">Switch</span><span><label class="lab"><input class="sw " type="checkbox" role="switch" checked aria-label="Switch default">Reduce motion</label></span><span><label class="lab"><input class="sw is-hover" type="checkbox" role="switch" checked aria-label="Switch is-hover">Reduce motion</label></span><span><label class="lab"><input class="sw is-focus" type="checkbox" role="switch" checked aria-label="Switch is-focus">Reduce motion</label></span><span><label class="lab"><input class="sw is-active" type="checkbox" role="switch" checked aria-label="Switch is-active">Reduce motion</label></span><span class="na">n/a</span>
+  </div></div>
+  <div class="formrow"><span class="badge badge-conf">Confidential</span><span class="badge badge-gen">Generic</span><span class="badge badge-pub">Public</span><kbd>Esc</kbd><span class="cap">Real hover, focus and press also work on every control above.</span></div></div>
+</section>
+</main>
+
+<footer class="wrap foot" id="colophon">
+  <p><b>Style:</b> Swiss / International. <b>Fonts:</b> Head and body: Helvetica Neue, Helvetica, Arial, Liberation Sans (neo-grotesque). No network requests.</p>
+  <p>Other languages: <a href="../blueprint/index.html">Blueprint</a> &middot; <a href="../brutalist/index.html">Neo-brutalist</a> &middot; <a href="../bento/index.html">Bento</a> &middot; <a href="../terminal/index.html">Terminal</a> &middot; <a href="../hud/index.html">Instrument panel</a> &middot; <a href="../../index.html">All six</a></p>
+</footer>
+<div class="x x-term statusbar" aria-hidden="true"><span>&#9096; main</span><span>0 errors</span><span>UTF-8</span><span class="sb-r">design: terminal</span></div>
+<script>
+document.querySelectorAll('.item').forEach(function(b){b.addEventListener('click',function(){
+  var p=document.getElementById(b.getAttribute('aria-controls')),o=b.getAttribute('aria-expanded')==='true';
+  b.setAttribute('aria-expanded',!o);p.hidden=o;b.querySelector('.item-hint').textContent=o?'Open':'Close';});});
+</script>
+</body>
+</html>

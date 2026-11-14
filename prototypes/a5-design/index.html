@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A5 design languages: pick one</title>
+<style>
+:root{color-scheme:light dark;--bg:#f3f3f3;--fg:#1a1a1a;--mut:#555;--card:#fff;--ln:#d4d4d4;--ac:#1a1a1a}
+@media (prefers-color-scheme:dark){:root{--bg:#151515;--fg:#eee;--mut:#aaa;--card:#202020;--ln:#3a3a3a;--ac:#eee}}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1200px;margin:0 auto;padding:2rem 1.2rem 4rem}
+h1{font-size:1.6rem;margin:0 0 .4rem}.lead{color:var(--mut);max-width:48rem;margin:0 0 2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.2rem}
+.c{background:var(--card);border:1px solid var(--ln);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
+.th{position:relative;aspect-ratio:1440/820;overflow:hidden;border-bottom:1px solid var(--ln);display:block}
+.th iframe{width:1440px;height:900px;border:0;transform:scale(.25);transform-origin:0 0;pointer-events:none;position:absolute;left:0;top:0}
+.th.dk{filter:none}
+.b{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+h2{font-size:1.1rem;margin:0}.b p{margin:0;font-size:.9rem;color:var(--mut)}.b p b{color:var(--fg)}
+.l{display:flex;gap:.8rem;margin-top:auto;font-size:.9rem;flex-wrap:wrap}.l a{color:var(--fg)}
+.note{margin-top:2rem;font-size:.85rem;color:var(--mut)}
+a:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+</style></head>
+<body><main>
+<h1>Six design languages, same content</h1>
+<p class="lead">Each page shows the nav, landing hero, resume, projects, blog, a mock story-mode HUD with card, and component states, in light and dark. Open one, then use Settings (top right) to try theme, font, size and accent. Choices persist across all six pages.</p>
+<div class="grid">
+<article class="c"><a class="th" href="styles/swiss/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/swiss/index.html?theme=light" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Swiss / International</h2><p><b>rigorous, clear-headed, an engineer who values structure.</b></p><p>Strong: recruiter readability, fast to build, timeless. Weak: least personality; no link to pixel art or his story.</p><div class="l"><a href="styles/swiss/index.html">Light</a><a href="styles/swiss/index.html?theme=dark">Dark</a><a href="styles/swiss/index.html?settings=open">With settings open</a></div></div></article>
+<article class="c"><a class="th" href="styles/blueprint/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/blueprint/index.html?theme=light" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Blueprint / Technical drawing</h2><p><b>someone who draws the system before building it.</b></p><p>Strong: distinctive, fits simulation and AV, diagrams are native. Weak: busy backgrounds need care; moderate effort; game fit via grid is decent.</p><div class="l"><a href="styles/blueprint/index.html">Light</a><a href="styles/blueprint/index.html?theme=dark">Dark</a><a href="styles/blueprint/index.html?settings=open">With settings open</a></div></div></article>
+<article class="c"><a class="th" href="styles/brutalist/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/brutalist/index.html?theme=light" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Neo-brutalist</h2><p><b>playful, confident, built-by-hand.</b></p><p>Strong: very memorable, matches a flat pixel game well. Weak: loud, risks reading as unserious to conservative recruiters; heavy type is tiring in long text.</p><div class="l"><a href="styles/brutalist/index.html">Light</a><a href="styles/brutalist/index.html?theme=dark">Dark</a><a href="styles/brutalist/index.html?settings=open">With settings open</a></div></div></article>
+<article class="c"><a class="th" href="styles/bento/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/bento/index.html?theme=light" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Bento / Soft modern</h2><p><b>polished, product-minded.</b></p><p>Strong: friendly, easy to read, cards map to modes. Weak: the most familiar look (close to current app sites), and the softest fit with pixel art.</p><div class="l"><a href="styles/bento/index.html">Light</a><a href="styles/bento/index.html?theme=dark">Dark</a><a href="styles/bento/index.html?settings=open">With settings open</a></div></div></article>
+<article class="c"><a class="th" href="styles/terminal/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/terminal/index.html?theme=dark" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Terminal / IDE</h2><p><b>engineer through and through.</b></p><p>Strong: unique for a portfolio, tab/palette metaphors fit four modes, still readable. Weak: can feel cliche for developer sites; needs restraint for non-technical readers.</p><div class="l"><a href="styles/terminal/index.html">Light</a><a href="styles/terminal/index.html?theme=dark">Dark</a><a href="styles/terminal/index.html?settings=open">With settings open</a></div></div></article>
+<article class="c"><a class="th" href="styles/hud/index.html" tabindex="-1" aria-hidden="true"><iframe src="styles/hud/index.html?theme=dark" title="" loading="lazy" tabindex="-1"></iframe></a><div class="b"><h2>Instrument panel / HUD</h2><p><b>builds and watches vehicles and simulators.</b></p><p>Strong: ties to his domain, timeline-as-scrubber, HUD matches game HUD best. Weak: highest build effort; glow and tiny caps need discipline for legibility.</p><div class="l"><a href="styles/hud/index.html">Light</a><a href="styles/hud/index.html?theme=dark">Dark</a><a href="styles/hud/index.html?settings=open">With settings open</a></div></div></article>
+
+</div>
+<p class="note">Thumbnails are live, scaled previews (dark ones use ?theme=dark). Prototype A5: throwaway code.</p>
+</main>
+<script>
+function fit(){document.querySelectorAll('.th').forEach(function(t){t.querySelector('iframe').style.transform='scale('+(t.clientWidth/1440)+')'})}
+fit();addEventListener('resize',fit);
+</script></body></html>

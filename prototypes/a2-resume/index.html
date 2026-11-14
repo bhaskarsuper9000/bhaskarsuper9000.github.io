@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bhaskar Bandyopadhyay – TL;DR resume</title>
+<style>
+:root{--ink:#1d2330;--mute:#5d6676;--faint:#8b93a1;--line:#dde1e8;--bg:#faf9f6;--card:#fff;--acc:#1f5fbf;--acc2:#e8eefb;--gat:#8a5a00;--gatbg:#fdf3dc;--r:8px;
+--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--serif:Georgia,"Iowan Old Style",Palatino,serif}
+*{box-sizing:border-box}
+html{scroll-padding-top:60px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+a{color:var(--acc)}
+.modes{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-size:12.5px}
+.modes div{max-width:1240px;margin:0 auto;padding:7px 24px;display:flex;gap:4px;align-items:center}
+.modes b{font-weight:600;color:var(--mute);margin-right:auto;letter-spacing:.02em}
+.modes a{color:var(--mute);text-decoration:none;padding:3px 10px;border-radius:99px}
+.modes a:hover,.modes a:focus-visible{background:var(--acc2);color:var(--acc)}
+.modes a[aria-current]{background:var(--ink);color:#fff}
+.wrap{max-width:1240px;margin:0 auto;padding:28px 24px 80px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+header h1{font:600 34px/1.15 var(--serif);margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 6px}
+.links{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13.5px;margin:0}
+.legend{margin:16px 0 0;font-size:12.5px;color:var(--mute);border:1px dashed var(--line);border-radius:var(--r);padding:7px 12px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+h2{font:700 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:7px;margin:30px 0 12px}
+.role{margin:0 0 18px}
+.rh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.rh h3{font:600 16px/1.3 var(--sans);margin:0}
+.rh h3 span{font-weight:400;color:var(--mute)}
+.rh time{font-size:13px;color:var(--mute);white-space:nowrap}
+.role ul{margin:5px 0 0;padding:0;list-style:none}
+.role li{position:relative;padding-left:16px;margin:1px 0}
+.role li::before{content:"";position:absolute;left:3px;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.plain{padding:1px 0}
+/* explorable item */
+.it{all:unset;cursor:pointer;display:inline;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:1px 3px;margin:0 -3px;transition:background .12s}
+.it .mk{display:inline-block;width:.95em;text-align:center;margin-left:.3em;font-size:.72em;color:var(--acc);opacity:.4;vertical-align:.08em;transition:opacity .12s}
+.it[data-lv=text] .mk::before{content:"\25CF"}
+.it[data-lv=diagram] .mk::before{content:"\25C6"}
+.it[data-lv=demo] .mk::before{content:"\25B6"}
+.it:hover,.it.on{background:var(--acc2)}
+.it:hover .mk,.it.on .mk,.it:focus-visible .mk{opacity:1}
+.it:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.it.on{background:#d6e3fa}
+.conf .it .mk{color:var(--gat)}
+.conf .it:hover,.conf .it.on{background:var(--gatbg)}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--gatbg);color:var(--gat);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.edu{display:grid;grid-template-columns:1fr auto;gap:2px 12px;margin:0 0 14px}
+.edu h3{font:600 15.5px/1.3 var(--sans);margin:0}
+.edu h3 span{font-weight:400;color:var(--mute)}
+.edu time{font-size:13px;color:var(--mute)}
+.edu ul{grid-column:1/-1;margin:2px 0 0;padding:0;list-style:none}
+.edu li{position:relative;padding-left:16px}
+.edu li::before{content:"";position:absolute;left:3px;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.skills{display:grid;grid-template-columns:110px 1fr;gap:3px 12px;font-size:13.5px;margin:0}
+.skills dt{font-weight:600;color:var(--mute);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
+.skills dd{margin:0}
+/* panel */
+aside{position:sticky;top:56px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 24px rgba(29,35,48,.07);padding:18px 18px 16px;min-height:200px;max-height:calc(100vh - 76px);overflow:auto}
+.panel .empty{color:var(--mute);font-size:13.5px}
+.panel .empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.lvl{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.35;margin:0 0 12px;padding:7px 9px;border-radius:6px;background:var(--acc2);color:#25416f}
+.lvl strong{text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;background:var(--acc);color:#fff;border-radius:4px;padding:2px 6px;white-space:nowrap;margin-top:1px}
+.lvl.conf{background:var(--gatbg);color:#5d3c00}.lvl.conf strong{background:var(--gat)}
+.panel h4{font:600 17px/1.3 var(--serif);margin:0 0 6px}
+.panel p{margin:0 0 9px;font-size:14px}
+.panel .meta{font-size:12.5px;color:var(--mute)}
+.close{all:unset;cursor:pointer;float:right;font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin:-4px 0 6px 8px}
+.close:hover,.close:focus-visible{border-color:var(--acc);color:var(--acc)}
+.close:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.hint{font-size:11.5px;color:var(--faint);margin:10px 0 0}
+.pin{font-size:11px;color:var(--faint);float:right;margin-top:-2px}
+.stack{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px;padding:0;list-style:none}
+.stack li{font-size:11.5px;border:1px solid var(--line);border-radius:99px;padding:1px 9px;background:#f4f5f8}
+.thumb{height:130px;border-radius:8px;margin:0 0 10px;display:grid;place-items:center;color:#fff;font-size:12px;letter-spacing:.05em;position:relative;overflow:hidden}
+.thumb::after{content:"thumbnail placeholder";position:absolute;bottom:6px;right:8px;font-size:10px;opacity:.75}
+.thumb svg{width:52px;height:52px;opacity:.9}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;padding:7px 14px;border-radius:7px;font-size:13.5px;font-weight:600}
+.btn:hover,.btn:focus-visible{background:var(--acc)}
+/* diagram */
+.dg{width:100%;height:auto;display:block;margin:4px 0 8px}
+.dg .nd rect{fill:#f4f5f8;stroke:#c7cdd8;stroke-width:1.5;transition:all .3s}
+.dg .nd text{font:600 12.5px var(--sans);fill:#8b93a1;transition:fill .3s}
+.dg .nd .s{font:400 10.5px var(--sans)}
+.dg .nd.on rect{fill:var(--acc2);stroke:var(--acc)}
+.dg .nd.on text{fill:var(--ink)}
+.dg .nd.cur rect{fill:#cfe0fb;stroke-width:2.5}
+.dg .ar{stroke:#c7cdd8;stroke-width:2;fill:none;transition:stroke .3s}
+.dg .ar.on{stroke:var(--acc)}
+.dg .ah{fill:#c7cdd8;transition:fill .3s}.dg .ah.on{fill:var(--acc)}
+.dg .pk{fill:var(--acc);opacity:0}
+.dctl{display:flex;gap:6px;align-items:center;margin:2px 0 8px}
+.dctl button{all:unset;cursor:pointer;font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:#fff}
+.dctl button:hover,.dctl button:focus-visible{border-color:var(--acc);color:var(--acc)}
+.dctl button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.dctl button[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.dctl .n{margin-left:auto;font-size:12px;color:var(--mute)}
+.cap{font-size:13.5px;min-height:3.1em;margin:0 0 6px}
+.caps{display:none;margin:0 0 8px;padding-left:20px;font-size:13px}
+.rm .dctl,.rm .cap{display:none}.rm .caps{display:block}
+.rm .dg .pk{display:none}
+.sheetbg{display:none}
+.src{font-size:11.5px;color:var(--faint);margin:6px 0 0}
+@media(max-width:959px){
+ .wrap{display:block;padding:20px 18px 120px}
+ aside{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:40;transform:translateY(105%);transition:transform .22s ease;visibility:hidden}
+ aside.open{transform:none;visibility:visible}
+ .panel{border-radius:16px 16px 0 0;max-height:78vh;border-bottom:0;box-shadow:0 -10px 40px rgba(0,0,0,.2);padding-bottom:24px}
+ .panel .empty{display:none}
+ .sheetbg{display:block;position:fixed;inset:0;background:rgba(20,25,35,.35);z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+ .sheetbg.open{opacity:1;pointer-events:auto}
+ .close{font-size:14px;padding:6px 16px;border-color:var(--ink);color:var(--ink)}
+ .hint{display:none}
+ .it{padding:3px 3px}
+ header h1{font-size:28px}
+ .skills{grid-template-columns:1fr}.skills dt{padding-top:6px}
+ .modes div{padding:6px 14px;overflow-x:auto}
+ .modes b{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}aside{transition:none}}
+/* print: one clean page, no reveals */
+@media print{
+ @page{size:Letter;margin:.35in .45in}
+ body{background:#fff;font-size:8.2pt;line-height:1.25}
+ .role li,.edu li{margin:0}.sub,.links{font-size:8.5pt;margin:0}
+ .skills dt{font-size:6.8pt;white-space:nowrap;padding-top:1pt}
+ .modes,aside,.sheetbg,.legend,.mk,.vis,.hint,.tag{display:none!important}
+ .wrap{display:block;padding:0;max-width:none}
+ header h1{font-size:17pt;margin:0}
+ h2{margin:7pt 0 4pt;font-size:8pt;padding-bottom:3pt}
+ .role{margin:0 0 6pt}.rh h3{font-size:10pt}.rh time{font-size:8.5pt}
+ .it{padding:0;margin:0;background:none!important}
+ .edu{margin:0 0 4pt}.edu h3{font-size:9.5pt}.edu time{font-size:8.5pt}
+ .skills{font-size:8pt;gap:0 8pt;grid-template-columns:78px 1fr}
+ .oss{font-size:8.5pt}
+ .pr{break-inside:avoid}
+ a{color:inherit;text-decoration:none}
+}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<nav class="modes" aria-label="Explore other modes"><div>
+ <b>Bhaskar B. · TL;DR resume</b>
+ <a href="../a1-landing/">Home</a>
+ <a href="#" aria-current="page">Resume</a>
+ <a href="../a3-story/">Story</a>
+ <a href="../a4-pages/#projects">Projects</a>
+ <a href="../a4-pages/#blog">Blog</a>
+</div></nav>
+
+<div class="wrap">
+<main id="main">
+<header>
+ <h1>Bhaskar Bandyopadhyay</h1>
+ <p class="sub">Software engineer · autonomous vehicles, robotics, simulation, platform &amp; data visualization</p>
+ <p class="links"><a href="https://github.com/bhaskarsuper9000">github.com/bhaskarsuper9000</a> <a href="https://linkedin.com/in/oscarbandy">linkedin.com/in/oscarbandy</a> <a href="mailto:bhaskarsuper9000@gmail.com">bhaskarsuper9000@gmail.com</a></p>
+ <p class="legend vis"><span>Items with a faint mark open more detail beside the page (tap on a phone).</span>
+  <span><b style="color:var(--acc)">&#9679;</b> text</span><span><b style="color:var(--acc)">&#9670;</b> animated diagram</span><span><b style="color:var(--acc)">&#9654;</b> demo card</span></p>
+</header>
+
+<section aria-labelledby="s-sum">
+<h2 id="s-sum">Summary</h2>
+<p style="margin:0">Software engineer with 8+ years in autonomous platforms, robotics and simulation. Quick learner who likes building scalable infrastructure and intuitive data visualization tools with C++, Python, TypeScript and cloud native open-source software, so developers and leadership can make informed decisions.</p>
+</section>
+
+<section aria-labelledby="s-exp">
+<h2 id="s-exp">Experience</h2>
+
+<article class="role conf">
+ <div class="rh"><h3>Gatik AI <span>· Senior Software Engineer, Platform</span><span class="tag vis">Confidential</span></h3><time>Jan 2025 – Oct 2026</time></div>
+ <ul>
+  <li><button class="it" data-id="gatik-sim" data-lv="text">Built core backend of an in-house autonomous-vehicle simulator, with playback, users, browser-based metrics and LLM features<span class="mk"></span></button></li>
+  <li><button class="it" data-id="gatik-saas" data-lv="text">Full-stack SaaS app joining company data from many sources into tools and dashboards for leadership<span class="mk"></span></button></li>
+  <li><button class="it" data-id="gatik-metrics" data-lv="text">Generated safety metrics from simulation and production data: encroachment time, collisions, lane boundary violations, exposure<span class="mk"></span></button></li>
+  <li class="plain">Maintained a legacy Foxglove UI plugin for on-road visualization; unblocked critical tests, saving ~$60k</li>
+ </ul>
+</article>
+
+<article class="role">
+ <div class="rh"><h3>AutoX Technologies <span>· Senior Software Engineer</span></h3><time>Jan 2018 – Oct 2024</time></div>
+ <ul>
+  <li><button class="it" data-id="autox-mrc" data-lv="text">Led Minimum Risk Condition (MRC), team of 4: graceful recovery in 93% of failure cases<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-binary" data-lv="text">Proposed and led Binary Deployment, team of 3: about $800K saved annually<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-observability" data-lv="diagram">Introduced Observability: KPI metrics visualization, saving $300K of developer time yearly<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-permit" data-lv="text">Expedited PTP time-sync, flip-dot display and remote control (DriveU) for the CPUC permit<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-qnx" data-lv="text">Ported a lighter ROS2 stack to embedded QNX; autonomy teams ported modules in 10 days<span class="mk"></span></button></li>
+  <li class="plain">Added auto path routing to a mini delivery robot for investor demos, leading to a successful Series B</li>
+ </ul>
+</article>
+
+<article class="role">
+ <div class="rh"><h3>Scry Analytics <span>· Data Scientist &amp; Engineering Intern</span></h3><time>Jun – Dec 2017</time></div>
+ <ul>
+  <li><button class="it" data-id="scry" data-lv="text">In-memory data transfer via SWIG (REST API 3x faster); core algorithm to O(n), ~20x speedup; graphs in neo4j &amp; sigma.js<span class="mk"></span></button></li>
+ </ul>
+</article>
+
+<article class="role">
+ <div class="rh"><h3>Oracle Corporation, Bangalore <span>· Applications Engineer</span></h3><time>Jul – Dec 2015</time></div>
+ <ul><li class="plain">Upgraded PHP scripts and C# add-ins for Oracle Cloud CRM ahead of schedule for Nike, British Telecom and others</li></ul>
+</article>
+</section>
+
+<section aria-labelledby="s-edu">
+<h2 id="s-edu">Education &amp; projects</h2>
+<article class="edu">
+ <h3>University of Southern California <span>· MS Computer Science</span></h3><time>Jan 2016 – Dec 2017</time>
+ <ul>
+  <li><button class="it" data-id="nao" data-lv="demo">Nao robot: inverse kinematics and dynamics to draw and walk<span class="mk"></span></button></li>
+  <li><button class="it" data-id="fullerene" data-lv="demo">Fullerene, phone as game controller: top 4 at Caltech HackTech 2016<span class="mk"></span></button> <span class="oss">· Resurrect, top 10% at LA Hacks 2017</span></li>
+  <li><button class="it" data-id="usc-systems" data-lv="text">Mini Unix kernel and Prime Engine game engine (culling, physics, UI)<span class="mk"></span></button></li>
+  <li class="plain">DARPA research assistant, Spatial Sciences Institute: CAD format with embedded semantics, paper at Symposium on Solid and Physical Modeling 2017</li>
+ </ul>
+</article>
+<article class="edu">
+ <h3>IIT Bombay <span>· MTech Geo-Informatics</span></h3><time>Jul 2013 – Jun 2015</time>
+ <ul>
+  <li><button class="it" data-id="streetlights" data-lv="demo">1st prize, Smart Energy Hackathon 2014: smart streetlights<span class="mk"></span></button></li>
+  <li><button class="it" data-id="matsya" data-lv="text">Matsya autonomous underwater vehicle team: drivers, navigation, mapping, vision<span class="mk"></span></button></li>
+  <li class="plain">Thesis: real-time mapping of road surface defects with Kinect and machine learning</li>
+ </ul>
+</article>
+<article class="edu">
+ <h3>University of Mumbai <span>· BE Computer Engineering</span></h3><time>Aug 2008 – Jul 2012</time>
+ <ul>
+  <li><button class="it" data-id="turboc" data-lv="demo">16-bit graphics in Turbo C and assembly: SVGA, an image editor, a BMP codec<span class="mk"></span></button></li>
+  <li><button class="it" data-id="mumbai-robots" data-lv="text">Final-year project: mobile robots controlled remotely over the web<span class="mk"></span></button></li>
+  <li class="plain">Java games, two papers; taught Java to 20 grads; led a CS student team of 15</li>
+ </ul>
+</article>
+</section>
+
+<section aria-labelledby="s-sk" class="pr">
+<h2 id="s-sk">Skills</h2>
+<dl class="skills">
+ <dt>Languages</dt><dd>C/C++, Python, SQL, TypeScript, shell, Java, Go</dd>
+ <dt>Frameworks</dt><dd>ROS2, gtest, abseil, Boost, OpenCV, PCL, Protobuf, eBPF</dd>
+ <dt>Data</dt><dd>TimescaleDB / Postgres, Mongo, Redis, Influx, Neo4j</dd>
+ <dt>Web</dt><dd>React, Node.js, Angular, D3.js</dd>
+ <dt>Cloud / DevOps</dt><dd>Grafana, Loki, Kubernetes, Azure, Docker, Ansible, Argo, Airflow, Bazel</dd>
+ <dt>Standards</dt><dd>ISO 26262, DDS, RTPS, OAuth2, CAN, Serial</dd>
+ <dt>Open source</dt><dd>Multi-GPU support for Ubuntu indicator-multiload; fixes to Apollo Auto and a flip-dot library; Grafana flamegraph panel update</dd>
+</dl>
+</section>
+</main>
+
+<aside id="aside" aria-label="Detail panel">
+ <div class="panel" id="panel" tabindex="-1" aria-live="polite"></div>
+</aside>
+</div>
+<div class="sheetbg" id="bg"></div>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(RM)document.documentElement.classList.add('rm');
+var CAN_HOVER=matchMedia('(hover:hover) and (pointer:fine)').matches;
+var phone=matchMedia('(max-width:959px)');
+var LV={
+ text:['Text','Short write-up. Kept brief on purpose.'],
+ conf:['Text only','Confidential employer work: a few lines, no screenshots or diagrams, by design.'],
+ diagram:['Diagram','A small animated architecture sketch, built from resume-level facts only.'],
+ demo:['Demo','A project you can open and try.']
+};
+var D={
+ 'gatik-sim':{lv:'conf',t:'In-house autonomous-vehicle simulator',b:['I designed the core backend functionality and improved its reliability. I added playback and user accounts, browser-based metrics computation, and LLM features such as on-the-fly safety analysis.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'gatik-saas':{lv:'conf',t:'Full-stack SaaS for company data',b:['A full-stack app that brings company data from multiple sources into tools, processes and dashboards, so leadership can see what is going on in one place.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'gatik-metrics':{lv:'conf',t:'Safety metrics from simulation and production',b:['I came up with the top 10 metrics, including encroachment time, collisions, lane boundary violations and exposure, computed from both simulation and production data to promote data transparency across the org.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'autox-mrc':{lv:'text',t:'Minimum Risk Condition (MRC)',b:['I led a team of 4 on graceful recovery when something fails in the autonomy stack. The result handled 93% of the failure cases we tracked.'],m:'AutoX Technologies'},
+ 'autox-binary':{lv:'text',t:'Binary Deployment',b:['I proposed this project and led a team of 3. It saves about $800K a year. (An animated diagram for this one is not built yet; the Observability entry shows the pattern.)'],m:'AutoX Technologies'},
+ 'autox-permit':{lv:'text',t:'Driverless permit work',b:['Three pieces that helped secure the CPUC permit: PTP time sync between lidar and cameras, a flip-dot display for the outside of the vehicle, and remote control through DriveU.'],m:'AutoX Technologies'},
+ 'autox-qnx':{lv:'text',t:'Lighter ROS2 on embedded QNX',b:['A slimmer ROS2 stack ported to embedded QNX. Autonomy teams could then port their own modules in about 10 days.'],m:'AutoX Technologies'},
+ 'scry':{lv:'text',t:'Scry Analytics internship',b:['Passing data in memory with SWIG instead of file IO made the REST API 3x faster. Reworking the core algorithm to O(n) gave roughly 20x. Graphs were visualized with neo4j and sigma.js.'],m:'Jun – Dec 2017'},
+ 'usc-systems':{lv:'text',t:'Kernel and game engine coursework',b:['A mini Unix clone for kernel programming, and Prime Engine, a game engine with culling, physics and UI.'],m:'USC · 2016–2017'},
+ 'matsya':{lv:'text',t:'Matsya autonomous underwater vehicle',b:['A student team building a 6 DOF underwater robot. I ported drivers and added UI for the navigation, mapping and vision subsystems.'],m:'IIT Bombay · 2013–2015'},
+ 'mumbai-robots':{lv:'text',t:'Web-controlled mobile robots',b:['My final-year project: mobile robots you could drive remotely over the web.'],m:'University of Mumbai'},
+ 'autox-observability':{lv:'diagram',t:'Observability and KPI metrics',m:'AutoX Technologies · saved $300K of developer time yearly',
+  steps:[
+   ['Vehicles and services emit metrics','Every vehicle and backend service reports metrics as it runs.'],
+   ['Metrics are collected','Collectors gather them in one place.'],
+   ['Stored as time series','InfluxDB keeps the history so you can look back.'],
+   ['Grafana dashboards','Dashboards turn raw series into KPIs.'],
+   ['Developers and leadership','They see how the system is doing without digging through logs.']]},
+ 'streetlights':{lv:'demo',t:'Smart streetlights',m:'1st prize, Smart Energy Hackathon 2014 · IIT Bombay',d:'Hardware, software, protocol and PCBs, all built in 36 hours.',s:['Embedded','PCB design','Protocol','Hackathon'],g:'#2f5d8a,#6b4a9c'},
+ 'turboc':{lv:'demo',t:'Turbo C graphics programs',m:'University of Mumbai · 2008–2012',d:'16-bit graphics in Turbo C and assembly: SVGA modes, an image editor and a BMP codec.',s:['Turbo C','x86 assembly','SVGA','BMP'],g:'#1f6b5c,#3d8f6a'},
+ 'nao':{lv:'demo',t:'Nao robot: draw and walk',m:'USC · 2016',d:'Inverse kinematics and dynamics applied to make a Nao humanoid draw and walk.',s:['Python','Inverse kinematics','Nao'],g:'#8a4a2f,#c07a3b'},
+ 'fullerene':{lv:'demo',t:'Fullerene',m:'Top 4, Caltech HackTech 2016',d:'A game that uses your phone as its controller.',s:['Hackathon','Mobile','Game'],g:'#7a2f6b,#b8416b'}
+};
+var panel=document.getElementById('panel'),aside=document.getElementById('aside'),bg=document.getElementById('bg');
+var pinned=null,shown=null,hoverT=null,lastBtn=null,timer=null;
+var ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>';
+function esc(s){return s}
+function emptyHTML(){return '<div class="empty"><b>Detail appears here</b>Hover, focus or tap a line marked with &#9679; &#9670; or &#9654;. Click or press Enter to pin it; Esc closes.<p class="hint" style="margin-top:12px">Nothing on this page needs the panel. It is all optional.</p></div>'}
+function closeBtn(){return '<button class="close" type="button" id="cl">Close &#10005;</button>'}
+function render(id,isPinned){
+ var d=D[id];if(!d){panel.innerHTML=emptyHTML();return}
+ stopDia();
+ var l=LV[d.lv];
+ var h=(isPinned||phone.matches?closeBtn():'')+(isPinned&&!phone.matches?'':'')+
+ '<div class="lvl'+(d.lv==='conf'?' conf':'')+'"><strong>'+l[0]+'</strong><span>'+l[1]+'</span></div>'+
+ '<h4>'+d.t+'</h4><p class="meta">'+d.m+'</p>';
+ if(d.b)h+=d.b.map(function(x){return '<p>'+x+'</p>'}).join('');
+ if(d.lv==='demo'){
+  h+='<div class="thumb" style="background:linear-gradient(135deg,'+d.g.split(',')[0]+','+d.g.split(',')[1]+')">'+ICON+'</div><p>'+d.d+'</p><ul class="stack">'+d.s.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><a class="btn" href="#">Open the project &rarr;</a>';
+ }
+ if(d.lv==='diagram')h+=diagramHTML(d);
+ if(!isPinned&&!phone.matches)h+='<p class="hint">Previewing. Click or press Enter to pin.</p>';
+ panel.innerHTML=h;shown=id;
+ var cl=document.getElementById('cl');if(cl)cl.onclick=closeAll;
+ if(d.lv==='diagram')initDia(d);
+}
+/* diagram */
+var step=0,playing=false,cur=null;
+var NODES=[['Vehicles & services','emit metrics'],['Collection','gather in one place'],['Time-series DB','InfluxDB'],['Grafana','dashboards & KPIs'],['Developers & leadership','see the KPIs']];
+function diagramHTML(d){
+ var s='<svg class="dg" id="dg" viewBox="0 0 364 342" role="img" aria-label="Flow: vehicles and services, collection, InfluxDB time-series database, Grafana dashboards, developers and leadership">';
+ var y=0,H=46,G=26;
+ NODES.forEach(function(n,i){
+  y=i*(H+G)+2;
+  if(i>0){var ay=y-G;s+='<line class="ar" id="ar'+i+'" x1="182" y1="'+ay+'" x2="182" y2="'+(y-6)+'"/><path class="ah" id="ah'+i+'" d="M182 '+(y-1)+' l-6 -8 h12z"/><circle class="pk" id="pk'+i+'" r="4.5" cx="182" cy="'+ay+'"/>'}
+  s+='<g class="nd" id="nd'+i+'"><rect x="62" y="'+y+'" width="240" height="'+H+'" rx="9"/><text x="182" y="'+(y+20)+'" text-anchor="middle">'+n[0]+'</text><text class="s" x="182" y="'+(y+35)+'" text-anchor="middle">'+n[1]+'</text></g>';
+ });
+ s+='</svg>';
+ s+='<div class="dctl"><button type="button" id="dplay" aria-pressed="false">&#9654; Play</button><button type="button" id="dprev">&#9664; Back</button><button type="button" id="dnext">Step &#9654;</button><span class="n" id="dn"></span></div><p class="cap" id="dcap"></p>';
+ s+='<ol class="caps">'+d.steps.map(function(x){return '<li><b>'+x[0]+'.</b> '+x[1]+'</li>'}).join('')+'</ol><p class="src">Generic sketch from resume-level facts: Grafana, InfluxDB, $300K of developer time a year.</p>';
+ return s;
+}
+function setStep(n,animate){
+ var d=cur;step=Math.max(0,Math.min(d.steps.length,n));
+ for(var i=0;i<5;i++){
+  var nd=document.getElementById('nd'+i);nd.setAttribute('class','nd'+(i<step||RM?' on':'')+(i===step-1&&!RM?' cur':''));
+  if(i>0){var on=(i<step||RM);document.getElementById('ar'+i).setAttribute('class','ar'+(on?' on':''));document.getElementById('ah'+i).setAttribute('class','ah'+(on?' on':''))}
+ }
+ var cap=document.getElementById('dcap'),dn=document.getElementById('dn');
+ if(step===0){cap.innerHTML='Press Play or Step to walk through the flow.';dn.textContent='0 / 5'}
+ else{cap.innerHTML='<b>'+d.steps[step-1][0]+'.</b> '+d.steps[step-1][1];dn.textContent=step+' / 5'}
+ if(animate&&step>1&&!RM){var pk=document.getElementById('pk'+(step-1));var y0=(step-2)*72+50,y1=(step-1)*72-4;
+  var t0=performance.now();pk.style.opacity=1;(function f(t){var k=Math.min(1,(t-t0)/450);pk.setAttribute('cy',y0+(y1-y0)*k);if(k<1)requestAnimationFrame(f);else pk.style.opacity=0})(t0)}
+}
+function stopDia(){playing=false;clearInterval(timer);timer=null}
+function initDia(d){
+ cur=d;var p=document.getElementById('dplay');
+ var q=new URLSearchParams(location.search);
+ setStep(q.get('step')!==null?+q.get('step'):(RM?5:0),false);
+ if(RM)return;
+ function setPlay(on){playing=on;p.setAttribute('aria-pressed',on);p.innerHTML=on?'&#10073;&#10073; Pause':'&#9654; Play';clearInterval(timer);
+  if(on){if(step>=5)setStep(0);timer=setInterval(function(){if(step>=5){setPlay(false);return}setStep(step+1,true)},1700);if(step===0)setStep(1,true)}}
+ p.onclick=function(){setPlay(!playing)};
+ document.getElementById('dnext').onclick=function(){setPlay(false);setStep(step>=5?0:step+1,true)};
+ document.getElementById('dprev').onclick=function(){setPlay(false);setStep(step-1,false)};
+}
+/* open / close */
+function pin(id,btn){
+ pinned=id;if(btn)lastBtn=btn;
+ mark();render(id,true);
+ if(phone.matches){aside.classList.add('open');bg.classList.add('open');var c=document.getElementById('cl');if(c)c.focus()}
+}
+function closeAll(){
+ var had=pinned;pinned=null;stopDia();mark();aside.classList.remove('open');bg.classList.remove('open');
+ if(!phone.matches)panel.innerHTML=emptyHTML();
+ if(had&&lastBtn)lastBtn.focus({preventScroll:true});
+ shown=null;
+}
+function mark(){document.querySelectorAll('.it').forEach(function(b){b.classList.toggle('on',b.dataset.id===pinned)})}
+function preview(id){if(pinned||phone.matches)return;if(shown!==id)render(id,false)}
+document.querySelectorAll('.it').forEach(function(b){
+ var id=b.dataset.id;
+ b.setAttribute('aria-haspopup','dialog');
+ b.setAttribute('aria-label',b.textContent+' (more detail: '+b.dataset.lv+')');
+ b.addEventListener('click',function(e){if(pinned===id){closeAll();return}pin(id,b)});
+ b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();if(pinned===id)closeAll();else pin(id,b)}});
+ if(CAN_HOVER){
+  b.addEventListener('mouseenter',function(){clearTimeout(hoverT);hoverT=setTimeout(function(){preview(id)},180)});
+  b.addEventListener('mouseleave',function(){clearTimeout(hoverT)});
+ }
+ b.addEventListener('focus',function(){if(!phone.matches)preview(id)});
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pinned)closeAll()});
+bg.addEventListener('click',closeAll);
+phone.addEventListener('change',function(){closeAll()});
+/* url state */
+var q=new URLSearchParams(location.search);
+panel.innerHTML=emptyHTML();
+var o=q.get('open'),hv=q.get('hover');
+if(o&&D[o]){var b=document.querySelector('.it[data-id="'+o+'"]');pin(o,b);if(!q.get('nofocus')&&b&&!phone.matches){}}
+else if(hv&&D[hv])render(hv,false);
+if(q.get('scroll'))window.scrollTo(0,+q.get('scroll'));
+})();
+</script>
+</body>
+</html>

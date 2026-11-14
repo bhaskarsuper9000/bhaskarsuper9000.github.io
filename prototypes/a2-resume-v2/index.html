@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bhaskar Bandyopadhyay – TL;DR resume</title>
+<style>
+:root{--ink:#1d2330;--mute:#5d6676;--faint:#8b93a1;--line:#dde1e8;--bg:#faf9f6;--card:#fff;--acc:#1f5fbf;--acc2:#e8eefb;--gat:#8a5a00;--gatbg:#fdf3dc;--r:8px;
+--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--serif:Georgia,"Iowan Old Style",Palatino,serif}
+*{box-sizing:border-box}
+html{scroll-padding-top:60px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans)}
+a{color:var(--acc)}
+.modes{position:sticky;top:0;z-index:20;background:rgba(250,249,246,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);font-size:12.5px}
+.modes div{max-width:1240px;margin:0 auto;padding:7px 24px;display:flex;gap:4px;align-items:center}
+.modes b{font-weight:600;color:var(--mute);margin-right:auto;letter-spacing:.02em}
+.modes a{color:var(--mute);text-decoration:none;padding:3px 10px;border-radius:99px}
+.modes a:hover,.modes a:focus-visible{background:var(--acc2);color:var(--acc)}
+.modes a[aria-current]{background:var(--ink);color:#fff}
+.wrap{max-width:1240px;margin:0 auto;padding:28px 24px 80px;display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:48px;align-items:start}
+header h1{font:600 34px/1.15 var(--serif);margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 6px}
+.links{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:13.5px;margin:0}
+.legend{margin:16px 0 0;font-size:12.5px;color:var(--mute);border:1px dashed var(--line);border-radius:var(--r);padding:7px 12px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+h2{font:700 11.5px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--mute);border-bottom:1px solid var(--line);padding-bottom:7px;margin:30px 0 12px}
+.role{margin:0 0 18px}
+.rh{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.rh h3{font:600 16px/1.3 var(--sans);margin:0}
+.rh h3 span{font-weight:400;color:var(--mute)}
+.rh time{font-size:13px;color:var(--mute);white-space:nowrap}
+.role ul{margin:5px 0 0;padding:0;list-style:none}
+.role li{position:relative;padding-left:16px;margin:1px 0}
+.role li::before{content:"";position:absolute;left:3px;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.plain{padding:1px 0}
+/* explorable item */
+.it{all:unset;cursor:pointer;display:inline;border-radius:4px;box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:1px 3px;margin:0 -3px;transition:background .12s}
+.it .mk{display:inline-block;width:.95em;text-align:center;margin-left:.3em;font-size:.72em;color:var(--acc);opacity:.4;vertical-align:.08em;transition:opacity .12s}
+.it[data-lv=text] .mk::before{content:"\25CF"}
+.it[data-lv=diagram] .mk::before{content:"\25C6"}
+.it[data-lv=demo] .mk::before{content:"\25B6"}
+.it:hover,.it.on{background:var(--acc2)}
+.it:hover .mk,.it.on .mk,.it:focus-visible .mk{opacity:1}
+.it:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.it.on{background:#d6e3fa}
+.conf .it .mk{color:var(--gat)}
+.conf .it:hover,.conf .it.on{background:var(--gatbg)}
+.tag{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:var(--gatbg);color:var(--gat);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.edu{display:grid;grid-template-columns:1fr auto;gap:2px 12px;margin:0 0 14px}
+.edu h3{font:600 15.5px/1.3 var(--sans);margin:0}
+.edu h3 span{font-weight:400;color:var(--mute)}
+.edu time{font-size:13px;color:var(--mute)}
+.edu ul{grid-column:1/-1;margin:2px 0 0;padding:0;list-style:none}
+.edu li{position:relative;padding-left:16px}
+.edu li::before{content:"";position:absolute;left:3px;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.skills{display:grid;grid-template-columns:110px 1fr;gap:3px 12px;font-size:13.5px;margin:0}
+.skills dt{font-weight:600;color:var(--mute);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;padding-top:2px}
+.skills dd{margin:0}
+/* panel */
+aside{position:sticky;top:56px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 6px 24px rgba(29,35,48,.07);padding:18px 18px 16px;min-height:200px;max-height:calc(100vh - 76px);overflow:auto}
+.panel .empty{color:var(--mute);font-size:13.5px}
+.panel .empty b{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+.lvl{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.35;margin:0 0 12px;padding:7px 9px;border-radius:6px;background:var(--acc2);color:#25416f}
+.lvl strong{text-transform:uppercase;letter-spacing:.08em;font-size:10.5px;background:var(--acc);color:#fff;border-radius:4px;padding:2px 6px;white-space:nowrap;margin-top:1px}
+.lvl.conf{background:var(--gatbg);color:#5d3c00}.lvl.conf strong{background:var(--gat)}
+.panel h4{font:600 17px/1.3 var(--serif);margin:0 0 6px}
+.panel p{margin:0 0 9px;font-size:14px}
+.panel .meta{font-size:12.5px;color:var(--mute)}
+.close{all:unset;cursor:pointer;float:right;font-size:12.5px;color:var(--mute);border:1px solid var(--line);border-radius:99px;padding:2px 11px;margin:-4px 0 6px 8px}
+.close:hover,.close:focus-visible{border-color:var(--acc);color:var(--acc)}
+.close:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.hint{font-size:11.5px;color:var(--faint);margin:10px 0 0}
+.pin{font-size:11px;color:var(--faint);float:right;margin-top:-2px}
+.stack{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px;padding:0;list-style:none}
+.stack li{font-size:11.5px;border:1px solid var(--line);border-radius:99px;padding:1px 9px;background:#f4f5f8}
+.thumb{height:130px;border-radius:8px;margin:0 0 10px;display:grid;place-items:center;color:#fff;font-size:12px;letter-spacing:.05em;position:relative;overflow:hidden}
+.thumb::after{content:"thumbnail placeholder";position:absolute;bottom:6px;right:8px;font-size:10px;opacity:.75}
+.thumb svg{width:52px;height:52px;opacity:.9}
+.btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;padding:7px 14px;border-radius:7px;font-size:13.5px;font-weight:600}
+.btn:hover,.btn:focus-visible{background:var(--acc)}
+/* diagram */
+.dg{width:100%;height:auto;display:block;margin:4px 0 8px}
+.dg .nd rect{fill:#f4f5f8;stroke:#c7cdd8;stroke-width:1.5;transition:all .3s}
+.dg .nd text{font:600 12.5px var(--sans);fill:#8b93a1;transition:fill .3s}
+.dg .nd .s{font:400 10.5px var(--sans)}
+.dg .nd.on rect{fill:var(--acc2);stroke:var(--acc)}
+.dg .nd.on text{fill:var(--ink)}
+.dg .nd.cur rect{fill:#cfe0fb;stroke-width:2.5}
+.dg .ar{stroke:#c7cdd8;stroke-width:2;fill:none;transition:stroke .3s}
+.dg .ar.on{stroke:var(--acc)}
+.dg .ah{fill:#c7cdd8;transition:fill .3s}.dg .ah.on{fill:var(--acc)}
+.dg .pk{fill:var(--acc);opacity:0}
+.dctl{display:flex;gap:6px;align-items:center;margin:2px 0 8px}
+.dctl button{all:unset;cursor:pointer;font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:3px 10px;background:#fff}
+.dctl button:hover,.dctl button:focus-visible{border-color:var(--acc);color:var(--acc)}
+.dctl button:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+.dctl button[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
+.dctl .n{margin-left:auto;font-size:12px;color:var(--mute)}
+.cap{font-size:13.5px;min-height:3.1em;margin:0 0 6px}
+.caps{display:none;margin:0 0 8px;padding-left:20px;font-size:13px}
+.rm .dctl,.rm .cap{display:none}.rm .caps{display:block}
+.rm .dg .pk{display:none}
+.sheetbg{display:none}
+.src{font-size:11.5px;color:var(--faint);margin:6px 0 0}
+@media(max-width:959px){
+ .wrap{display:block;padding:20px 18px 120px}
+ aside{position:fixed;left:0;right:0;bottom:0;top:auto;z-index:40;transform:translateY(105%);transition:transform .22s ease;visibility:hidden}
+ aside.open{transform:none;visibility:visible}
+ .panel{border-radius:16px 16px 0 0;max-height:78vh;border-bottom:0;box-shadow:0 -10px 40px rgba(0,0,0,.2);padding-bottom:24px}
+ .panel .empty{display:none}
+ .sheetbg{display:block;position:fixed;inset:0;background:rgba(20,25,35,.35);z-index:30;opacity:0;pointer-events:none;transition:opacity .2s}
+ .sheetbg.open{opacity:1;pointer-events:auto}
+ .close{font-size:14px;padding:6px 16px;border-color:var(--ink);color:var(--ink)}
+ .hint{display:none}
+ .it{padding:3px 3px}
+ header h1{font-size:28px}
+ .skills{grid-template-columns:1fr}.skills dt{padding-top:6px}
+ .modes div{padding:6px 14px;overflow-x:auto}
+ .modes b{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}aside{transition:none}}
+/* print: one clean page, no reveals */
+@media print{
+ @page{size:Letter;margin:.35in .45in}
+ body{background:#fff;font-size:8.2pt;line-height:1.25}
+ .role li,.edu li{margin:0}.sub,.links{font-size:8.5pt;margin:0}
+ .skills dt{font-size:6.8pt;white-space:nowrap;padding-top:1pt}
+ .modes,aside,.sheetbg,.legend,.mk,.vis,.hint,.tag{display:none!important}
+ .wrap{display:block;padding:0;max-width:none}
+ header h1{font-size:17pt;margin:0}
+ h2{margin:7pt 0 4pt;font-size:8pt;padding-bottom:3pt}
+ .role{margin:0 0 6pt}.rh h3{font-size:10pt}.rh time{font-size:8.5pt}
+ .it{padding:0;margin:0;background:none!important}
+ .edu{margin:0 0 4pt}.edu h3{font-size:9.5pt}.edu time{font-size:8.5pt}
+ .skills{font-size:8pt;gap:0 8pt;grid-template-columns:78px 1fr}
+ .oss{font-size:8.5pt}
+ .pr{break-inside:avoid}
+ a{color:inherit;text-decoration:none}
+}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---- v2 compact ---- */
+:root{--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+body{font-size:14px;line-height:1.42}
+.wrap{padding:16px 24px 28px;gap:40px}
+.top .sub{margin:2px 0 6px}
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
+.top h1{font-size:28px;margin:0}
+.top .sub{margin:0;font-size:13.5px}.top{row-gap:2px}
+.links{display:flex;gap:4px 14px;flex-wrap:wrap;font-size:12.5px;margin:0}
+.top .id{flex:1 1 auto}
+.summary{margin:10px 0 8px;font-size:14.5px}
+.stats{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:0;margin:0;padding:0;list-style:none;border:1px solid var(--line);border-radius:var(--r);background:var(--card)}
+.stats li{padding:6px 14px;font-size:12px;color:var(--mute);border-left:1px solid var(--line);line-height:1.25}
+.stats li:first-child{border-left:0}
+.stats b{display:block;font-size:17px;color:var(--ink);letter-spacing:-.01em}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:8px 0 0;font-size:12px;color:var(--mute)}
+.bar .lg b{color:var(--acc);margin-left:6px}
+.all,.tg.more{all:unset;cursor:pointer;font-size:12px;border:1px solid var(--line);border-radius:99px;padding:2px 11px;background:#fff;color:var(--ink);white-space:nowrap}
+.all:hover,.all:focus-visible,.tg.more:hover,.tg.more:focus-visible{border-color:var(--acc);color:var(--acc)}
+.all:focus-visible,.tg.more:focus-visible{outline:2px solid var(--acc);outline-offset:1px}
+h2{margin:16px 0 7px;padding-bottom:5px}
+.tg{all:unset;cursor:pointer;box-sizing:border-box}
+.tg:focus-visible{outline:2px solid var(--acc);outline-offset:1px;border-radius:4px}
+.chev{flex:none;align-self:center;width:14px;height:14px;position:relative}
+.chev::before{content:"";position:absolute;left:3px;top:3px;width:5px;height:5px;border-right:1.6px solid var(--faint);border-bottom:1.6px solid var(--faint);transform:rotate(-45deg);transition:transform .18s}
+.tg:hover .chev::before{border-color:var(--acc)}
+.tg[aria-expanded=true] .chev::before{transform:rotate(45deg) translate(-1px,-1px)}
+.role{margin:0 0 8px}
+.rh{display:flex;justify-content:space-between;align-items:baseline;gap:6px 10px;width:100%;padding:2px 0}
+.rh h3{flex:1;font-size:15px}
+.rh:hover h3{color:var(--acc)}
+.hl{margin:0 0 0 20px;color:var(--mute);font-size:13.5px;line-height:1.38}
+.role .xb{margin-left:20px}
+.role .xb ul{margin-top:4px}
+.role .xb li{font-size:13.5px}
+.eds{list-style:none;margin:0;padding:0}
+.eds li{display:flex;justify-content:space-between;gap:12px;padding:1px 0}
+.eds time{font-size:12.5px;color:var(--mute);white-space:nowrap}
+.skl{margin-top:12px}
+.skline{display:flex;gap:10px;align-items:baseline;border-top:1px solid var(--line);padding-top:8px}
+.skline h2{border:0;margin:0;padding:0;flex:none}
+.skline .top8{flex:1;font-size:13.5px}
+.skl .xb{margin-top:8px}
+.sec{border-top:1px solid var(--line)}
+.sec:last-child{border-bottom:1px solid var(--line)}
+.more-secs h2{border:0;margin:12px 0 2px;padding:0}
+.sec>.tg{display:flex;align-items:baseline;gap:6px;width:100%;padding:4px 0}
+.sec .cnt{color:var(--mute);font-size:13px}
+.sec .tz{margin-left:auto;color:var(--faint);font-size:12.5px;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.sec>.tg[aria-expanded=true] .tz{visibility:hidden}
+.sec .xb{padding:0 0 8px 20px}
+.sec .xb ul{margin:0;padding:0;list-style:none}
+.sec .xb li{position:relative;padding-left:16px;margin:1px 0;font-size:13.5px}
+.sec .xb li::before,.role li::before{content:"";position:absolute;left:3px;top:.72em;width:4px;height:4px;border-radius:50%;background:var(--faint)}
+.xb[hidden]{display:none}
+.xb[hidden=until-found]{display:block;padding:0!important;margin-top:0!important;margin-bottom:0!important}
+.xb.anim{overflow:hidden}
+.skills{margin-left:0}
+.panel{max-height:calc(100vh - 76px)}
+@media(max-width:959px){
+ .wrap{padding:14px 16px 100px!important}
+ .top h1{font-size:25px}
+ .top .sub{font-size:13px}
+ .links{font-size:12px;gap:2px 12px}
+ .stats{grid-template-columns:1fr 1fr;width:100%}
+ .stats li:nth-child(3){border-left:0}
+ .stats li:nth-child(n+3){border-top:1px solid var(--line)}
+ .bar .lg{font-size:11.5px}
+ .rh{flex-wrap:wrap}.rh time{margin-left:20px;flex-basis:100%;font-size:12px;margin-top:-2px}
+ .rh h3 span.tag{display:none}
+ .eds li{display:block}.eds time{display:block;font-size:12px}.bar .pf{display:none}.bar .lg b:first-of-type{margin-left:0}
+ .skline{flex-wrap:wrap}.skline .top8{flex-basis:100%;order:3}
+ .sec .tz{display:none}
+ .sec>.tg{padding:9px 0}
+ .rh{padding:4px 0}
+ .skills{grid-template-columns:1fr}
+}
+@media print{
+ @page{size:Letter;margin:.28in .45in}
+ .rh{flex-wrap:nowrap}.rh time{flex-basis:auto;margin-left:0;font-size:8.3pt}.rh h3 span.tag{display:none}
+ .eds li{display:flex;flex-wrap:nowrap}.eds time{display:inline;font-size:8.3pt}
+ .skills{grid-template-columns:78px 1fr;gap:0 8pt;font-size:8pt}.skills dt{font-size:6.8pt;padding-top:1pt}
+ .skline h2{display:block}.skl{margin-top:4pt}
+ .wrap{padding:0}body{line-height:1.18}.top h1{font-size:15.5pt}
+ .top{row-gap:0}.top .sub{font-size:8.5pt}.summary{margin:3pt 0}
+ .role .xb li,.sec .xb li{font-size:8pt;line-height:1.22}.sec .xb ul{margin:0}.sec{padding:0}
+ .more-secs h2{margin:4pt 0 0}h2{margin:5pt 0 2pt}
+ .xb[hidden],.xb[hidden=until-found]{display:block!important;content-visibility:visible!important;height:auto!important}
+ .role .xb,.sec .xb{margin-left:0;padding:0}
+ .hl,.stats,.bar,.tz,.chev,.tg.more,.top8,.cnt{display:none!important}
+ .tg{display:flex}
+ .summary{margin:4pt 0;font-size:8.5pt}
+ .top h1{font-size:17pt}
+ .top{align-items:baseline}.links{font-size:8pt;gap:0 8pt}
+ .role{margin:0 0 3pt}.rh{padding:0}.rh h3{font-size:9.5pt}
+ .role .xb ul{margin:0}.role .xb li,.sec .xb li{font-size:8.2pt;margin:0}
+ .eds li{font-size:8.5pt;padding:0}
+ .skline{padding-top:3pt;border:0}
+ .skl .xb{margin-top:0}
+ .sec{border:0!important}.sec>.tg{padding:2pt 0 0;font-size:8.5pt}
+ .more-secs h2{margin:6pt 0 0}
+ h2{margin:6pt 0 3pt}
+}
+</style>
+</head>
+<body>
+<nav class="modes" aria-label="Explore other modes"><div>
+ <b>Bhaskar B. · TL;DR resume</b>
+ <a href="../a1-landing/">Home</a>
+ <a href="#" aria-current="page">Resume</a>
+ <a href="../a3-story/">Story</a>
+ <a href="../a4-pages/#projects">Projects</a>
+ <a href="../a4-pages/#blog">Blog</a>
+</div></nav>
+
+<div class="wrap">
+<main id="main">
+<header class="top">
+ <div class="id">
+  <h1>Bhaskar Bandyopadhyay</h1>
+  <p class="sub">Software engineer · autonomous vehicles, robotics, simulation, platform &amp; data visualization</p>
+ </div>
+ <p class="links"><a href="https://github.com/bhaskarsuper9000">github.com/bhaskarsuper9000</a><a href="https://linkedin.com/in/oscarbandy">linkedin.com/in/oscarbandy</a><a href="mailto:bhaskarsuper9000@gmail.com">bhaskarsuper9000@gmail.com</a></p>
+</header>
+
+<p class="summary">Eight-plus years building autonomous-vehicle, robotics and simulation platforms, and the data tools developers and leadership use to decide.</p>
+
+<ul class="stats" aria-label="Headline numbers">
+ <li><b>8+</b> years in autonomous platforms</li>
+ <li><b>~$1.1M</b>/yr saved at AutoX</li>
+ <li><b>93%</b> of failure cases recovered (MRC)</li>
+ <li><b>4 &amp; 3</b> person teams led</li>
+</ul>
+
+<div class="bar vis">
+ <span class="lg"><span class="pf">Marks open detail: </span><b>&#9679;</b> text <b>&#9670;</b> diagram <b>&#9654;</b> demo</span>
+ <button type="button" class="all" id="allbtn" aria-pressed="false">Expand all</button>
+</div>
+
+<section aria-labelledby="s-exp">
+<h2 id="s-exp">Experience</h2>
+
+<article class="role conf xp" id="gatik">
+ <button class="tg rh" type="button" aria-expanded="false" aria-controls="b-gatik"><span class="chev" aria-hidden="true"></span><h3>Gatik AI <span>· Senior Software Engineer, Platform</span><span class="tag vis">Confidential</span></h3><time>Jan 2025 – Oct 2026</time></button>
+ <p class="hl">In-house autonomous-vehicle simulator, a leadership data app, and safety metrics from simulation and production.</p>
+ <div class="xb" id="b-gatik" hidden="until-found"><ul>
+  <li><button class="it" data-id="gatik-sim" data-lv="text">Built core backend of an in-house autonomous-vehicle simulator, with playback, users, browser-based metrics and LLM features<span class="mk"></span></button></li>
+  <li><button class="it" data-id="gatik-saas" data-lv="text">Full-stack SaaS app joining company data from many sources into tools and dashboards for leadership<span class="mk"></span></button></li>
+  <li><button class="it" data-id="gatik-metrics" data-lv="text">Generated safety metrics from simulation and production data: encroachment time, collisions, lane boundary violations, exposure<span class="mk"></span></button></li>
+  <li class="plain">Maintained a legacy Foxglove UI plugin for on-road visualization; unblocked critical tests, saving ~$60k</li>
+ </ul></div>
+</article>
+
+<article class="role xp" id="autox">
+ <button class="tg rh" type="button" aria-expanded="false" aria-controls="b-autox"><span class="chev" aria-hidden="true"></span><h3>AutoX Technologies <span>· Senior Software Engineer</span></h3><time>Jan 2018 – Oct 2024</time></button>
+ <p class="hl">Led MRC (team of 4, 93% of failure cases recovered) and Binary Deployment (team of 3); ~$1.1M/yr saved with Binary Deployment and Observability; driverless permit work.</p>
+ <div class="xb" id="b-autox" hidden="until-found"><ul>
+  <li><button class="it" data-id="autox-mrc" data-lv="text">Led Minimum Risk Condition (MRC), team of 4: graceful recovery in 93% of failure cases<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-binary" data-lv="text">Proposed and led Binary Deployment, team of 3: about $800K saved annually<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-observability" data-lv="diagram">Introduced Observability: KPI metrics visualization, saving $300K of developer time yearly<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-permit" data-lv="text">Expedited PTP time-sync, flip-dot display and remote control (DriveU) for the CPUC permit<span class="mk"></span></button></li>
+  <li><button class="it" data-id="autox-qnx" data-lv="text">Ported a lighter ROS2 stack to embedded QNX; autonomy teams ported modules in 10 days<span class="mk"></span></button></li>
+  <li class="plain">Added auto path routing to a mini delivery robot for investor demos, leading to a successful Series B</li>
+ </ul></div>
+</article>
+
+<article class="role xp" id="scry">
+ <button class="tg rh" type="button" aria-expanded="false" aria-controls="b-scry"><span class="chev" aria-hidden="true"></span><h3>Scry Analytics <span>· Data Scientist &amp; Engineering Intern</span></h3><time>Jun – Dec 2017</time></button>
+ <p class="hl">REST API 3x faster, core algorithm ~20x faster, graph visualization.</p>
+ <div class="xb" id="b-scry" hidden="until-found"><ul>
+  <li><button class="it" data-id="scry" data-lv="text">In-memory data transfer via SWIG (REST API 3x faster); core algorithm to O(n), ~20x speedup; graphs in neo4j &amp; sigma.js<span class="mk"></span></button></li>
+ </ul></div>
+</article>
+
+<article class="role xp" id="oracle">
+ <button class="tg rh" type="button" aria-expanded="false" aria-controls="b-oracle"><span class="chev" aria-hidden="true"></span><h3>Oracle Corporation, Bangalore <span>· Applications Engineer</span></h3><time>Jul – Dec 2015</time></button>
+ <p class="hl">Cloud CRM scripts and add-ins, delivered ahead of schedule.</p>
+ <div class="xb" id="b-oracle" hidden="until-found"><ul><li class="plain">Upgraded PHP scripts and C# add-ins for Oracle Cloud CRM ahead of schedule for Nike, British Telecom and others</li></ul></div>
+</article>
+</section>
+
+<section aria-labelledby="s-edu">
+<h2 id="s-edu">Education</h2>
+<ul class="eds">
+ <li><span><b>University of Southern California</b> · MS Computer Science</span><time>Jan 2016 – Dec 2017</time></li>
+ <li><span><b>IIT Bombay</b> · MTech Geo-Informatics</span><time>Jul 2013 – Jun 2015</time></li>
+ <li><span><b>University of Mumbai</b> · BE Computer Engineering</span><time>Aug 2008 – Jul 2012</time></li>
+</ul>
+</section>
+
+<section class="xp skl" id="skills" aria-label="Skills">
+ <div class="skline"><h2>Skills</h2><span class="top8">C/C++ · Python · TypeScript · ROS2 · Kubernetes · Grafana · React · SQL</span>
+  <button class="tg more" type="button" aria-expanded="false" aria-controls="b-skills" data-more="skills"><span class="lbl">+<i id="skn">31</i> more</span></button></div>
+ <div class="xb" id="b-skills" hidden="until-found"><dl class="skills">
+  <dt>Languages</dt><dd>C/C++, Python, SQL, TypeScript, shell, Java, Go</dd>
+  <dt>Frameworks</dt><dd>ROS2, gtest, abseil, Boost, OpenCV, PCL, Protobuf, eBPF</dd>
+  <dt>Data</dt><dd>TimescaleDB / Postgres, Mongo, Redis, Influx, Neo4j</dd>
+  <dt>Web</dt><dd>React, Node.js, Angular, D3.js</dd>
+  <dt>Cloud / DevOps</dt><dd>Grafana, Loki, Kubernetes, Azure, Docker, Ansible, Argo, Airflow, Bazel</dd>
+  <dt>Standards</dt><dd>ISO 26262, DDS, RTPS, OAuth2, CAN, Serial</dd>
+ </dl></div>
+</section>
+
+<section class="more-secs" aria-labelledby="s-more">
+<h2 id="s-more">More</h2>
+
+<div class="xp sec" id="projects">
+ <button class="tg" type="button" aria-expanded="false" aria-controls="b-projects"><span class="chev" aria-hidden="true"></span><b>Projects</b><span class="cnt"></span><span class="tz">Nao robot, Prime Engine, Matsya AUV, thesis, Turbo C graphics</span></button>
+ <div class="xb" id="b-projects" hidden="until-found"><ul>
+  <li><button class="it" data-id="nao" data-lv="demo">Nao robot: inverse kinematics and dynamics to draw and walk<span class="mk"></span></button></li>
+  <li><button class="it" data-id="usc-systems" data-lv="text">Mini Unix kernel and Prime Engine game engine (culling, physics, UI)<span class="mk"></span></button></li>
+  <li class="plain">DARPA research assistant, Spatial Sciences Institute: CAD format with embedded semantics, paper at Symposium on Solid and Physical Modeling 2017</li>
+  <li><button class="it" data-id="matsya" data-lv="text">Matsya autonomous underwater vehicle team: drivers, navigation, mapping, vision<span class="mk"></span></button></li>
+  <li class="plain">Thesis: real-time mapping of road surface defects with Kinect and machine learning</li>
+  <li class="plain">Virtual GIS: 3D model of the department building with indoor shortest path</li>
+  <li><button class="it" data-id="turboc" data-lv="demo">16-bit graphics in Turbo C and assembly: SVGA, an image editor, a BMP codec<span class="mk"></span></button></li>
+  <li><button class="it" data-id="mumbai-robots" data-lv="text">Final-year project: mobile robots controlled remotely over the web<span class="mk"></span></button></li>
+ </ul></div>
+</div>
+
+<div class="xp sec" id="hackathons">
+ <button class="tg" type="button" aria-expanded="false" aria-controls="b-hackathons"><span class="chev" aria-hidden="true"></span><b>Hackathons</b><span class="cnt"></span><span class="tz">1st prize Smart Energy 2014, top 4 Caltech 2016</span></button>
+ <div class="xb" id="b-hackathons" hidden="until-found"><ul>
+  <li><button class="it" data-id="streetlights" data-lv="demo">1st prize, Smart Energy Hackathon 2014: smart streetlights<span class="mk"></span></button></li>
+  <li><button class="it" data-id="fullerene" data-lv="demo">Fullerene, phone as game controller: top 4 at Caltech HackTech 2016<span class="mk"></span></button></li>
+  <li class="plain">Resurrect: top 10% at LA Hacks, UCLA 2017</li>
+ </ul></div>
+</div>
+
+<div class="xp sec" id="opensource">
+ <button class="tg" type="button" aria-expanded="false" aria-controls="b-opensource"><span class="chev" aria-hidden="true"></span><b>Open source</b><span class="cnt"></span><span class="tz">indicator-multiload, Apollo Auto, Grafana flamegraph</span></button>
+ <div class="xb" id="b-opensource" hidden="until-found"><ul>
+  <li class="plain">Multi-GPU support for Ubuntu indicator-multiload</li>
+  <li class="plain">Fixes to Apollo Auto and a flip-dot library</li>
+  <li class="plain">Grafana flamegraph panel update</li>
+ </ul></div>
+</div>
+
+<div class="xp sec" id="teaching">
+ <button class="tg" type="button" aria-expanded="false" aria-controls="b-teaching"><span class="chev" aria-hidden="true"></span><b>Teaching &amp; mentoring</b><span class="cnt"></span><span class="tz">Java to 20 grads, 10+ juniors mentored</span></button>
+ <div class="xb" id="b-teaching" hidden="until-found"><ul>
+  <li class="plain">Taught Java to 20 grads, helping them secure top software jobs</li>
+  <li class="plain">Interviewed 30+ people and mentored 10+ junior developers</li>
+  <li class="plain">Led a CS student team of 15 at the University of Mumbai</li>
+ </ul></div>
+</div>
+</section>
+</main>
+
+
+<aside id="aside" aria-label="Detail panel">
+ <div class="panel" id="panel" tabindex="-1" aria-live="polite"></div>
+</aside>
+</div>
+<div class="sheetbg" id="bg"></div>
+
+<script>
+(function(){
+var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(RM)document.documentElement.classList.add('rm');
+var CAN_HOVER=matchMedia('(hover:hover) and (pointer:fine)').matches;
+var phone=matchMedia('(max-width:959px)');
+var LV={
+ text:['Text','Short write-up. Kept brief on purpose.'],
+ conf:['Text only','Confidential employer work: a few lines, no screenshots or diagrams, by design.'],
+ diagram:['Diagram','A small animated architecture sketch, built from resume-level facts only.'],
+ demo:['Demo','A project you can open and try.']
+};
+var D={
+ 'gatik-sim':{lv:'conf',t:'In-house autonomous-vehicle simulator',b:['I designed the core backend functionality and improved its reliability. I added playback and user accounts, browser-based metrics computation, and LLM features such as on-the-fly safety analysis.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'gatik-saas':{lv:'conf',t:'Full-stack SaaS for company data',b:['A full-stack app that brings company data from multiple sources into tools, processes and dashboards, so leadership can see what is going on in one place.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'gatik-metrics':{lv:'conf',t:'Safety metrics from simulation and production',b:['I came up with the top 10 metrics, including encroachment time, collisions, lane boundary violations and exposure, computed from both simulation and production data to promote data transparency across the org.'],m:'Gatik AI · Platform · 2025–2026'},
+ 'autox-mrc':{lv:'text',t:'Minimum Risk Condition (MRC)',b:['I led a team of 4 on graceful recovery when something fails in the autonomy stack. The result handled 93% of the failure cases we tracked.'],m:'AutoX Technologies'},
+ 'autox-binary':{lv:'text',t:'Binary Deployment',b:['I proposed this project and led a team of 3. It saves about $800K a year. (An animated diagram for this one is not built yet; the Observability entry shows the pattern.)'],m:'AutoX Technologies'},
+ 'autox-permit':{lv:'text',t:'Driverless permit work',b:['Three pieces that helped secure the CPUC permit: PTP time sync between lidar and cameras, a flip-dot display for the outside of the vehicle, and remote control through DriveU.'],m:'AutoX Technologies'},
+ 'autox-qnx':{lv:'text',t:'Lighter ROS2 on embedded QNX',b:['A slimmer ROS2 stack ported to embedded QNX. Autonomy teams could then port their own modules in about 10 days.'],m:'AutoX Technologies'},
+ 'scry':{lv:'text',t:'Scry Analytics internship',b:['Passing data in memory with SWIG instead of file IO made the REST API 3x faster. Reworking the core algorithm to O(n) gave roughly 20x. Graphs were visualized with neo4j and sigma.js.'],m:'Jun – Dec 2017'},
+ 'usc-systems':{lv:'text',t:'Kernel and game engine coursework',b:['A mini Unix clone for kernel programming, and Prime Engine, a game engine with culling, physics and UI.'],m:'USC · 2016–2017'},
+ 'matsya':{lv:'text',t:'Matsya autonomous underwater vehicle',b:['A student team building a 6 DOF underwater robot. I ported drivers and added UI for the navigation, mapping and vision subsystems.'],m:'IIT Bombay · 2013–2015'},
+ 'mumbai-robots':{lv:'text',t:'Web-controlled mobile robots',b:['My final-year project: mobile robots you could drive remotely over the web.'],m:'University of Mumbai'},
+ 'autox-observability':{lv:'diagram',t:'Observability and KPI metrics',m:'AutoX Technologies · saved $300K of developer time yearly',
+  steps:[
+   ['Vehicles and services emit metrics','Every vehicle and backend service reports metrics as it runs.'],
+   ['Metrics are collected','Collectors gather them in one place.'],
+   ['Stored as time series','InfluxDB keeps the history so you can look back.'],
+   ['Grafana dashboards','Dashboards turn raw series into KPIs.'],
+   ['Developers and leadership','They see how the system is doing without digging through logs.']]},
+ 'streetlights':{lv:'demo',t:'Smart streetlights',m:'1st prize, Smart Energy Hackathon 2014 · IIT Bombay',d:'Hardware, software, protocol and PCBs, all built in 36 hours.',s:['Embedded','PCB design','Protocol','Hackathon'],g:'#2f5d8a,#6b4a9c'},
+ 'turboc':{lv:'demo',t:'Turbo C graphics programs',m:'University of Mumbai · 2008–2012',d:'16-bit graphics in Turbo C and assembly: SVGA modes, an image editor and a BMP codec.',s:['Turbo C','x86 assembly','SVGA','BMP'],g:'#1f6b5c,#3d8f6a'},
+ 'nao':{lv:'demo',t:'Nao robot: draw and walk',m:'USC · 2016',d:'Inverse kinematics and dynamics applied to make a Nao humanoid draw and walk.',s:['Python','Inverse kinematics','Nao'],g:'#8a4a2f,#c07a3b'},
+ 'fullerene':{lv:'demo',t:'Fullerene',m:'Top 4, Caltech HackTech 2016',d:'A game that uses your phone as its controller.',s:['Hackathon','Mobile','Game'],g:'#7a2f6b,#b8416b'}
+};
+
+/* ---- expand / collapse units ---- */
+var units=[].slice.call(document.querySelectorAll('.xp'));
+var allbtn=document.getElementById('allbtn');
+function uBody(u){return u.querySelector(':scope > .xb')}
+function uBtn(u){return u.querySelector('[aria-controls]')}
+function isOpen(u){return uBtn(u).getAttribute('aria-expanded')==='true'}
+function setU(u,open,anim){
+ var bd=uBody(u),bt=uBtn(u);if(isOpen(u)===open&&!(open&&bd.hidden))return;
+ bt.setAttribute('aria-expanded',open);
+ var ml=bt.classList.contains('more');
+ if(ml)bt.querySelector('.lbl').innerHTML=open?'Show less':'+<i>'+SKN+'</i> more';
+ if(open){bd.removeAttribute('hidden');
+  if(anim&&!RM&&bd.animate){bd.classList.add('anim');var h=bd.scrollHeight;var a=bd.animate([{height:'0px',opacity:0},{height:h+'px',opacity:1}],{duration:200,easing:'ease'});a.onfinish=a.oncancel=function(){bd.classList.remove('anim')}}}
+ else{
+  if(anim&&!RM&&bd.animate){bd.classList.add('anim');var a2=bd.animate([{height:bd.scrollHeight+'px',opacity:1},{height:'0px',opacity:0}],{duration:160,easing:'ease'});a2.onfinish=function(){bd.classList.remove('anim');bd.setAttribute('hidden','until-found')}}
+  else bd.setAttribute('hidden','until-found')}
+ sync();save();
+}
+function sync(){var n=units.filter(isOpen).length;var all=n===units.length;allbtn.textContent=all?'Collapse all':'Expand all';allbtn.setAttribute('aria-pressed',all)}
+function save(){try{sessionStorage.setItem('a2v2',JSON.stringify(units.filter(isOpen).map(function(u){return u.id})))}catch(e){}}
+var SKN=0;document.querySelectorAll('#b-skills dd').forEach(function(d){SKN+=d.textContent.split(',').length});SKN-=8;
+document.getElementById('skn').textContent=SKN;
+document.querySelectorAll('.sec').forEach(function(s){var c=s.querySelectorAll('.xb li').length;s.querySelector('.cnt').textContent='· '+c});
+units.forEach(function(u){
+ uBtn(u).addEventListener('click',function(){setU(u,!isOpen(u),true)});
+ uBody(u).addEventListener('beforematch',function(){setU(u,true,false)});
+});
+allbtn.addEventListener('click',function(){var open=allbtn.getAttribute('aria-pressed')!=='true';units.forEach(function(u){setU(u,open,true)})});
+function unitOf(el){return el&&el.closest('.xp')}
+var panel=document.getElementById('panel'),aside=document.getElementById('aside'),bg=document.getElementById('bg');
+var pinned=null,shown=null,hoverT=null,lastBtn=null,timer=null;
+var ICON='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>';
+function esc(s){return s}
+function emptyHTML(){return '<div class="empty"><b>Detail appears here</b>Hover, focus or tap a line marked with &#9679; &#9670; or &#9654;. Click or press Enter to pin it; Esc closes.<p class="hint" style="margin-top:12px">Nothing on this page needs the panel. It is all optional.</p></div>'}
+function closeBtn(){return '<button class="close" type="button" id="cl">Close &#10005;</button>'}
+function render(id,isPinned){
+ var d=D[id];if(!d){panel.innerHTML=emptyHTML();return}
+ stopDia();
+ var l=LV[d.lv];
+ var h=(isPinned||phone.matches?closeBtn():'')+(isPinned&&!phone.matches?'':'')+
+ '<div class="lvl'+(d.lv==='conf'?' conf':'')+'"><strong>'+l[0]+'</strong><span>'+l[1]+'</span></div>'+
+ '<h4>'+d.t+'</h4><p class="meta">'+d.m+'</p>';
+ if(d.b)h+=d.b.map(function(x){return '<p>'+x+'</p>'}).join('');
+ if(d.lv==='demo'){
+  h+='<div class="thumb" style="background:linear-gradient(135deg,'+d.g.split(',')[0]+','+d.g.split(',')[1]+')">'+ICON+'</div><p>'+d.d+'</p><ul class="stack">'+d.s.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><a class="btn" href="#">Open the project &rarr;</a>';
+ }
+ if(d.lv==='diagram')h+=diagramHTML(d);
+ if(!isPinned&&!phone.matches)h+='<p class="hint">Previewing. Click or press Enter to pin.</p>';
+ panel.innerHTML=h;shown=id;
+ var cl=document.getElementById('cl');if(cl)cl.onclick=closeAll;
+ if(d.lv==='diagram')initDia(d);
+}
+/* diagram */
+var step=0,playing=false,cur=null;
+var NODES=[['Vehicles & services','emit metrics'],['Collection','gather in one place'],['Time-series DB','InfluxDB'],['Grafana','dashboards & KPIs'],['Developers & leadership','see the KPIs']];
+function diagramHTML(d){
+ var s='<svg class="dg" id="dg" viewBox="0 0 364 342" role="img" aria-label="Flow: vehicles and services, collection, InfluxDB time-series database, Grafana dashboards, developers and leadership">';
+ var y=0,H=46,G=26;
+ NODES.forEach(function(n,i){
+  y=i*(H+G)+2;
+  if(i>0){var ay=y-G;s+='<line class="ar" id="ar'+i+'" x1="182" y1="'+ay+'" x2="182" y2="'+(y-6)+'"/><path class="ah" id="ah'+i+'" d="M182 '+(y-1)+' l-6 -8 h12z"/><circle class="pk" id="pk'+i+'" r="4.5" cx="182" cy="'+ay+'"/>'}
+  s+='<g class="nd" id="nd'+i+'"><rect x="62" y="'+y+'" width="240" height="'+H+'" rx="9"/><text x="182" y="'+(y+20)+'" text-anchor="middle">'+n[0]+'</text><text class="s" x="182" y="'+(y+35)+'" text-anchor="middle">'+n[1]+'</text></g>';
+ });
+ s+='</svg>';
+ s+='<div class="dctl"><button type="button" id="dplay" aria-pressed="false">&#9654; Play</button><button type="button" id="dprev">&#9664; Back</button><button type="button" id="dnext">Step &#9654;</button><span class="n" id="dn"></span></div><p class="cap" id="dcap"></p>';
+ s+='<ol class="caps">'+d.steps.map(function(x){return '<li><b>'+x[0]+'.</b> '+x[1]+'</li>'}).join('')+'</ol><p class="src">Generic sketch from resume-level facts: Grafana, InfluxDB, $300K of developer time a year.</p>';
+ return s;
+}
+function setStep(n,animate){
+ var d=cur;step=Math.max(0,Math.min(d.steps.length,n));
+ for(var i=0;i<5;i++){
+  var nd=document.getElementById('nd'+i);nd.setAttribute('class','nd'+(i<step||RM?' on':'')+(i===step-1&&!RM?' cur':''));
+  if(i>0){var on=(i<step||RM);document.getElementById('ar'+i).setAttribute('class','ar'+(on?' on':''));document.getElementById('ah'+i).setAttribute('class','ah'+(on?' on':''))}
+ }
+ var cap=document.getElementById('dcap'),dn=document.getElementById('dn');
+ if(step===0){cap.innerHTML='Press Play or Step to walk through the flow.';dn.textContent='0 / 5'}
+ else{cap.innerHTML='<b>'+d.steps[step-1][0]+'.</b> '+d.steps[step-1][1];dn.textContent=step+' / 5'}
+ if(animate&&step>1&&!RM){var pk=document.getElementById('pk'+(step-1));var y0=(step-2)*72+50,y1=(step-1)*72-4;
+  var t0=performance.now();pk.style.opacity=1;(function f(t){var k=Math.min(1,(t-t0)/450);pk.setAttribute('cy',y0+(y1-y0)*k);if(k<1)requestAnimationFrame(f);else pk.style.opacity=0})(t0)}
+}
+function stopDia(){playing=false;clearInterval(timer);timer=null}
+function initDia(d){
+ cur=d;var p=document.getElementById('dplay');
+ var q=new URLSearchParams(location.search);
+ setStep(q.get('step')!==null?+q.get('step'):(RM?5:0),false);
+ if(RM)return;
+ function setPlay(on){playing=on;p.setAttribute('aria-pressed',on);p.innerHTML=on?'&#10073;&#10073; Pause':'&#9654; Play';clearInterval(timer);
+  if(on){if(step>=5)setStep(0);timer=setInterval(function(){if(step>=5){setPlay(false);return}setStep(step+1,true)},1700);if(step===0)setStep(1,true)}}
+ p.onclick=function(){setPlay(!playing)};
+ document.getElementById('dnext').onclick=function(){setPlay(false);setStep(step>=5?0:step+1,true)};
+ document.getElementById('dprev').onclick=function(){setPlay(false);setStep(step-1,false)};
+}
+/* open / close */
+function pin(id,btn){
+ pinned=id;if(btn)lastBtn=btn;
+ mark();render(id,true);
+ if(phone.matches){aside.classList.add('open');bg.classList.add('open');var c=document.getElementById('cl');if(c)c.focus()}
+}
+function closeAll(){
+ var had=pinned;pinned=null;stopDia();mark();aside.classList.remove('open');bg.classList.remove('open');
+ if(!phone.matches)panel.innerHTML=emptyHTML();
+ if(had&&lastBtn)lastBtn.focus({preventScroll:true});
+ shown=null;
+}
+function mark(){document.querySelectorAll('.it').forEach(function(b){b.classList.toggle('on',b.dataset.id===pinned)})}
+function preview(id){if(pinned||phone.matches)return;if(shown!==id)render(id,false)}
+document.querySelectorAll('.it').forEach(function(b){
+ var id=b.dataset.id;
+ b.setAttribute('aria-haspopup','dialog');
+ b.setAttribute('aria-label',b.textContent+' (more detail: '+b.dataset.lv+')');
+ b.addEventListener('click',function(e){if(pinned===id){closeAll();return}pin(id,b)});
+ b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();if(pinned===id)closeAll();else pin(id,b)}});
+ if(CAN_HOVER){
+  b.addEventListener('mouseenter',function(){clearTimeout(hoverT);hoverT=setTimeout(function(){preview(id)},180)});
+  b.addEventListener('mouseleave',function(){clearTimeout(hoverT)});
+ }
+ b.addEventListener('focus',function(){if(!phone.matches)preview(id)});
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&pinned)closeAll()});
+bg.addEventListener('click',closeAll);
+phone.addEventListener('change',function(){closeAll()});
+/* url state */
+var q=new URLSearchParams(location.search);
+panel.innerHTML=emptyHTML();
+try{JSON.parse(sessionStorage.getItem('a2v2')||'[]').forEach(function(id){var u=document.getElementById(id);if(u&&u.classList.contains('xp'))setU(u,true,false)})}catch(e){}
+var ex=q.get('expand');
+if(ex==='all')units.forEach(function(u){setU(u,true,false)});
+else if(ex)ex.split(',').forEach(function(id){var u=document.getElementById(id);if(u&&u.classList.contains('xp'))setU(u,true,false)});
+var o=q.get('open'),hv=q.get('hover');
+var tid=o||hv;
+if(tid&&D[tid]){var b=document.querySelector('.it[data-id="'+tid+'"]');var u=unitOf(b);if(u)setU(u,true,false);
+ if(o)pin(o,b);else render(hv,false)}
+if(q.get('scroll'))window.scrollTo(0,+q.get('scroll'));
+sync();
+if(q.get('measure'))document.title='H='+document.documentElement.scrollHeight+' lastbottom='+Math.round(document.querySelector('.sec:last-child').getBoundingClientRect().bottom+scrollY);
+window.addEventListener('beforeprint',function(){units.forEach(function(u){uBody(u).removeAttribute('hidden')})});
+})();
+</script>
+</body>
+</html>

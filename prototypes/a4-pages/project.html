@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart streetlights | Bhaskar Bandyopadhyay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-section="projects">
+<div id="nav"></div>
+<main class="wrap" id="page">
+  <p class="crumbs"><a href="index.html">Projects</a> / <span id="crumb">IIT Bombay, 2013–15</span></p>
+
+  <!-- ============ STREETLIGHTS (default) ============ -->
+  <article id="streetlights">
+    <h1>Smart streetlights</h1>
+    <p class="lede">First prize at the Smart Energy Hackathon, IIT Bombay, 2014. A street lamp that knows whether anyone is there, built from the circuit board up in 36 hours.</p>
+    <dl class="facts">
+      <div><dt>Year</dt><dd>2014 (36-hour hackathon)</dd></div>
+      <div><dt>Role</dt><dd>One of four teammates covering hardware, software, protocol and PCBs. <em>Exact split: to confirm.</em></dd></div>
+      <div><dt>Stack</dt><dd>Python, MySQL, serial link, sensors (light, motion, current, voltage), custom PCBs, Bootstrap web dashboard</dd></div>
+      <div><dt>Links</dt><dd><a href="https://github.com/bhaskarsuper9000/smartstreetlights-hub">hub repo</a> · <a href="https://github.com/bhaskarsuper9000/smartstreetlights-server">server repo</a></dd></div>
+    </dl>
+
+    <div class="doc">
+      <h2>What and why</h2>
+      <p>Street lights burn at full power all night whether or not anyone is nearby. The idea: give each lamp a light sensor and a motion sensor, let it dim when the road is empty and brighten when something approaches, and report its state and power draw to a dashboard so a city could see what each lamp is doing. A central server could also push an emergency command that switches lights on together.</p>
+      <p>The hackathon asked for something that cuts energy use. We built the whole chain rather than a slide: the lamp node hardware and its boards, the protocol between nodes and a local hub, the hub software, and the server UI.</p>
+    </div>
+
+    <section class="demo" aria-labelledby="demo-h" id="demo">
+      <header>
+        <h2 id="demo-h">Try it: a toy street</h2>
+        <span class="sim-note">Illustrative simulation. Not the original system and not measured data.</span>
+      </header>
+      <canvas id="street" width="1200" height="320" role="img" aria-label="Animated street with ten lamps that brighten when a car or pedestrian passes and dim afterwards"></canvas>
+      <div class="controls">
+        <button class="btn" type="button" id="bCar">Send a car</button>
+        <button class="btn" type="button" id="bPed">Send a pedestrian</button>
+        <button class="btn" type="button" id="bAuto" aria-pressed="false">Random traffic</button>
+        <button class="btn" type="button" id="bEmerg" aria-pressed="false">Emergency: all on</button>
+        <button class="btn" type="button" id="bReset">Reset</button>
+        <div class="meter" aria-live="off"><b id="saved">0%</b><small>Energy saved vs. lamps always at full power, in this toy model only. Dim level, ranges and timings are made up.</small></div>
+      </div>
+    </section>
+
+    <div class="doc">
+      <h2>How it worked</h2>
+      <p>Each lamp has a <strong>node</strong>. Per the repositories, a node reports an LDR (ambient light) reading, whether the lamp and its emergency light are on, a PIR (motion) state, and current and voltage. A <strong>hub</strong> talks to its nodes over a serial link at 9600 baud, using short ASCII frames:</p>
+      <pre class="protocol">$H,&lt;hub&gt;,&lt;node&gt;,&lt;type&gt;,&lt;payload&gt;#     hub to node
+(node replies with ldr, light, emergency, pir, current, voltage)</pre>
+      <p>The hub is a Python daemon. It polls its nodes, writes their latest state to a MySQL database on the central server, and keeps a local history table for later analysis. A node that does not answer is marked down. A second hub process runs a multithreaded TCP server that listens for emergency requests from the server and broadcasts them to the nodes.</p>
+      <p>The hub also carries the start of the energy-saving logic. In daylight, switch the lamp off. At night with nothing detected, dim it. At night with motion, bring it to full. The code marks this part as still to be finished, so treat the logic above as the intended design rather than a verified result.</p>
+      <p>The server side is a small Bootstrap web interface with pages for hubs, nodes, power, a graph and emergency control.</p>
+    </div>
+
+    <div class="doc">
+      <h2>What I learned</h2>
+      <p><em>Draft, to be rewritten in my own words.</em> Building the board, the protocol and the software at once means every layer constrains the others: the frame format was shaped by what the microcontrollers could parse, and the database schema by what the nodes could report. Getting a whole vertical slice working end to end beat polishing any one part.</p>
+    </div>
+
+    <nav class="pn" id="pn" aria-label="Neighbouring projects"></nav>
+  </article>
+
+  <!-- ============ CONFIDENTIAL VARIANT ============ -->
+  <article id="confidential" hidden>
+    <h1>Autonomous-vehicle simulator</h1>
+    <p class="lede">Gatik, 2025–26.</p>
+    <dl class="facts">
+      <div><dt>Year</dt><dd>2025–26</dd></div>
+      <div><dt>Role</dt><dd>Senior Software Engineer, Platform</dd></div>
+      <div><dt>Stack</dt><dd>Simulation backend, browser-based metrics, LLM features</dd></div>
+      <div><dt>Links</dt><dd>None public</dd></div>
+    </dl>
+    <div class="doc">
+      <h2>What and why</h2>
+      <p>The in-house simulator for autonomous vehicles. I designed core backend functionality, improved its reliability, and added playback, user accounts, browser-based metrics computation and LLM-assisted features such as on-the-fly safety analysis.</p>
+      <div class="notice" role="note"><strong>Details are confidential.</strong><p>This is work for an employer, so I will not show screenshots, diagrams or demos of it. The summary above is all I can share. I am happy to talk about it in general terms in an interview.</p></div>
+    </div>
+    <nav class="pn" id="pn2" aria-label="Neighbouring projects"></nav>
+  </article>
+
+  <!-- ============ STUB for rows without a built page ============ -->
+  <article id="stub" hidden>
+    <h1 id="stubTitle"></h1>
+    <p class="lede" id="stubSum"></p>
+    <dl class="facts"><div><dt>Year</dt><dd id="stubYear"></dd></div><div><dt>Stack</dt><dd id="stubTags"></dd></div><div><dt>Disclosure</dt><dd id="stubDisc"></dd></div></dl>
+    <div class="notice stub" role="note"><strong>Detail page not built in this prototype.</strong><p>Every row in the browser would open a page with this same template. Two are built: Smart streetlights and the confidential Gatik variant.</p></div>
+    <nav class="pn" id="pn3" aria-label="Neighbouring projects"></nav>
+  </article>
+
+  <!-- ============ STATIC VARIANT (shown under the main page) ============ -->
+  <section class="variant" id="variantStatic" aria-labelledby="vh">
+    <h2 id="vh">Same template, confidential project (static preview)</h2>
+    <div class="frame">
+      <h3>Autonomous-vehicle simulator</h3>
+      <p style="margin:0 0 .6rem;color:var(--muted)">Gatik, 2025–26 · Senior Software Engineer, Platform · <span class="badge" data-d="text">text</span></p>
+      <p style="max-width:var(--measure);font-family:var(--font-read)">Designed core backend functionality for the in-house simulator, improved its reliability, and added playback, users, browser-based metrics and LLM-assisted safety analysis.</p>
+      <div class="notice" role="note"><strong>Details are confidential.</strong><p>No demo, diagram or screenshots, by design. The demo region, links and "how it worked" sections drop out of the template rather than being left empty. <a href="project.html?variant=confidential">Open as a full page</a>.</p></div>
+    </div>
+  </section>
+</main>
+<div class="footer"><div class="wrap">Prototype. Streetlights simulation is illustrative only; it is not data from the original project.</div></div>
+
+<script src="projects.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  const q = new URLSearchParams(location.search);
+  const slug = q.get('variant') === 'confidential' ? 'gatik-sim' : (q.get('p') || 'iitb-streetlights');
+  const idx = PROJECTS.findIndex(p => p.id === slug);
+  const p = PROJECTS[idx >= 0 ? idx : 0];
+  const pnHtml = i => {
+    const later = PROJECTS[i - 1], earlier = PROJECTS[i + 1];
+    const href = x => x.id === 'iitb-streetlights' ? 'project.html' : x.id === 'gatik-sim' ? 'project.html?variant=confidential' : 'project.html?p=' + x.id;
+    return (earlier ? '<a href="' + href(earlier) + '"><small>&larr; Earlier</small>' + earlier.title + ' (' + earlier.year + ')</a>' : '<span></span>') +
+           (later ? '<a href="' + href(later) + '"><small>Later &rarr;</small>' + later.title + ' (' + later.year + ')</a>' : '<span></span>');
+  };
+  const show = id => { ['streetlights','confidential','stub'].forEach(x => document.getElementById(x).hidden = x !== id); };
+  if (p.id === 'iitb-streetlights') { show('streetlights'); document.getElementById('pn').innerHTML = pnHtml(PROJECTS.indexOf(p)); }
+  else if (p.id === 'gatik-sim') {
+    show('confidential'); document.title = 'Autonomous-vehicle simulator | Bhaskar Bandyopadhyay';
+    document.getElementById('crumb').textContent = 'Gatik, 2025–26';
+    document.getElementById('pn2').innerHTML = pnHtml(PROJECTS.indexOf(p));
+    document.getElementById('variantStatic').hidden = true;
+  } else {
+    show('stub'); document.title = p.title + ' | Bhaskar Bandyopadhyay';
+    const e = ERAS.find(x => x.id === p.era); document.getElementById('crumb').textContent = e.name + ', ' + e.range;
+    document.getElementById('stubTitle').textContent = p.title; document.getElementById('stubSum').textContent = p.summary;
+    document.getElementById('stubYear').textContent = p.year; document.getElementById('stubTags').textContent = p.tags.join(', ');
+    document.getElementById('stubDisc').textContent = p.disc === 'writeup' ? 'write-up' : p.disc;
+    document.getElementById('pn3').innerHTML = pnHtml(PROJECTS.indexOf(p));
+    document.getElementById('variantStatic').hidden = true;
+  }
+})();
+
+/* ---------- toy street simulation ---------- */
+(function () {
+  const cv = document.getElementById('street'); if (!cv) return;
+  const ctx = cv.getContext('2d'), W = cv.width, H = cv.height;
+  const N = 10, gap = W / N, lampX = i => gap * (i + .5), roadY = 215;
+  const DIM = 0.2, RANGE = 1.5 * gap, HOLD = 2.0;           // all illustrative
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lamps, actors, saved, base, auto = false, emerg = false, nextSpawn = 0, t = 0, last = null;
+  function reset() {
+    lamps = Array.from({ length: N }, () => ({ level: DIM, hold: 0 }));
+    actors = []; saved = 0; base = 0; t = 0; nextSpawn = 2;
+  }
+  function spawn(kind) {
+    const fast = kind === 'car', dir = Math.random() < .5 ? 1 : -1;
+    actors.push({ kind, x: dir > 0 ? -40 : W + 40, v: dir * (fast ? 260 : 60), y: fast ? roadY + 30 : roadY - 18 });
+  }
+  function step(dt) {
+    t += dt;
+    actors.forEach(a => a.x += a.v * dt);
+    actors = actors.filter(a => a.x > -80 && a.x < W + 80);
+    if (auto && t > nextSpawn) { spawn(Math.random() < .6 ? 'car' : 'ped'); nextSpawn = t + 1.2 + Math.random() * 2.5; }
+    let used = 0;
+    lamps.forEach((l, i) => {
+      const near = actors.some(a => Math.abs(a.x - lampX(i)) < RANGE);
+      if (near) l.hold = HOLD; else l.hold = Math.max(0, l.hold - dt);
+      const target = emerg || l.hold > 0 ? 1 : DIM;
+      l.level += (target - l.level) * Math.min(1, dt * 6);
+      used += l.level;
+    });
+    saved += (N - used) * dt; base += N * dt;
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0e1420'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1a2233'; ctx.fillRect(0, roadY - 40, W, 95);
+    ctx.fillStyle = '#26304a'; for (let x = 10; x < W; x += 70) ctx.fillRect(x, roadY + 8, 36, 4);
+    const lamp = getComputedStyle(document.documentElement).getPropertyValue('--lamp').trim() || '#f0b429';
+    lamps.forEach((l, i) => {
+      const x = lampX(i), top = 75;
+      const g = ctx.createRadialGradient(x, top + 12, 4, x, top + 12, 150);
+      g.addColorStop(0, hexA(lamp, .55 * l.level)); g.addColorStop(1, hexA(lamp, 0));
+      ctx.fillStyle = g; ctx.fillRect(x - 160, top - 70, 320, 300);
+      ctx.fillStyle = '#3a4560'; ctx.fillRect(x - 2, top + 10, 4, roadY - top - 45);
+      ctx.fillStyle = hexA(lamp, .25 + .75 * l.level); ctx.beginPath(); ctx.arc(x, top + 8, 9, 0, 7); ctx.fill();
+      ctx.fillStyle = '#9aa6bf'; ctx.font = '12px ui-monospace, monospace'; ctx.textAlign = 'center';
+      ctx.fillText(Math.round(l.level * 100) + '%', x, 38);
+    });
+    actors.forEach(a => {
+      if (a.kind === 'car') { ctx.fillStyle = '#c9d3ea'; ctx.fillRect(a.x - 28, a.y - 12, 56, 20); ctx.fillStyle = '#e8eefc'; ctx.fillRect(a.x - 14, a.y - 22, 28, 12); ctx.fillStyle = '#0e1420'; [-16, 16].forEach(d => { ctx.beginPath(); ctx.arc(a.x + d, a.y + 9, 6, 0, 7); ctx.fill(); }); }
+      else { ctx.fillStyle = '#e8eefc'; ctx.beginPath(); ctx.arc(a.x, a.y - 16, 5, 0, 7); ctx.fill(); ctx.fillRect(a.x - 3, a.y - 10, 6, 16); }
+    });
+    ctx.fillStyle = '#9aa6bf'; ctx.font = '13px system-ui, sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText('toy model: ' + N + ' lamps, dim = ' + Math.round(DIM * 100) + '%', 12, H - 10);
+    document.getElementById('saved').textContent = base > 0 ? Math.round(100 * saved / base) + '%' : '0%';
+  }
+  function hexA(hex, a) { const n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; }
+  function frame(ts) { if (last == null) last = ts; step(Math.min(.05, (ts - last) / 1000)); last = ts; draw(); requestAnimationFrame(frame); }
+  const $ = id => document.getElementById(id);
+  $('bCar').onclick = () => spawn('car'); $('bPed').onclick = () => spawn('ped');
+  $('bAuto').onclick = e => { auto = !auto; e.currentTarget.setAttribute('aria-pressed', auto); };
+  $('bEmerg').onclick = e => { emerg = !emerg; e.currentTarget.setAttribute('aria-pressed', emerg); };
+  $('bReset').onclick = reset;
+  reset();
+  if (new URLSearchParams(location.search).get('demo') === 'open') {   // pre-run state for screenshots
+    actors.push({ kind: 'car', x: 0, v: 260, y: roadY + 30 }, { kind: 'ped', x: 760, v: -60, y: roadY - 18 });
+    for (let i = 0; i < 80; i++) step(1 / 30);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

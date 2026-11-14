@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Story mode (round 2) · Era 7: The kid · Bhaskar Bandyopadhyay</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="skip" href="../a2-resume/">Skip the game: read the resume <span aria-hidden="true">→</span></a>
+
+<div id="game" aria-label="Story mode game: a top-down room from the late 1990s. Use WASD or arrow keys to walk, Space or Enter to look at things." role="application"></div>
+<div id="vignette" aria-hidden="true"></div>
+<div id="labels" aria-hidden="false"></div>
+<button id="prompt" type="button" hidden><kbd>Space</kbd> Look at <b></b></button>
+
+<header class="hud" aria-label="Progress">
+  <div class="era"><span class="era-n">Era 7</span> The kid <span class="era-y">c. 1995 – 2008</span></div>
+  <div class="prog">
+    <div id="progress" class="bar" role="progressbar" aria-label="Explored" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="pbar"></i></div>
+    <span id="pcount">0 / 3 visited</span><span id="ppct">0%</span>
+  </div>
+  <div class="tools">
+    <button id="depthBtn" type="button" aria-pressed="true" title="Toggle the 2.5D depth effect (key P)">Depth: <span>on</span> <kbd>P</kbd></button>
+    <button id="reset" type="button" title="Forget which places you have visited">Reset</button>
+    <button id="tuneBtn" type="button" aria-controls="tune" aria-expanded="false" title="Tuning knobs (key T)">Tune <kbd>T</kbd></button>
+  </div>
+</header>
+
+<div id="hint" class="hint" role="note">
+  <p><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or arrows to walk · <kbd>Space</kbd>/<kbd>Enter</kbd> to look closer · or tap where you want to go</p>
+  <button id="hintClose" type="button" aria-label="Hide controls hint">✕</button>
+</div>
+
+<aside id="tune" class="tune" hidden aria-label="Tuning knobs">
+  <div class="tune-head"><h2>Tuning knobs</h2><button class="tune-close" type="button" aria-label="Close tuning panel">✕</button></div>
+  <div class="tune-body"></div>
+</aside>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<div id="card" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="cardTitle">
+  <div class="card">
+    <div class="portrait"></div>
+    <div class="card-body">
+      <p class="year"></p>
+      <h2 id="cardTitle"></h2>
+      <div class="text"></div>
+      <div class="card-actions"><button class="card-close" type="button">Close</button><span class="esc"><kbd>Esc</kbd> also closes</span></div>
+    </div>
+  </div>
+</div>
+
+<section id="select" class="select" hidden aria-labelledby="selTitle">
+  <div class="select-inner">
+    <p class="kicker">Story mode · Bhaskar Bandyopadhyay</p>
+    <h1 id="selTitle">Walk back through how an engineer was made</h1>
+    <p class="lede">The story runs backwards in time, from today to 1990. This preview is one stop on that road: <b>era 7, the kid</b>, a room in late-1990s India.</p>
+    <h2 class="pick">Choose your explorer <span>(just for looks)</span></h2>
+    <div id="chars" class="chars"></div>
+  </div>
+</section>
+
+<div id="debug" class="debug" hidden><div id="fps"></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+<script src="js/pixel.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/chars.js"></script>
+<script src="js/world.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>

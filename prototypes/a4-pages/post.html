@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drawing a million points | Bhaskar Bandyopadhyay</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-section="blog">
+<div id="nav"></div>
+<main class="wrap">
+  <article class="article">
+    <p class="crumbs"><a href="blog.html">&larr; All posts</a></p>
+    <h1>Drawing a million points: notes on time-series visualisation</h1>
+    <p class="dek">What has to happen between a database full of samples and a chart that stays readable while you zoom.</p>
+    <div class="meta"><time datetime="2026-09-14">14 Sep 2026</time><span>9 min read</span><span class="ph">Placeholder post: layout sample, text is not final</span></div>
+
+    <div class="body">
+      <p>A screen is roughly two thousand pixels wide. A day of sensor data at ten samples a second is eight hundred and sixty-four thousand points. Something has to give, and the interesting question is what.</p>
+
+      <h2>Decide what the chart is for</h2>
+      <p>Before choosing an algorithm, decide what a reader should be able to spot. If it is spikes, an average will hide them. If it is trend, drawing every point is noise. Most arguments about charting libraries are really arguments about this.</p>
+
+      <blockquote>
+        <p>A chart is a claim about the data. Downsampling decides which claims you are able to make.</p>
+        <footer>Placeholder pull quote</footer>
+      </blockquote>
+
+      <h3>A minimal min/max downsampler</h3>
+      <p>The simplest approach that keeps spikes: split the visible range into one bucket per pixel column, and keep the minimum and maximum of each.</p>
+<pre><code><span class="syn-k">function</span> minMax(xs: Float64Array, ys: Float64Array, buckets: number) {
+  <span class="syn-k">const</span> out: [number, number][] = [];
+  <span class="syn-k">const</span> size = Math.ceil(xs.length / buckets);
+  <span class="syn-k">for</span> (<span class="syn-k">let</span> b = 0; b &lt; buckets; b++) {
+    <span class="syn-k">let</span> lo = Infinity, hi = -Infinity, iLo = 0, iHi = 0;
+    <span class="syn-k">for</span> (<span class="syn-k">let</span> i = b * size; i &lt; Math.min((b + 1) * size, xs.length); i++) {
+      <span class="syn-k">if</span> (ys[i] &lt; lo) { lo = ys[i]; iLo = i; }
+      <span class="syn-k">if</span> (ys[i] &gt; hi) { hi = ys[i]; iHi = i; }
+    }
+    <span class="syn-c">// keep time order so the line does not zig-zag</span>
+    <span class="syn-k">const</span> pair = iLo &lt; iHi ? [iLo, iHi] : [iHi, iLo];
+    pair.forEach(i =&gt; out.push([xs[i], ys[i]]));
+  }
+  <span class="syn-k">return</span> out;
+}</code></pre>
+
+      <figure>
+        <svg viewBox="0 0 640 220" role="img" aria-labelledby="fig1">
+          <title id="fig1">Line chart: a noisy signal with a short spike, drawn raw and as a min/max envelope</title>
+          <g stroke="currentColor" stroke-opacity=".15"><line x1="40" y1="30" x2="620" y2="30"/><line x1="40" y1="100" x2="620" y2="100"/><line x1="40" y1="170" x2="620" y2="170"/></g>
+          <polyline fill="none" stroke="var(--muted)" stroke-width="1" points="40,120 70,112 100,125 130,108 160,118 190,104 220,122 250,110 280,40 290,150 310,112 340,120 370,106 400,124 430,112 460,118 490,102 520,120 550,108 580,116 620,110"/>
+          <polyline fill="none" stroke="var(--accent)" stroke-width="2" points="40,115 100,115 160,112 220,115 280,40 290,150 340,115 400,115 460,110 520,112 580,112 620,112"/>
+          <text x="46" y="20" font-size="11" fill="var(--muted)" font-family="sans-serif">value</text>
+          <text x="560" y="205" font-size="11" fill="var(--muted)" font-family="sans-serif">time</text>
+        </svg>
+        <figcaption>Figure 1. Illustrative sketch, not real data. Grey: every sample. Blue: a min/max reduction that keeps the spike near the centre.</figcaption>
+      </figure>
+
+      <h2>Choosing an approach</h2>
+      <p>Each option trades fidelity, cost and complexity differently. A rough comparison:</p>
+      <div class="tablewrap">
+        <table>
+          <caption>Table 1. Common downsampling approaches (placeholder content).</caption>
+          <thead><tr><th>Approach</th><th>Keeps spikes</th><th>Cost</th><th>Good for</th></tr></thead>
+          <tbody>
+            <tr><td>Mean per bucket</td><td>No</td><td>Low</td><td>Trends</td></tr>
+            <tr><td>Min/max per bucket</td><td>Yes</td><td>Low</td><td>Monitoring, alert review</td></tr>
+            <tr><td>Largest-triangle sampling</td><td>Mostly</td><td>Medium</td><td>Visual fidelity at small sizes</td></tr>
+            <tr><td>Server-side rollups</td><td>Depends</td><td>Storage</td><td>Long ranges, shared dashboards</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Where this goes next</h2>
+      <p>Placeholder: a later post would cover doing this work in the browser versus in the database, and what natural-language queries change about the whole picture. Inline <code>code</code> looks like this, and <a href="blog.html">links look like this</a>.</p>
+      <hr>
+      <p style="font:.95rem var(--font-ui);color:var(--muted)">This post is a placeholder written to exercise the long-form styles. It makes no claims about any employer's systems.</p>
+    </div>
+
+    <nav class="pn" aria-label="Neighbouring posts">
+      <a href="blog.html"><small>&larr; Earlier</small>Observability for people who do not live in dashboards</a>
+      <span></span>
+    </nav>
+  </article>
+</main>
+<div class="footer"><div class="wrap">Prototype. Placeholder post.</div></div>
+<script src="common.js"></script>
+</body>
+</html>

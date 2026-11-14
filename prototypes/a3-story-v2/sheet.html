@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Character contact sheet · Story mode round 2</title>
+<style>
+  body { margin: 0; background: #1b2030; color: #f5efe0; font: 13px/1.4 ui-monospace, Menlo, Consolas, monospace; }
+  h1 { font-size: 15px; margin: 12px 16px 4px; } p { margin: 0 16px 10px; opacity: .75; }
+  canvas { display: block; margin: 0 16px 16px; image-rendering: pixelated; }
+</style>
+</head>
+<body>
+<h1>Explorer sprites, round 2: 24x32, 6-frame walk + 3-frame idle, per direction (left = mirrored side)</h1>
+<p>Each row: walk frames 1-6, then idle (rest, breathe, blink), then the walk frames overlaid as onion skin. Shown at 4x. ?scale=N to change.</p>
+<canvas id="c"></canvas>
+<script src="js/pixel.js"></script>
+<script src="js/chars.js"></script>
+<script>
+  const S = +(new URLSearchParams(location.search).get('scale') || 4), FW = CHARS.W * S, FH = CHARS.H * S, LAB = 150, GAP = 14;
+  const rows = []; CHARS.VARIANTS.forEach((v, i) => { const f = CHARS.build(i); ['down', 'up', 'side'].forEach((d) => rows.push({ v, d, f: f[d] })); });
+  const cv = document.getElementById('c'), cols = 6 + 3 + 1;
+  cv.width = LAB + cols * (FW + 6) + GAP * 2; cv.height = rows.length * (FH + 10);
+  const ctx = cv.getContext('2d'); ctx.imageSmoothingEnabled = false;
+  rows.forEach((r, ri) => {
+    const y = ri * (FH + 10);
+    ctx.fillStyle = ri % 6 < 3 ? '#232a3d' : '#20263a'; ctx.fillRect(0, y, cv.width, FH + 10);
+    ctx.fillStyle = '#f5efe0'; ctx.font = 'bold 14px ui-monospace, monospace'; ctx.fillText(r.v.name, 10, y + 26); ctx.font = '13px ui-monospace, monospace'; ctx.fillStyle = '#b8b2a4'; ctx.fillText(r.d === 'side' ? 'side (right)' : r.d === 'down' ? 'down (front)' : 'up (back)', 10, y + 46);
+    let x = LAB;
+    const cell = (c, xx, a) => { ctx.fillStyle = 'rgba(255,255,255,0.04)'; ctx.fillRect(xx, y + 5, FW, FH); ctx.globalAlpha = a || 1; ctx.drawImage(c, xx, y + 5, FW, FH); ctx.globalAlpha = 1; };
+    r.f.walk.forEach((c) => { cell(c, x); x += FW + 6; }); x += GAP;
+    r.f.idle.forEach((c) => { cell(c, x); x += FW + 6; }); x += GAP;
+    ctx.fillStyle = 'rgba(255,255,255,0.04)'; ctx.fillRect(x, y + 5, FW, FH);
+    r.f.walk.forEach((c) => { ctx.globalAlpha = 0.28; ctx.drawImage(c, x, y + 5, FW, FH); }); ctx.globalAlpha = 1;
+  });
+</script>
+</body>
+</html>
