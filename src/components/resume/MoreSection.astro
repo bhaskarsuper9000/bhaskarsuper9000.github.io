@@ -1,0 +1,28 @@
+---
+import type { MoreSection } from '../../data/resume';
+import type { Project } from '../../lib/content';
+import ResumeItem from './ResumeItem.astro';
+
+interface Props { section: MoreSection; projects: Map<string, Project> }
+const { section, projects } = Astro.props;
+---
+<details class="more" id={section.id} data-fold>
+  <summary>
+    <b>{section.title}</b><span class="more__n">{section.items.length}</span><span class="more__tz">{section.teaser}</span>
+  </summary>
+  <ul>{section.items.map((i) => <ResumeItem item={i} projects={projects} />)}</ul>
+</details>
+
+<style>
+  .more { border-top: var(--line-w) solid var(--line); padding: 0.55rem 0; }
+  summary { display: flex; align-items: baseline; gap: 0.6rem; cursor: pointer; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; font: 700 1rem var(--font-mono); color: var(--accent); width: 1ch; }
+  details[open] > summary::before { content: "\2212"; }
+  summary b { font: 600 0.85rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; }
+  .more__n { font: var(--fs-xs) var(--font-mono); color: var(--text-2); }
+  .more__tz { margin-left: auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--fs-sm); color: var(--text-2); text-align: right; }
+  details[open] .more__tz { visibility: hidden; }
+  ul { margin: 0.4rem 0 0.3rem 1.6rem; }
+  @media (max-width: 860px) { .more__tz { display: none; } }
+</style>

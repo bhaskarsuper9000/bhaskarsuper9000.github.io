@@ -1,0 +1,137 @@
+---
+import Panel from '../../site/Panel.astro';
+
+const nodes = [
+  ['Vehicles & services', 'emit metrics'],
+  ['Collection', 'gather in one place'],
+  ['Time-series DB', 'InfluxDB'],
+  ['Grafana', 'dashboards & KPIs'],
+  ['Developers & leadership', 'see the KPIs'],
+];
+const steps = [
+  ['Vehicles and services emit metrics', 'Every vehicle and backend service reports metrics as it runs.'],
+  ['Metrics are collected', 'Collectors gather them in one place.'],
+  ['Stored as time series', 'InfluxDB keeps the history so you can look back.'],
+  ['Grafana dashboards', 'Dashboards turn raw series into KPIs.'],
+  ['Developers and leadership', 'They see how the system is doing without digging through logs.'],
+];
+const H = 46, G = 26;
+---
+<Panel as="section" class="dg" aria-labelledby="dg-h" data-diagram>
+  <header class="dg__head">
+    <h2 id="dg-h">How the data flows</h2>
+    <span class="cap">Generic sketch from resume-level facts: Grafana, InfluxDB, $300K of developer time a year.</span>
+  </header>
+  <div class="dg__body">
+    <svg viewBox="0 0 364 342" role="img" aria-label="Flow: vehicles and services, collection, InfluxDB time-series database, Grafana dashboards, developers and leadership">
+      {nodes.map(([a, b], i) => {
+        const y = i * (H + G) + 2;
+        return (
+          <>
+            {i > 0 && (
+              <g class="ar" data-ar={i}>
+                <line x1="182" y1={y - G} x2="182" y2={y - 6} />
+                <path d={`M182 ${y - 1} l-6 -8 h12z`} />
+              </g>
+            )}
+            <g class="nd" data-nd={i}>
+              <rect x="62" y={y} width="240" height={H} />
+              <text x="182" y={y + 20} text-anchor="middle">{a}</text>
+              <text class="s" x="182" y={y + 35} text-anchor="middle">{b}</text>
+            </g>
+          </>
+        );
+      })}
+      <circle class="pk" r="4.5" cx="182" cy="0" data-pk />
+    </svg>
+    <div class="dg__side">
+      <p class="dg__cap" data-cap aria-live="polite">Press Play or Step to walk through the flow.</p>
+      <div class="dg__ctl" data-ctl>
+        <button class="btn" type="button" data-play aria-pressed="false">&#9654; Play</button>
+        <button class="btn btn--ghost" type="button" data-prev>&#9664; Back</button>
+        <button class="btn btn--ghost" type="button" data-next>Step &#9654;</button>
+        <span class="dg__n" data-n>0 / 5</span>
+      </div>
+      <ol class="dg__steps">
+        {steps.map(([t, d]) => <li><b>{t}.</b> {d}</li>)}
+      </ol>
+    </div>
+  </div>
+</Panel>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-diagram]')!;
+  const q = <T extends Element>(s: string) => root.querySelector<T>(s)!;
+  const TOTAL = 5, ROW = 72;
+  const steps = [...root.querySelectorAll('.dg__steps li')].map((li) => li.innerHTML);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const cap = q<HTMLElement>('[data-cap]'), n = q<HTMLElement>('[data-n]'), play = q<HTMLButtonElement>('[data-play]'), pk = q<SVGCircleElement>('[data-pk]');
+  let step = 0, timer: number | undefined;
+
+  function setStep(next: number, animate = false): void {
+    step = Math.max(0, Math.min(TOTAL, next));
+    for (let i = 0; i < TOTAL; i++) {
+      const lit = i < step || reduce;
+      root.querySelector(`[data-nd="${i}"]`)?.classList.toggle('on', lit);
+      root.querySelector(`[data-nd="${i}"]`)?.classList.toggle('cur', !reduce && i === step - 1);
+      root.querySelector(`[data-ar="${i}"]`)?.classList.toggle('on', lit);
+    }
+    cap.innerHTML = step === 0 ? 'Press Play or Step to walk through the flow.' : steps[step - 1];
+    n.textContent = `${step} / ${TOTAL}`;
+    if (animate && step > 1 && !reduce) {
+      const y0 = (step - 2) * ROW + 50, y1 = (step - 1) * ROW - 4, t0 = performance.now();
+      pk.style.opacity = '1';
+      const f = (t: number) => {
+        const k = Math.min(1, (t - t0) / 450);
+        pk.setAttribute('cy', String(y0 + (y1 - y0) * k));
+        if (k < 1) requestAnimationFrame(f); else pk.style.opacity = '0';
+      };
+      requestAnimationFrame(f);
+    }
+  }
+  function setPlay(on: boolean): void {
+    play.setAttribute('aria-pressed', String(on));
+    play.innerHTML = on ? '&#10074;&#10074; Pause' : '&#9654; Play';
+    window.clearInterval(timer);
+    if (!on) return;
+    if (step >= TOTAL) setStep(0);
+    if (step === 0) setStep(1, true);
+    timer = window.setInterval(() => { if (step >= TOTAL) setPlay(false); else setStep(step + 1, true); }, 1700);
+  }
+
+  if (reduce) { q<HTMLElement>('[data-ctl]').hidden = true; cap.hidden = true; setStep(TOTAL); }
+  else {
+    play.addEventListener('click', () => setPlay(play.getAttribute('aria-pressed') !== 'true'));
+    q('[data-next]').addEventListener('click', () => { setPlay(false); setStep(step >= TOTAL ? 0 : step + 1, true); });
+    q('[data-prev]').addEventListener('click', () => { setPlay(false); setStep(step - 1); });
+    const start = new URLSearchParams(location.search).get('step'); // for screenshots
+    setStep(start !== null ? Number(start) : 0);
+  }
+</script>
+
+<style>
+  .dg { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.2rem; }
+  .dg__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; }
+  .dg__head h2 { font-size: 1.1rem; letter-spacing: 0.14em; }
+  .dg__body { display: grid; grid-template-columns: minmax(0, 22rem) 1fr; gap: 1.5rem 2.5rem; align-items: center; }
+  svg { width: 100%; height: auto; display: block; }
+  .nd rect { fill: transparent; stroke: var(--line-strong); stroke-width: 1; transition: fill var(--dur), stroke var(--dur); }
+  .nd text { fill: var(--text-2); font: 600 11px var(--font-head); text-transform: uppercase; letter-spacing: 0.1em; transition: fill var(--dur); }
+  .nd .s { font: 400 10.5px var(--font-mono); text-transform: none; letter-spacing: 0; }
+  .nd:global(.on) rect { fill: var(--accent-soft); stroke: var(--accent); }
+  .nd:global(.on) text { fill: var(--text); }
+  .nd:global(.cur) rect { stroke-width: 2; filter: drop-shadow(0 0 4px var(--accent)); }
+  .ar line { stroke: var(--line-strong); stroke-width: 1.5; transition: stroke var(--dur); }
+  .ar path { fill: var(--line-strong); transition: fill var(--dur); }
+  .ar:global(.on) line { stroke: var(--accent); }
+  .ar:global(.on) path { fill: var(--accent); }
+  .pk { fill: var(--accent); opacity: 0; }
+  .dg__side { display: grid; gap: 0.9rem; }
+  .dg__cap { min-height: 3.2em; font-size: var(--fs-lead); }
+  .dg__ctl { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+  .dg__n { margin-left: auto; font: var(--fs-xs) var(--font-mono); color: var(--text-2); }
+  .dg__steps { list-style: decimal; padding-left: 1.3rem; font-size: var(--fs-sm); color: var(--text-2); display: grid; gap: 0.3rem; }
+  .dg__steps li::marker { color: var(--accent); font-family: var(--font-mono); }
+  .dg__steps b { color: var(--text); font-weight: 600; }
+  @media (max-width: 760px) { .dg__body { grid-template-columns: 1fr; } svg { max-width: 20rem; margin: 0 auto; } }
+</style>

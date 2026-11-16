@@ -1,0 +1,128 @@
+---
+// Stage for the live simulation (scripts/hero/). Without JS it is a quiet grid fading into the page.
+// The global styles below cover elements the hero scripts create (readouts, scrubber, 3D labels).
+import { heroText } from '../../data/hero';
+---
+<div class="hero__stage" data-hero-stage>
+  <canvas class="hero__cv hero__cv--still" data-hero-still aria-hidden="true"></canvas>
+  <canvas class="hero__cv hero__cv--gl" data-hero-gl role="img" aria-label="Live toy simulation" aria-describedby="hero-desc"></canvas>
+  <p class="vh" id="hero-desc" data-hero-desc>A toy simulation of the career eras below; it starts with an autonomous truck on a looped road.</p>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="hero__tags" data-hero-tags aria-hidden="true"></div>
+  <button class="btn hero__playsim" type="button" data-hero-playsim hidden>{heroText.playSim}</button>
+</div>
+
+<style is:global>
+  .hero__stage { position: absolute; inset: 0; z-index: 0;
+    background: linear-gradient(var(--grid) var(--line-w), transparent var(--line-w)) 0 0 / 3rem 3rem, linear-gradient(90deg, var(--grid) var(--line-w), transparent var(--line-w)) 0 0 / 3rem 3rem;
+    -webkit-mask: linear-gradient(90deg, transparent 30%, #000 70%); mask: linear-gradient(90deg, transparent 30%, #000 70%); }
+  .hero__stage:has(canvas[width]) { background: none; -webkit-mask: none; mask: none; }
+  .hero__cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .hero__cv--gl { opacity: 0; transition: opacity var(--dur-slow); }
+  .hero__stage.is-gl .hero__cv--gl { opacity: 1; }
+  .hero__stage.is-gl .hero__cv--still { opacity: 0; transition: opacity var(--dur-slow); }
+  .hero__scrim { position: absolute; inset: 0; pointer-events: none;
+    background:
+      linear-gradient(90deg, var(--bg) 0, color-mix(in srgb, var(--bg) 92%, transparent) min(30rem, 34%), color-mix(in srgb, var(--bg) 55%, transparent) min(40rem, 46%), transparent min(52rem, 60%)),
+      linear-gradient(0deg, var(--bg) 0, color-mix(in srgb, var(--bg) 70%, transparent) 6.5rem, transparent 12rem),
+      linear-gradient(180deg, color-mix(in srgb, var(--bg) 70%, transparent) 0, transparent 5rem); }
+  .hero__tags { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .hero__playsim { position: absolute; left: 62%; top: 62%; transform: translateX(-50%); z-index: 4; background: color-mix(in srgb, var(--bg) 80%, transparent); }
+  .hero__playsim[hidden] { display: none; }
+
+  .tag3d { position: absolute; left: 0; top: 0; font: 500 0.62rem / 1 var(--font-mono); letter-spacing: 0.06em; color: var(--accent); white-space: nowrap; padding: 0.22rem 0.38rem; background: color-mix(in srgb, var(--bg) 72%, transparent); border: var(--line-w) solid color-mix(in srgb, var(--accent) 40%, transparent); }
+  .tag3d::after { content: ""; position: absolute; left: 50%; top: 100%; width: var(--line-w); height: 0.55rem; background: color-mix(in srgb, var(--accent) 60%, transparent); }
+  .tag3d--warn { color: var(--warn); border-color: var(--warn); }
+
+  /* the eyebrow's rolling word: a hidden twin measures each word's width */
+  .roll-meas { position: absolute; visibility: hidden; white-space: nowrap; pointer-events: none; }
+
+  /* live readouts */
+  .hero__readouts.is-live { gap: 0.3rem; }
+  .ro-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; padding: 0 0.1rem 0.1rem; font: 600 0.6rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-2); }
+  .ro-live { display: inline-flex; align-items: center; gap: 0.4em; color: var(--accent); }
+  .ro-live i { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--accent); box-shadow: var(--glow); }
+  .is-paused .ro-live i, .hero-static .ro-live i { opacity: 0.35; }
+  .ro-list { display: flex; flex-direction: column; gap: 0.3rem; }
+  .ro { --c: var(--line-strong); --cl: 0.45rem; --cw: var(--line-w); position: relative; display: grid; grid-template-columns: 1fr auto; column-gap: 0.5rem; align-items: baseline; padding: 0.32rem 0.55rem 0.36rem; border: var(--line-w) solid var(--line); background-color: color-mix(in srgb, var(--bg) 82%, transparent);
+    background-image: linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c));
+    background-repeat: no-repeat; background-size: var(--cl) var(--cw), var(--cw) var(--cl), var(--cl) var(--cw), var(--cw) var(--cl); background-position: 0 0, 0 0, 100% 100%, 100% 100%; transition: opacity var(--dur), border-color var(--dur); }
+  html[data-theme="light"] .ro { background-color: color-mix(in srgb, var(--surface) 90%, transparent); }
+  .ro[hidden] { display: none; }
+  .ro-l { grid-column: 1; grid-row: 1; min-width: 0; font: 600 0.58rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-2); white-space: nowrap; }
+  .ro-v { grid-column: 2; grid-row: 1 / 3; align-self: center; display: flex; align-items: baseline; justify-content: flex-end; gap: 0.25rem; white-space: nowrap; }
+  .ro-v b { font: 500 1.12rem / 1.1 var(--font-mono); color: var(--text); letter-spacing: -0.01em; }
+  .ro-v small { font: 0.62rem var(--font-mono); color: var(--text-2); }
+  .ro-n { grid-column: 1; grid-row: 2; min-width: 0; font: 0.6rem / 1.3 var(--font-mono); color: var(--text-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ro-g { position: absolute; left: 0.55rem; right: 0.55rem; bottom: calc(-1 * var(--line-w)); height: var(--line-w-strong); display: block; }
+  .ro[data-kind="ring"] .ro-g, .ro[data-kind="bar"] .ro-g { background: var(--line); }
+  .ro[data-kind="ring"] .ro-g::after, .ro[data-kind="bar"] .ro-g::after { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--f, 0) * 100%); background: var(--accent); }
+  .ro[data-kind="center"] .ro-g { background: linear-gradient(90deg, transparent calc(50% - 0.5px), var(--text-2) 0 calc(50% + 0.5px), transparent 0), var(--line); }
+  .ro[data-kind="center"] .ro-g::after { content: ""; position: absolute; top: -0.2rem; left: calc(50% + var(--f, 0) * 50% - 0.1rem); width: 0.2rem; height: 0.5rem; background: var(--accent); }
+  .ro[data-kind="dots"] .ro-g { position: static; grid-column: 1; grid-row: 1; justify-self: end; display: flex; gap: 0.2rem; height: auto; margin-right: 0.2rem; background: none; }
+  .ro[data-kind="dots"] .ro-g i { flex: 0 0 0.42rem; height: 0.42rem; border: var(--line-w) solid var(--line-strong); transform: rotate(45deg) scale(0.8); }
+  .ro[data-kind="dots"] .ro-g i.on { background: var(--accent); border-color: var(--accent); }
+  .ro--warn { --c: var(--warn); }
+  .ro--warn .ro-v b { color: var(--warn); }
+  .ro--warn .ro-g::after { background: var(--warn); }
+  .ro--emph { --c: var(--accent); --cl: 0.7rem; border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+  .ro--emph .ro-v b { font-size: 1.42rem; color: var(--accent); text-shadow: var(--glow); }
+  .ro--emph .ro-l { color: var(--text); }
+  .ro--warn.ro--emph .ro-v b { color: var(--warn); }
+  .ro--dim { opacity: 0.7; }
+  .ro-chart { margin: 0; padding: 0.4rem 0.5rem 0.3rem; border: var(--line-w) solid var(--line); background: color-mix(in srgb, var(--bg) 82%, transparent); }
+  html[data-theme="light"] .ro-chart { background: color-mix(in srgb, var(--surface) 90%, transparent); }
+  .ro-chart figcaption { display: flex; gap: 0.6rem; margin: 0 0 0.2rem; font: 600 0.56rem var(--font-head); text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-2); }
+  .ro-chart__a::before, .ro-chart__b::before { content: ""; display: inline-block; width: 0.7rem; height: var(--line-w-strong); margin-right: 0.3em; vertical-align: middle; background: var(--accent); }
+  .ro-chart__b::before { height: var(--line-w); background: var(--text-2); }
+  .ro-chart__w { margin-left: auto; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: none; }
+  .ro-chart canvas { display: block; width: 100%; height: 3.6rem; }
+  .ro-cap { margin: 0.05rem 0.1rem 0; font: 0.6rem / 1.45 var(--font-mono); color: var(--text-2); }
+  html[data-lens="fullstack"] .ro-chart { order: -1; border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+  html[data-lens="fullstack"] .ro-head { order: -2; }
+  html[data-lens="fullstack"] .ro-chart canvas { height: 4.8rem; }
+
+  /* scrubber */
+  .hero__scrub:has(.scrub) { border-top: var(--line-w) solid var(--line); }
+  .scrub { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: center; padding-top: 0.7rem; padding-bottom: 0.55rem; }
+  .scrub__play { min-width: 15.5rem; justify-content: flex-start; }
+  .scrub__ic { font-size: 0.7rem; letter-spacing: -0.15em; margin-right: 0.2em; }
+  .scrub__pause { min-width: 2.6rem; padding-inline: 0.6rem; }
+  .scrub__wrap { position: relative; padding-top: 0.9rem; }
+  .scrub__track { position: relative; height: 1.7rem; cursor: pointer; touch-action: none; }
+  .scrub__ticks { position: absolute; left: 0; right: 0; bottom: 0.35rem; height: 0.9rem; border-bottom: var(--line-w) solid var(--line-strong); }
+  .scrub__ticks i { position: absolute; bottom: 0; width: var(--line-w); height: 0.3rem; background: var(--line-strong); }
+  .scrub__ticks i.mj { height: 0.9rem; background: var(--accent); box-shadow: var(--glow); }
+  .scrub__fill { position: absolute; bottom: 0.35rem; left: 0; height: var(--line-w-strong); width: var(--p, 100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 55%, transparent)); pointer-events: none; }
+  .scrub__handle { position: absolute; left: var(--p, 100%); bottom: 0.35rem; width: 0; height: 1.7rem; pointer-events: none; }
+  .scrub__handle::before { content: ""; position: absolute; left: -0.5px; bottom: 0; width: var(--line-w); height: 1.6rem; background: var(--accent); box-shadow: var(--glow); }
+  .scrub__handle::after { content: ""; position: absolute; left: -0.45rem; top: -0.45rem; width: 0.9rem; height: 0.75rem; background: var(--accent); clip-path: polygon(0 0, 100% 0, 50% 100%); }
+  .scrub__handle b { position: absolute; bottom: 2.05rem; left: 0; transform: translateX(-50%); padding: 0 0.25rem; font: 600 0.7rem var(--font-mono); color: var(--accent); background: var(--bg); white-space: nowrap; }
+  .scrub__eras { position: relative; height: 1.5rem; margin-top: 0.15rem; }
+  .scrub__era { position: absolute; top: 0; transform: translateX(-0.12rem); padding: 0.1rem 0.15rem; font: 600 0.62rem / 1.15 var(--font-head); text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-2); white-space: nowrap; background: none; border: 0; cursor: pointer; text-align: left; }
+  .scrub__era b { display: block; font: 600 0.62rem var(--font-mono); letter-spacing: 0.02em; color: var(--text); }
+  .scrub__era:hover, .scrub__era.cur, .scrub__era.cur b { color: var(--accent); }
+
+  .hero-dbg { position: fixed; left: 0.6rem; bottom: 0.6rem; z-index: 99; margin: 0; padding: 0.4rem 0.6rem; font: 0.7rem / 1.4 var(--font-mono); color: var(--code-text); background: var(--code-bg); pointer-events: none; }
+
+  @media (max-width: 1180px) { .ro-chart canvas { height: 3.2rem; } }
+  @media (max-width: 860px) {
+    .hero__stage { position: relative; inset: auto; height: 15.5rem; margin-top: 0.9rem; border-block: var(--line-w) solid var(--line); -webkit-mask: none; mask: none; }
+    .hero__scrim { background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 80%, transparent) 0, transparent 3.6rem), linear-gradient(180deg, color-mix(in srgb, var(--bg) 50%, transparent) 0, transparent 2.5rem); }
+    .hero__playsim { left: 50%; top: 40%; }
+    .hero__readouts.is-live { display: block; margin-top: -3.55rem; }
+    .is-live .ro-head, .is-live .ro-chart, .is-live .ro-cap { display: none; }
+    .is-live .ro-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
+    .is-live .ro:nth-child(n + 4) { display: none; }
+    .ro { grid-template-columns: 1fr; padding: 0.3rem 0.45rem 0.35rem; }
+    .ro-v { grid-column: 1; grid-row: 2; justify-content: flex-start; }
+    .ro-v b, .ro--emph .ro-v b { font-size: 1.02rem; }
+    .ro-n, .ro-g { display: none !important; }
+    .ro-l { font-size: 0.55rem; letter-spacing: 0.08em; white-space: normal; line-height: 1.2; }
+    .scrub { grid-template-columns: 1fr auto; grid-template-areas: "track track" "play pause"; row-gap: 0.5rem; padding-top: 0.3rem; }
+    .scrub__wrap { grid-area: track; } .scrub__play { grid-area: play; min-width: 0; } .scrub__pause { grid-area: pause; }
+    .scrub__track { height: 2.4rem; }
+    .scrub__era { font-size: 0; letter-spacing: 0; }
+    .scrub__era b { font-size: 0.6rem; }
+  }
+</style>

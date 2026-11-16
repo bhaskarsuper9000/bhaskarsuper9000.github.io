@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 160" role="img" aria-labelledby="t">
+  <title id="t">Three boxes joined by arrows: write a markdown file, commit it, the site rebuilds</title>
+  <rect width="640" height="160" fill="#08141b"/>
+  <g fill="none" stroke="#2a8397" stroke-width="1.5">
+    <rect x="30" y="50" width="150" height="60"/><rect x="245" y="50" width="150" height="60"/><rect x="460" y="50" width="150" height="60"/>
+  </g>
+  <g stroke="#35e0ff" stroke-width="1.5" fill="#35e0ff"><path d="M180 80H243" fill="none"/><path d="M243 80l-8-5v10z"/><path d="M395 80H458" fill="none"/><path d="M458 80l-8-5v10z"/></g>
+  <g fill="#dcf2f7" font-family="monospace" font-size="14" text-anchor="middle">
+    <text x="105" y="85">write .md</text><text x="320" y="85">git commit</text><text x="535" y="85">site rebuilds</text>
+  </g>
+</svg>

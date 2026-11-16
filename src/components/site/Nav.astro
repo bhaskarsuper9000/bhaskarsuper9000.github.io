@@ -1,0 +1,51 @@
+---
+import { nav, site } from '../../data/site';
+import Logo from './Logo.astro';
+import TickRuler from './TickRuler.astro';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="nav__brand" href="/" aria-label={`${site.name}, home`}>
+      <Logo />
+      <span class="nav__name">{site.name}</span>
+    </a>
+    <nav class="nav__links" aria-label="Main">
+      <ul>
+        {nav.map((i) => <li><a href={i.href} aria-current={isCurrent(i.href) ? 'page' : undefined}>{i.label}</a></li>)}
+        <li>
+          <button class="nav__settings" type="button" data-settings-toggle aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-panel">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" /></svg>
+            <span>Settings</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <TickRuler class="nav__ruler" />
+</header>
+
+<style>
+  .nav { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); border-bottom: var(--line-w) solid var(--line-strong); }
+  .nav__in { display: flex; align-items: center; gap: 1rem; min-height: var(--navh); }
+  .nav__brand { display: flex; align-items: center; gap: 0.7rem; color: var(--text); text-decoration: none; font: var(--head-weight) 0.95rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; }
+  .nav__links { margin-left: auto; }
+  .nav__links ul { display: flex; align-items: center; gap: 0.25rem; }
+  .nav__links a, .nav__settings { position: relative; display: flex; align-items: center; gap: 0.5em; padding: 0.5rem 0.7rem; min-height: 2.5rem; color: var(--text); background: none; border: 0; cursor: pointer; text-decoration: none; font: 600 0.8rem var(--font-head); text-transform: uppercase; letter-spacing: var(--track-label); }
+  .nav__links a:hover, .nav__settings:hover, .nav__settings[aria-expanded="true"] { color: var(--accent); text-shadow: var(--glow); }
+  .nav__links a[aria-current="page"] { color: var(--accent); }
+  .nav__links a[aria-current="page"]::after { content: ""; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.15rem; height: 2px; background: var(--accent); box-shadow: var(--glow); }
+  .nav__settings svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  .nav__ruler { position: absolute; left: 0; right: 0; bottom: -8px; height: 7px; opacity: 0.55; }
+
+  @media (max-width: 860px) {
+    .nav__in { flex-wrap: wrap; row-gap: 0; padding-top: 0.3rem; padding-bottom: 0.3rem; }
+    .nav__links { order: 3; width: 100%; margin-left: 0; }
+    .nav__links ul { overflow-x: auto; gap: 0; }
+    .nav__links li:last-child { margin-left: auto; }
+    .nav__links a, .nav__settings { font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.4rem 0.55rem; }
+    .nav__brand { font-size: 0.8rem; }
+  }
+</style>

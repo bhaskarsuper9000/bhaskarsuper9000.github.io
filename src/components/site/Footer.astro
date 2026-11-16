@@ -1,0 +1,19 @@
+---
+import { site } from '../../data/site';
+---
+<footer class="foot">
+  <div class="wrap foot__in">
+    <span>{site.name}</span>
+    <a href={site.github.url}>GitHub</a>
+    <a href={site.linkedin.url}>LinkedIn</a>
+    <a href={`mailto:${site.email}`}>{site.email}</a>
+    <a href="/rss.xml">RSS</a>
+  </div>
+</footer>
+
+<style>
+  .foot { margin-top: var(--space-6); padding: 1.6rem 0 3rem; border-top: var(--line-w) solid var(--line-strong); font: var(--fs-xs) / 1.7 var(--font-mono); color: var(--text-2); }
+  .foot__in { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; align-items: baseline; }
+  .foot a { color: var(--text); }
+  .foot a:hover { color: var(--accent); }
+</style>

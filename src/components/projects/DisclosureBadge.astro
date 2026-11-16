@@ -1,0 +1,6 @@
+---
+import { disclosureLabels, type Disclosure } from '../../lib/content';
+interface Props { disclosure: Disclosure }
+const { disclosure } = Astro.props;
+---
+<span class={`badge badge--${disclosure}`}>{disclosureLabels[disclosure]}</span>

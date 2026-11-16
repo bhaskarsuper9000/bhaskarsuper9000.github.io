@@ -1,0 +1,50 @@
+---
+import { disclosureLabels, kindLabels, type Disclosure, type Project } from '../../lib/content';
+import { effectiveDisclosure } from '../../lib/content';
+import DisclosureBadge from './DisclosureBadge.astro';
+
+interface Props { projects: Project[] }
+const { projects } = Astro.props;
+const count = (pred: (p: Project) => boolean) => projects.filter(pred).length;
+const kinds = Object.entries(kindLabels).map(([v, t]) => ({ v, t, n: count((p) => p.data.kind === v) })).filter((x) => x.n > 0);
+const discs = (Object.keys(disclosureLabels) as Disclosure[]).map((v) => ({ v, t: disclosureLabels[v], n: count((p) => effectiveDisclosure(p) === v) })).filter((x) => x.n > 0);
+const legend: Record<Disclosure, string> = {
+  text: 'Confidential employer work: a few lines, no visuals.',
+  diagram: 'An animated, generic architecture diagram built from public facts.',
+  demo: 'Something you can play with.',
+  'write-up': 'A page of prose, images and links.',
+};
+---
+<section class="filters" aria-label="Filter projects" data-filters>
+  <div class="filters__group" role="group" aria-label="Filter by kind">
+    <span class="label">Kind</span>
+    <button type="button" class="chip" data-filter="kind" data-value="all" aria-pressed="true">All <small>{projects.length}</small></button>
+    {kinds.map((k) => <button type="button" class="chip" data-filter="kind" data-value={k.v} aria-pressed="false">{k.t} <small>{k.n}</small></button>)}
+  </div>
+  <div class="filters__group" role="group" aria-label="Filter by disclosure">
+    <span class="label">Disclosure</span>
+    <button type="button" class="chip" data-filter="disc" data-value="all" aria-pressed="true">All <small>{projects.length}</small></button>
+    {discs.map((d) => <button type="button" class="chip" data-filter="disc" data-value={d.v} aria-pressed="false">{d.t} <small>{d.n}</small></button>)}
+  </div>
+  <p class="filters__status" role="status" aria-live="polite">
+    <span data-status>Showing {projects.length} of {projects.length} projects, newest first.</span>
+    <button type="button" class="btn btn--ghost" data-clear hidden>Clear filters</button>
+  </p>
+  <dl class="filters__legend">
+    {discs.map((d) => (<><dt><DisclosureBadge disclosure={d.v} /></dt><dd>{legend[d.v]}</dd></>))}
+  </dl>
+</section>
+
+<script>
+  import '../../scripts/filters';
+</script>
+
+<style>
+  .filters { display: grid; gap: 0.8rem; margin-bottom: var(--space-4); }
+  .filters__group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+  .filters__group .label { width: 6.5rem; }
+  .filters__status { display: flex; align-items: center; gap: 0.8rem; min-height: 2.5rem; font: var(--fs-sm) var(--font-mono); color: var(--text-2); }
+  .filters__status .btn { min-height: 2rem; padding: 0.4em 0.8em; }
+  .filters__legend { display: grid; grid-template-columns: auto 1fr; gap: 0.4rem 1rem; align-items: center; font-size: var(--fs-sm); color: var(--text-2); }
+  @media (max-width: 520px) { .filters__group .label { width: 100%; } }
+</style>

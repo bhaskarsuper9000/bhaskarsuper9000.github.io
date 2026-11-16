@@ -1,0 +1,141 @@
+---
+import { site } from '../../data/site';
+import { headline } from '../../data/resume';
+import { lenses, type LensView } from '../../data/lenses';
+import { rollingTitle } from '../../data/hero';
+import type { Era, Project } from '../../lib/content';
+import HeroScene from './HeroScene.astro';
+import LensSwitch from './LensSwitch.astro';
+import ProofPoints from './ProofPoints.astro';
+
+interface Props { eras: Era[]; proofSets: Record<LensView, Project[]> }
+const { eras, proofSets } = Astro.props;
+const [first, ...rest] = site.name.split(' ');
+const current = eras[0]; // newest era is shown until the scrubber takes over
+const timeline = [...eras].reverse(); // oldest to newest, left to right
+const positioning: Record<LensView, string> = { all: site.positioning, ...Object.fromEntries(lenses.map((l) => [l.id, l.positioning])) } as Record<LensView, string>;
+// eras with a 3D scene, oldest first, for the live scrubber
+const sceneEras = timeline.filter((e) => e.data.scene).map((e) => ({
+  id: e.id, title: e.data.title, tick: e.data.tick ?? e.data.title, years: e.data.years, start: e.data.start, end: e.data.end,
+  caption: e.data.caption, ego: e.data.ego ?? e.data.title, scene: e.data.scene,
+}));
+---
+<section class="hero" id="hero" aria-labelledby="hero-name">
+  <HeroScene />
+
+  <div class="wrap hero__grid">
+    <div class="hero__text" data-hero-text>
+      <p class="hero__eyebrow">
+        <span class="vh">{rollingTitle.label}</span>
+        <span aria-hidden="true"><span class="hero__roll" data-hero-roll>{rollingTitle.words[0].word}</span> {rollingTitle.rest}</span>
+      </p>
+      <h1 id="hero-name" class="hero__name"><span>{first}</span> <span>{rest.join(' ')}</span></h1>
+      <div class="panel hero__pos">
+        {(Object.keys(positioning) as LensView[]).map((v) => <p data-for={v}>{positioning[v]}</p>)}
+      </div>
+      <LensSwitch />
+      <ProofPoints sets={proofSets} eras={eras} />
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="/resume/">Read the resume</a>
+        <a class="btn" href={site.resumePdf} download>Download 1-page resume (PDF)</a>
+        <a class="btn btn--ghost" href="/projects/">All projects</a>
+      </div>
+    </div>
+
+    <!-- replaced by live readouts when the scene starts; headline numbers without JS -->
+    <aside class="hero__readouts" data-hero-readouts aria-label="Headline numbers">
+      <p class="label">Headline</p>
+      {headline.map((h) => (
+        <div class="readout">
+          <span class="readout__label">{h.label}</span>
+          <b class="readout__value">{h.value}</b>
+        </div>
+      ))}
+    </aside>
+  </div>
+
+  <p class="hero__era" data-hero-era aria-live="polite">
+    <span class="hero__era-y" data-hero-era-y>{current.data.years}</span>
+    <span class="hero__era-n" data-hero-era-n>{current.data.title}</span>
+    <span class="hero__era-t" data-hero-era-t>{current.data.caption}</span>
+  </p>
+
+  <!-- replaced by the career scrubber when JS runs; each era links to its projects without JS -->
+  <div class="hero__scrub" data-hero-scrubber>
+    <div class="wrap">
+      <ol class="hero__eras" aria-label="Career eras, oldest first">
+        {timeline.map((e) => (
+          <li><a href={`/projects/#era-${e.id}`}><b>{e.data.years}</b><span>{e.data.title}</span></a></li>
+        ))}
+      </ol>
+    </div>
+  </div>
+  <script type="application/json" data-hero-eras set:html={JSON.stringify(sceneEras)} />
+</section>
+
+<script>
+  import { initHero } from '../../scripts/hero/hero';
+  import { initRollingTitle } from '../../scripts/hero/rolltitle';
+  const hero = document.getElementById('hero');
+  const roll = document.querySelector<HTMLElement>('[data-hero-roll]');
+  if (roll) initRollingTitle(roll);
+  if (hero) initHero(hero);
+</script>
+
+<style>
+  .hero { position: relative; display: grid; grid-template-rows: 1fr auto auto; min-height: min(max(40rem, calc(100vh - var(--navh) - 1rem)), 58rem); background: var(--bg); overflow: hidden; isolation: isolate; border-bottom: var(--line-w) solid var(--line-strong); }
+
+  .hero__grid { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 36rem) 1fr 14.5rem; gap: 1.5rem; align-items: start; padding-top: 2.2rem; padding-bottom: 1rem; pointer-events: none; }
+  .hero__grid > * { pointer-events: auto; }
+  .hero__text { display: grid; gap: 1.05rem; align-content: start; }
+  .hero__eyebrow { font: 600 0.78rem var(--font-head); text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); white-space: nowrap; }
+  .hero__eyebrow::before { content: "\25B8\00a0\00a0"; color: var(--text-2); }
+  .hero__roll { display: inline-block; vertical-align: bottom; overflow: hidden; white-space: nowrap; color: var(--text); transition: width var(--dur-slow) var(--ease); }
+  .hero__name { font-size: min(var(--fs-display), 3.3rem); font-weight: 300; letter-spacing: 0.06em; line-height: 0.98; text-shadow: var(--glow); }
+  .hero__name span { display: block; }
+  .hero__name span:last-child { color: var(--accent); }
+  .hero__pos { font-size: var(--fs-lead); line-height: 1.5; padding: 0.85rem 1.05rem; max-width: 33rem; min-height: 5.4rem; }
+  :global(html[data-theme="light"]) .hero__pos { background-color: color-mix(in srgb, var(--surface) 92%, transparent); }
+  .hero__cta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.2rem; }
+  .hero__cta .btn--ghost { padding-inline: 0.6em; }
+
+  .hero__readouts { grid-column: 3; display: flex; flex-direction: column; gap: 0.3rem; font-variant-numeric: tabular-nums; }
+  .hero__readouts .readout { background-color: color-mix(in srgb, var(--bg) 82%, transparent); }
+  :global(html[data-theme="light"]) .hero__readouts .readout { background-color: color-mix(in srgb, var(--surface) 90%, transparent); }
+
+  .hero__era { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 0.2rem 0.8rem; max-width: 44rem; margin: 0 auto; padding: 0 1rem 0.5rem; text-align: center; transition: opacity var(--dur); }
+  .hero__era:global(.is-fading) { opacity: 0; }
+  .hero__era-y { font: 600 0.95rem var(--font-mono); color: var(--accent); text-shadow: var(--glow); }
+  .hero__era-n { font: 600 0.78rem var(--font-head); text-transform: uppercase; letter-spacing: 0.18em; }
+  .hero__era-t { flex-basis: 100%; font-size: 0.9rem; color: var(--text-2); }
+
+  .hero__scrub { position: relative; z-index: 3; border-top: var(--line-w) solid var(--line); background: color-mix(in srgb, var(--bg) 86%, transparent); backdrop-filter: blur(6px); }
+  .hero__eras { display: grid; grid-template-columns: repeat(8, 1fr); padding-top: 0.2rem; }
+  .hero__eras li { position: relative; padding: 0.95rem 0.4rem 0.8rem 0; }
+  .hero__eras li::before { content: ""; position: absolute; left: 0; top: 0; width: var(--line-w); height: 0.7rem; background: var(--accent); box-shadow: var(--glow); }
+  .hero__eras a { display: grid; gap: 0.1rem; color: var(--text); text-decoration: none; }
+  .hero__eras b { font: 600 0.8rem var(--font-mono); font-variant-numeric: tabular-nums; }
+  .hero__eras span { font: 0.68rem var(--font-head); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-2); }
+  .hero__eras a:hover b, .hero__eras a:hover span { color: var(--accent); }
+
+  @media (max-width: 1180px) { .hero__grid { grid-template-columns: minmax(0, 30rem) 1fr 13.5rem; } }
+
+  /* phone / narrow: the stage becomes a band under the name; everything stacks in reading order */
+  @media (max-width: 860px) {
+    .hero { display: flex; flex-direction: column; min-height: 0; }
+    .hero__grid, .hero__text { display: contents; }
+    .hero__eyebrow { order: 1; padding: 1.2rem var(--pad) 0; letter-spacing: 0.16em; font-size: 0.72rem; }
+    .hero__name { order: 2; padding: 0.35rem var(--pad) 0; font-size: clamp(2.1rem, 10.5vw, 3.4rem); }
+    .hero__pos { order: 3; margin: 0.8rem var(--pad) 0; min-height: 0; font-size: 1rem; }
+    :global(.hero__stage) { order: 4; }
+    .hero__readouts { order: 5; position: relative; z-index: 3; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.3rem; margin: 0.8rem var(--pad) 0; }
+    .hero__readouts .label { display: none; }
+    .hero__readouts:global(.is-live) { display: block; margin-top: -3.55rem; }
+    .hero__era { order: 6; justify-content: flex-start; text-align: left; max-width: none; padding: 0.6rem var(--pad) 0.2rem; }
+    .hero__scrub { order: 7; background: transparent; backdrop-filter: none; border-top: 0; }
+    .hero__eras { grid-template-columns: repeat(4, 1fr); row-gap: 0.4rem; }
+    :global(.lens) { order: 8; margin: 1.1rem var(--pad) 0; }
+    :global(.proofs) { order: 9; margin: 0.8rem var(--pad) 0; }
+    .hero__cta { order: 10; margin: 1rem var(--pad) 1.6rem; }
+  }
+</style>

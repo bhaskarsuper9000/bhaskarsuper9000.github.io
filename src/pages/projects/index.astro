@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/site/PageHead.astro';
+import Filters from '../../components/projects/Filters.astro';
+import ProjectList from '../../components/projects/ProjectList.astro';
+import { getEras, getProjects } from '../../lib/content';
+
+const [eras, projects] = await Promise.all([getEras(), getProjects()]);
+---
+<BaseLayout title="Projects" description="Everything Bhaskar Bandyopadhyay has built, newest first, grouped by where he was at the time.">
+  <div class="wrap">
+    <PageHead eyebrow="Projects" title="Everything I can point at" lead="Newest first, grouped by where I was at the time. Filters only narrow the list; they never reorder it." />
+    <Filters projects={projects} />
+    <ProjectList eras={eras} projects={projects} />
+  </div>
+</BaseLayout>

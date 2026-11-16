@@ -1,0 +1,45 @@
+---
+import type { LensView } from '../../data/lenses';
+import { projectHref, type Era, type Project } from '../../lib/content';
+
+interface Props { sets: Record<LensView, Project[]>; eras: Era[] }
+const { sets, eras } = Astro.props;
+const eraTitle = (p: Project) => eras.find((e) => e.id === p.data.era.id)?.data.title ?? '';
+// "$800K/yr" -> ["$800K", "/yr"]; "10 days" -> ["10", "days"]
+const splitValue = (v: string) => v.split(/(?=\/)|\s+/);
+---
+{(Object.keys(sets) as LensView[]).map((view) => (
+  <ol class="proofs" data-for={view} aria-label="Proof points">
+    {sets[view].map((p) => {
+      const [main, unit] = splitValue(p.data.metric?.value ?? p.data.year);
+      return (
+        <li>
+          <a class="proof" href={projectHref(p.id)}>
+            <b class="proof__n">{main}{unit && <small>{unit}</small>}</b>
+            <span class="proof__w">{eraTitle(p)}</span>
+            <span class="proof__t">{p.data.title}</span>
+            <span class="proof__d">{p.data.metric?.label ?? p.data.summary}</span>
+          </a>
+        </li>
+      );
+    })}
+  </ol>
+))}
+
+<style>
+  .proofs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; }
+  .proofs > li { display: flex; }
+  .proof { flex: 1; display: grid; grid-template-columns: 1fr auto; align-content: start; row-gap: 0.2rem; padding: 0.55rem 0.75rem 0.6rem; color: var(--text); text-decoration: none; border: var(--line-w) solid var(--line); border-left: var(--line-w-strong) solid var(--accent); background: color-mix(in srgb, var(--bg) 80%, transparent); transition: background var(--dur-fast), border-color var(--dur-fast); }
+  :global(html[data-theme="light"]) .proof { background: color-mix(in srgb, var(--surface) 88%, transparent); }
+  .proof:hover, .proof:focus-visible { background: var(--accent-soft); border-color: var(--accent); }
+  .proof__n { font: 600 1.3rem / 1.05 var(--font-mono); color: var(--accent); text-shadow: var(--glow); white-space: nowrap; }
+  .proof__n small { font-size: 0.6em; color: var(--text-2); margin-left: 0.15em; }
+  .proof__w { align-self: center; font: 0.62rem var(--font-mono); color: var(--text-2); text-transform: uppercase; letter-spacing: 0.08em; }
+  .proof__t { grid-column: 1 / -1; font: 600 0.74rem / 1.3 var(--font-head); text-transform: uppercase; letter-spacing: 0.11em; }
+  .proof__d { grid-column: 1 / -1; font-size: 0.8rem; line-height: 1.38; color: var(--text-2); }
+  @media (max-width: 860px) { .proofs { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .proofs { animation: swap var(--dur-slow) var(--ease) both; }
+    @keyframes swap { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+  }
+</style>

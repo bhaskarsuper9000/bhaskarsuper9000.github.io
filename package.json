@@ -1,0 +1,23 @@
+{
+  "name": "bhaskarsuper9000-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "astro": "^7.4.12",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/rss": "^4.0.19",
+    "@types/three": "^0.187.0",
+    "typescript": "^6.0.3"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "resume:pdf": "astro build && node scripts/resume-pdf.mjs"
+  }
+}

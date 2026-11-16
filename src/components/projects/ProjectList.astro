@@ -1,0 +1,42 @@
+---
+import type { Era, Project } from '../../lib/content';
+import TickRuler from '../site/TickRuler.astro';
+import ProjectRow from './ProjectRow.astro';
+
+interface Props { eras: Era[]; projects: Project[] }
+const { eras, projects } = Astro.props;
+const groups = eras.map((era) => ({ era, rows: projects.filter((p) => p.data.era.id === era.id) })).filter((g) => g.rows.length > 0);
+---
+<nav class="jump" aria-label="Jump to period">
+  <span class="label">Jump to</span>
+  {groups.map((g) => <a href={`#era-${g.era.id}`}>{g.era.data.title} <span>{g.era.data.years}</span></a>)}
+</nav>
+
+<div class="list" id="list">
+  {groups.map(({ era, rows }) => (
+    <section class="era" id={`era-${era.id}`} aria-labelledby={`era-h-${era.id}`} data-era>
+      <header class="era__head">
+        <h2 id={`era-h-${era.id}`}>{era.data.title}</h2>
+        <span class="era__years">{era.data.years}</span>
+        {era.data.role && <span class="era__role">{era.data.role}</span>}
+        <TickRuler />
+      </header>
+      <ul>{rows.map((p) => <ProjectRow project={p} />)}</ul>
+    </section>
+  ))}
+</div>
+
+<style>
+  .jump { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: baseline; margin-bottom: var(--space-4); font: var(--fs-sm) var(--font-mono); }
+  .jump a { color: var(--text); text-decoration: none; }
+  .jump a:hover { color: var(--accent); }
+  .jump a span { color: var(--text-2); }
+  .era { margin-top: var(--space-5); scroll-margin-top: 5rem; }
+  .era[hidden] { display: none; }
+  .era__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; }
+  .era__head h2 { font-size: 1.2rem; letter-spacing: 0.16em; }
+  .era__years { font: 600 0.95rem var(--font-mono); color: var(--accent); }
+  .era__role { margin-left: auto; font-size: var(--fs-sm); color: var(--text-2); }
+  .era__head :global(.tick-ruler) { flex: 1 1 100%; margin-bottom: 0.2rem; }
+  .era ul { border-top: var(--line-w) solid var(--line-strong); }
+</style>

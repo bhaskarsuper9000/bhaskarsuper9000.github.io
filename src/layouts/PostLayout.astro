@@ -1,0 +1,30 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatDate } from '../lib/content';
+
+interface Props { title: string; summary: string; date: Date; minutes: number; tags: string[]; draft?: boolean }
+const { title, summary, date, minutes, tags, draft } = Astro.props;
+---
+<BaseLayout title={title} description={summary} type="article">
+  <article class="wrap post">
+    <p class="crumbs"><a href="/blog/">&larr; All posts</a></p>
+    <header class="post__head">
+      <h1>{title}</h1>
+      <p class="page-head__lead">{summary}</p>
+      <p class="post__meta label">
+        <time datetime={date.toISOString()}>{formatDate(date)}</time>
+        <span>{minutes} min read</span>
+        {draft && <span class="post__draft">Draft</span>}
+        {tags.map((t) => <span class="tag">{t}</span>)}
+      </p>
+    </header>
+    <div class="prose"><slot /></div>
+  </article>
+</BaseLayout>
+
+<style>
+  .post { padding-top: var(--space-5); }
+  .post__head { display: grid; gap: 0.9rem; margin: 1.2rem 0 2rem; padding-bottom: 1.4rem; border-bottom: var(--line-w) solid var(--line-strong); max-width: var(--measure); }
+  .post__meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; }
+  .post__draft { color: var(--warn); }
+</style>

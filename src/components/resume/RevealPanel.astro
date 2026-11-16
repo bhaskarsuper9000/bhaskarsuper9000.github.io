@@ -1,0 +1,105 @@
+---
+// Side panel for the TL;DR: previews a project on hover/focus (desktop) or in a bottom sheet (phone).
+// Always ends in a link to the project page. Panels are rendered here, shown by the script below.
+import { disclosureLabels, effectiveDisclosure, projectHref, type Era, type Project } from '../../lib/content';
+import Panel from '../site/Panel.astro';
+
+interface Props { projects: Project[]; eras: Era[] }
+const { projects, eras } = Astro.props;
+const eraOf = (p: Project) => eras.find((e) => e.id === p.data.era.id);
+---
+<div class="sheet-bg" data-reveal-bg></div>
+<aside class="reveal" data-reveal-aside aria-label="Project preview">
+  <Panel class="reveal__panel" tabindex="-1">
+    <button class="reveal__close" type="button" data-reveal-close>Close &times;</button>
+    <div data-reveal-body aria-live="polite">
+      <p class="reveal__empty"><b>Project preview</b>Hover or focus a highlighted line to preview it here. Click to open its project page.</p>
+    </div>
+  </Panel>
+  {projects.map((p) => {
+    const d = effectiveDisclosure(p);
+    const era = eraOf(p);
+    return (
+      <div hidden data-panel-for={p.id}>
+        <span class={`badge badge--${d}`}>{disclosureLabels[d]}</span>
+        <h4>{p.data.title}</h4>
+        <p class="reveal__meta">{[era?.data.title, p.data.year, p.data.role ?? era?.data.role].filter(Boolean).join(' · ')}</p>
+        {p.data.metric && <div class="readout readout--emph"><span class="readout__label">{p.data.metric.label}</span><b class="readout__value">{p.data.metric.value}</b></div>}
+        <p>{p.data.summary}</p>
+        {p.data.disclosure === 'text' && <p class="reveal__meta">Confidential employer work: a few lines, no visuals.</p>}
+        {p.data.stack.length > 0 && <ul class="tags">{p.data.stack.map((s) => <li class="tag">{s}</li>)}</ul>}
+        <a class="btn btn--primary" href={projectHref(p.id)}>Open project page &rarr;</a>
+      </div>
+    );
+  })}
+</aside>
+
+<script>
+  const aside = document.querySelector<HTMLElement>('[data-reveal-aside]')!;
+  const body = aside.querySelector<HTMLElement>('[data-reveal-body]')!;
+  const bg = document.querySelector<HTMLElement>('[data-reveal-bg]')!;
+  const links = document.querySelectorAll<HTMLAnchorElement>('[data-reveal]');
+  const phone = matchMedia('(max-width: 959px)');
+  const canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const emptyHtml = body.innerHTML;
+  let hoverTimer: number | undefined;
+  let last: HTMLAnchorElement | null = null;
+
+  function show(a: HTMLAnchorElement) {
+    const src = document.querySelector(`[data-panel-for="${a.dataset.reveal}"]`);
+    if (!src) return;
+    body.innerHTML = src.innerHTML;
+    links.forEach((l) => l.classList.toggle('is-on', l === a));
+    last = a;
+  }
+  function close() {
+    aside.classList.remove('is-open');
+    bg.classList.remove('is-open');
+    links.forEach((l) => l.classList.remove('is-on'));
+    body.innerHTML = emptyHtml;
+    last?.focus({ preventScroll: true });
+  }
+
+  links.forEach((a) => {
+    a.addEventListener('focus', () => { if (!phone.matches) show(a); });
+    if (canHover) {
+      a.addEventListener('mouseenter', () => { window.clearTimeout(hoverTimer); hoverTimer = window.setTimeout(() => { if (!phone.matches) show(a); }, 150); });
+      a.addEventListener('mouseleave', () => window.clearTimeout(hoverTimer));
+    }
+    a.addEventListener('click', (e) => {
+      if (!phone.matches) return; // desktop: the line is a plain link to the project page
+      e.preventDefault();
+      show(a);
+      aside.classList.add('is-open');
+      bg.classList.add('is-open');
+      aside.querySelector<HTMLElement>('[data-reveal-close]')?.focus();
+    });
+  });
+  aside.querySelector('[data-reveal-close]')?.addEventListener('click', close);
+  bg.addEventListener('click', close);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && aside.classList.contains('is-open')) close(); });
+  phone.addEventListener('change', close);
+</script>
+
+<style>
+  .reveal { position: sticky; top: 5.2rem; align-self: start; }
+  .reveal__panel { display: grid; gap: 0.7rem; min-height: 14rem; max-height: calc(100vh - 7rem); overflow: auto; padding: 1.2rem; }
+  .reveal__close { display: none; justify-self: end; font: 600 0.72rem var(--font-head); text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); background: none; border: var(--line-w) solid var(--line-strong); padding: 0.4rem 0.9rem; cursor: pointer; }
+  .reveal :global(h4) { font-size: 1.05rem; letter-spacing: 0.08em; }
+  .reveal :global(p) { font-size: var(--fs-sm); }
+  .reveal :global(.reveal__meta), .reveal__empty { color: var(--text-2); font-size: var(--fs-sm); }
+  .reveal__empty b { display: block; margin-bottom: 0.3rem; color: var(--text); font: 600 0.85rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; }
+  [data-reveal-body] { display: grid; gap: 0.7rem; justify-items: start; }
+  .reveal :global(.btn) { justify-self: start; }
+  .sheet-bg { display: none; }
+
+  @media (max-width: 959px) {
+    .reveal { position: fixed; z-index: 50; left: 0; right: 0; bottom: 0; top: auto; transform: translateY(105%); visibility: hidden; transition: transform var(--dur) var(--ease), visibility var(--dur); }
+    .reveal.is-open { transform: none; visibility: visible; }
+    .reveal__panel { max-height: 78vh; background-color: var(--surface-solid); padding-bottom: 1.6rem; }
+    .reveal__close { display: block; }
+    .reveal__empty { display: none; }
+    .sheet-bg { display: block; position: fixed; inset: 0; z-index: 40; background: rgb(0 0 0 / 0.5); opacity: 0; pointer-events: none; transition: opacity var(--dur); }
+    .sheet-bg.is-open { opacity: 1; pointer-events: auto; }
+  }
+</style>

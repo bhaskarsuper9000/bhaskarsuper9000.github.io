@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Panel from '../components/site/Panel.astro';
+---
+<BaseLayout title="Page not found" noindex>
+  <section class="wrap lost">
+    <Panel tone="warn" class="lost__panel">
+      <p class="label">Error 404 · no signal</p>
+      <h1>Page not found</h1>
+      <p>That address doesn't match anything here. It may have moved, or the link may be mistyped.</p>
+      <p class="lost__cta">
+        <a class="btn btn--primary" href="/">Home</a>
+        <a class="btn" href="/projects/">Projects</a>
+        <a class="btn" href="/blog/">Blog</a>
+      </p>
+    </Panel>
+  </section>
+</BaseLayout>
+
+<style>
+  .lost { padding-top: var(--space-6); }
+  .lost__panel { display: grid; gap: 1rem; max-width: 34rem; padding: 1.8rem; }
+  .lost__cta { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+</style>

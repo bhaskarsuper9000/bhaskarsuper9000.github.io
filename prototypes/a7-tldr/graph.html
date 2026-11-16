@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-default-theme="dark" data-swatches="Cyan,Green,Amber,Orange,Sky,Magenta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TL;DR resume, concept B: knowledge graph | Bhaskar Bandyopadhyay</title>
+<meta name="description" content="Bhaskar Bandyopadhyay's career as a graph: capability areas, employers and 42 projects, linked.">
+<script src="settings.js"></script>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="tldr.css">
+<link rel="stylesheet" href="graph.css">
+<script src="data.js"></script>
+<script src="shell.js"></script>
+</head>
+<body>
+<script>BB.top('graph.html')</script>
+<main id="main">
+<script>document.write(BB.ident('graph.html','concept B, knowledge graph'))</script>
+<div class="wrap">
+  <script>document.write(BB.strip(['years','saved','mrc','teams','ros2','scry']))</script>
+  <div class="gwrap" id="gwrap">
+    <section class="gpanel hp" aria-label="Career graph">
+      <div class="gcanvas" id="gcanvas">
+        <svg id="gsvg" role="group" aria-label="Interactive career graph of 42 projects, linked to 7 capability areas. Tab to enter, arrow keys move between nodes, Enter opens a project page or pins an area, Escape clears. Nodes can be dragged. The same content is in the list view." focusable="false"></svg>
+      </div>
+      <div class="echips" id="echips" role="group" aria-label="Employers and schools. Highlights their projects."><span class="elab">Employers</span></div>
+      <div class="glist" id="glist"></div>
+    </section>
+    <aside class="gaside" aria-label="Graph controls and readout">
+      <div class="gctl hp">
+        <div class="crow"><span class="lab">View</span><div class="tg" role="group" aria-label="View"><button type="button" data-view="graph">Graph</button><button type="button" data-view="list">List</button></div></div>
+        <div class="crow"><span class="lab">Lens</span><div class="tg" role="group" aria-label="Lens"><button type="button" data-lens="robotics" aria-pressed="false">Robotics</button><button type="button" data-lens="fullstack" aria-pressed="false">Full stack</button></div></div>
+        <div class="crow"><a class="skiplist" href="#glist" id="tolist">Skip to list view</a></div>
+      </div>
+      <div class="rd hp" id="rd" aria-live="polite"></div>
+      <ul class="legend hp" aria-label="Legend" id="legend"></ul>
+    </aside>
+  </div>
+</div>
+</main>
+<script>document.write(BB.foot('Prototype A7 &middot; concept B. Nodes and links are generated from data.js (42 projects). Gatik carries no figures.'))</script>
+<script src="graph.js"></script>
+</body>
+</html>

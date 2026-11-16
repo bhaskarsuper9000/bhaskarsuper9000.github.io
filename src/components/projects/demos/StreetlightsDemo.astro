@@ -1,0 +1,143 @@
+---
+import Panel from '../../site/Panel.astro';
+---
+<Panel as="section" class="demo" aria-labelledby="demo-h" data-demo>
+  <header class="demo__head">
+    <h2 id="demo-h">Try it: a toy street</h2>
+    <span class="cap">Illustrative simulation. Not the original system and not measured data.</span>
+  </header>
+  <div class="demo__stage"><canvas data-street role="img" aria-label="Animated street with lamps that brighten when a car or pedestrian passes and dim afterwards"></canvas></div>
+  <div class="demo__controls">
+    <button class="btn" type="button" data-act="car">Send a car</button>
+    <button class="btn" type="button" data-act="ped">Send a pedestrian</button>
+    <button class="btn" type="button" data-act="auto" aria-pressed="false">Random traffic</button>
+    <button class="btn" type="button" data-act="emerg" aria-pressed="false">Emergency: all on</button>
+    <button class="btn btn--ghost" type="button" data-act="reset">Reset</button>
+  </div>
+  <p class="demo__meter"><b data-saved>0%</b><small>Energy saved vs. lamps always at full power, in this toy model only. Dim level, ranges and timings are made up.</small></p>
+</Panel>
+
+<script>
+  // Toy model. Scene colours are fixed illustration colours (a night street), not theme tokens.
+  const DIM = 0.2, HOLD = 2.0;
+  const root = document.querySelector<HTMLElement>('[data-demo]')!;
+  const cv = root.querySelector<HTMLCanvasElement>('[data-street]')!;
+  const ctx = cv.getContext('2d')!;
+  const savedEl = root.querySelector<HTMLElement>('[data-saved]')!;
+
+  type Actor = { kind: 'car' | 'ped'; x: number; v: number; y: number };
+  type Lamp = { level: number; hold: number };
+  let W = 0, H = 0, N = 0, gap = 0, roadY = 0;
+  let lamps: Lamp[] = [], actors: Actor[] = [];
+  let saved = 0, base = 0, auto = false, emerg = false, nextSpawn = 2, t = 0, last: number | null = null;
+
+  const lampX = (i: number) => gap * (i + 0.5);
+
+  /** Size the scene to the container so lamps and cars keep a readable size on phones. */
+  function layout(): void {
+    const w = Math.round(cv.parentElement!.clientWidth);
+    if (w === W) return;
+    W = w;
+    N = W < 560 ? 6 : W < 900 ? 8 : 10;
+    H = W < 560 ? 250 : 320;
+    gap = W / N;
+    roadY = H * 0.68;
+    const dpr = window.devicePixelRatio || 1;
+    cv.width = W * dpr; cv.height = H * dpr;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    reset();
+  }
+  function reset(): void {
+    lamps = Array.from({ length: N }, () => ({ level: DIM, hold: 0 }));
+    actors = []; saved = 0; base = 0; t = 0; nextSpawn = 2;
+  }
+  function spawn(kind: Actor['kind']): void {
+    const dir = Math.random() < 0.5 ? 1 : -1;
+    const speed = kind === 'car' ? W * 0.22 : W * 0.05;
+    actors.push({ kind, x: dir > 0 ? -40 : W + 40, v: dir * speed, y: kind === 'car' ? roadY + 28 : roadY - 18 });
+  }
+  function step(dt: number): void {
+    t += dt;
+    actors.forEach((a) => (a.x += a.v * dt));
+    actors = actors.filter((a) => a.x > -80 && a.x < W + 80);
+    if (auto && t > nextSpawn) { spawn(Math.random() < 0.6 ? 'car' : 'ped'); nextSpawn = t + 1.2 + Math.random() * 2.5; }
+    let used = 0;
+    lamps.forEach((l, i) => {
+      const near = actors.some((a) => Math.abs(a.x - lampX(i)) < 1.5 * gap);
+      l.hold = near ? HOLD : Math.max(0, l.hold - dt);
+      l.level += ((emerg || l.hold > 0 ? 1 : DIM) - l.level) * Math.min(1, dt * 6);
+      used += l.level;
+    });
+    saved += (N - used) * dt; base += N * dt;
+  }
+  const rgba = (a: number) => /* amber lamp */ `rgba(240,180,41,${a})`;
+  function draw(): void {
+    ctx.clearRect(0, 0, W, H);
+    ctx.fillStyle = '#0e1420'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = '#1a2233'; ctx.fillRect(0, roadY - 40, W, 95);
+    ctx.fillStyle = '#26304a';
+    for (let x = 10; x < W; x += 70) ctx.fillRect(x, roadY + 8, 36, 4);
+    const top = H * 0.24, glow = Math.max(110, gap * 1.6);
+    lamps.forEach((l, i) => {
+      const x = lampX(i);
+      const g = ctx.createRadialGradient(x, top + 12, 4, x, top + 12, glow);
+      g.addColorStop(0, rgba(0.55 * l.level)); g.addColorStop(1, rgba(0));
+      ctx.fillStyle = g; ctx.fillRect(x - glow, top - 70, glow * 2, H);
+      ctx.fillStyle = '#3a4560'; ctx.fillRect(x - 2, top + 10, 4, roadY - top - 45);
+      ctx.fillStyle = rgba(0.25 + 0.75 * l.level); ctx.beginPath(); ctx.arc(x, top + 8, 9, 0, 7); ctx.fill();
+      ctx.fillStyle = '#9aa6bf'; ctx.font = '12px ui-monospace, monospace'; ctx.textAlign = 'center';
+      ctx.fillText(Math.round(l.level * 100) + '%', x, 22);
+    });
+    actors.forEach((a) => {
+      if (a.kind === 'car') {
+        ctx.fillStyle = '#c9d3ea'; ctx.fillRect(a.x - 28, a.y - 12, 56, 20);
+        ctx.fillStyle = '#e8eefc'; ctx.fillRect(a.x - 14, a.y - 22, 28, 12);
+        ctx.fillStyle = '#0e1420';
+        [-16, 16].forEach((d) => { ctx.beginPath(); ctx.arc(a.x + d, a.y + 9, 6, 0, 7); ctx.fill(); });
+      } else {
+        ctx.fillStyle = '#e8eefc'; ctx.beginPath(); ctx.arc(a.x, a.y - 16, 5, 0, 7); ctx.fill(); ctx.fillRect(a.x - 3, a.y - 10, 6, 16);
+      }
+    });
+    ctx.fillStyle = '#9aa6bf'; ctx.font = '12px system-ui, sans-serif'; ctx.textAlign = 'left';
+    ctx.fillText(`toy model: ${N} lamps, dim = ${Math.round(DIM * 100)}%`, 10, H - 10);
+    savedEl.textContent = base > 0 ? Math.round((100 * saved) / base) + '%' : '0%';
+  }
+
+  let visible = true;
+  function frame(ts: number): void {
+    if (visible) { if (last == null) last = ts; step(Math.min(0.05, (ts - last) / 1000)); draw(); }
+    last = ts;
+    requestAnimationFrame(frame);
+  }
+
+  root.querySelectorAll<HTMLButtonElement>('[data-act]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const act = b.dataset.act;
+      if (act === 'car' || act === 'ped') spawn(act);
+      else if (act === 'auto') { auto = !auto; b.setAttribute('aria-pressed', String(auto)); }
+      else if (act === 'emerg') { emerg = !emerg; b.setAttribute('aria-pressed', String(emerg)); }
+      else reset();
+    }),
+  );
+  new IntersectionObserver((e) => { visible = e[0].isIntersecting; }).observe(root);
+  new ResizeObserver(layout).observe(cv.parentElement!);
+  layout();
+  if (new URLSearchParams(location.search).get('demo') === 'open') { // pre-run state, for screenshots
+    actors.push({ kind: 'car', x: 0, v: W * 0.22, y: roadY + 28 }, { kind: 'ped', x: W * 0.63, v: -W * 0.05, y: roadY - 18 });
+    for (let i = 0; i < 80; i++) step(1 / 30);
+  }
+  requestAnimationFrame(frame);
+</script>
+
+<style>
+  .demo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; padding: 1.2rem; }
+  .demo__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.4rem 1rem; }
+  .demo__head h2 { font-size: 1.1rem; letter-spacing: 0.14em; }
+  .demo__stage { border: var(--line-w) solid var(--line-strong); line-height: 0; overflow: hidden; }
+  canvas { display: block; max-width: none; }
+  .demo__controls { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .demo__meter { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; }
+  .demo__meter b { font: 600 1.6rem var(--font-mono); color: var(--accent); text-shadow: var(--glow); }
+  .demo__meter small { flex: 1 1 16rem; font-size: var(--fs-xs); color: var(--text-2); }
+</style>

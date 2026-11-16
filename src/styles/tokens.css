@@ -1,0 +1,112 @@
+/* Design tokens: the only place raw values live. See docs/design-guidelines.md.
+   Visitor prefs set attributes on <html>: data-theme, data-font, data-size, data-accent, data-lens. */
+
+:root {
+  /* type */
+  --font-head: Bahnschrift, "DIN Alternate", "DIN 1451 Std", "Nimbus Sans Narrow", "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+  --font-body: Bahnschrift, "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, Consolas, monospace;
+  --fs-display: clamp(2.2rem, 3.4vw + 1rem, 3.6rem);
+  --fs-h1: clamp(1.7rem, 3.2vw + 1rem, 2.5rem);
+  --fs-h2: 1.45rem;
+  --fs-h3: 1.1rem;
+  --fs-lead: 1.14rem;
+  --fs-body: 1rem;
+  --fs-sm: 0.86rem;
+  --fs-xs: 0.72rem;
+  --lh: 1.6;
+  --lh-tight: 1.15;
+  --head-weight: 600;
+  --head-case: uppercase;
+  --track-head: 0.1em; /* headings */
+  --track-label: 0.16em; /* buttons, nav, small-caps labels */
+
+  /* space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.8rem;
+  --space-4: 1.25rem;
+  --space-5: 2rem;
+  --space-6: 3.2rem;
+  --pad: 1.25rem; /* page gutter */
+  --maxw: 76rem;
+  --measure: 40rem; /* reading width */
+  --navh: 3.6rem;
+  --scale: 1;
+
+  /* lines and shape: square corners, hairlines */
+  --radius: 0;
+  --line-w: 1px;
+  --line-w-strong: 2px;
+  --bracket-len: 14px;
+  --bracket-w: 2px;
+  --focus-w: 3px;
+
+  /* motion: subtle; zeroed by prefers-reduced-motion in base.css */
+  --dur-fast: 0.12s;
+  --dur: 0.25s;
+  --dur-slow: 0.45s;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* accent swatches (index = data-accent) and theme colours: dark is the default */
+  --sw0: #35e0ff; --sw1: #5dff9a; --sw2: #ffb938; --sw3: #ff7a45; --sw4: #80b4ff; --sw5: #ff70d3;
+  --accent: var(--sw0);
+  --on-accent: #031116;
+  --bg: #060b0f;
+  --bg-2: #0a1218;
+  --surface: rgb(8 20 27 / 0.82);
+  --surface-2: rgb(16 36 46 / 0.9);
+  --surface-solid: #08141b; /* for overlays that sit on top of content */
+  --text: #dcf2f7;
+  --text-2: #86adb8; /* secondary text, >= 4.5:1 on --bg */
+  --line: #17333d; /* hairlines, quiet */
+  --line-strong: #2a8397; /* borders, rulers */
+  --accent-soft: color-mix(in srgb, var(--accent) 13%, #08141b);
+  --focus: #fff;
+  --ok: #5dff9a;
+  --warn: #ffb938; /* confidential / caution */
+  --grid: color-mix(in srgb, var(--line-strong) 16%, transparent);
+  --glow: 0 0 18px -4px color-mix(in srgb, var(--accent) 60%, transparent);
+  --code-bg: #030a0e;
+  --code-text: #d6eef3;
+}
+
+html[data-theme="light"] {
+  --sw0: #006a82; --sw1: #087338; --sw2: #9c5200; --sw3: #b23a0f; --sw4: #1a58bd; --sw5: #a31f85;
+  --on-accent: #fff;
+  --bg: #e4ebef;
+  --bg-2: #d6e0e6;
+  --surface: #f4f8fa;
+  --surface-2: #e3ecf0;
+  --surface-solid: #f4f8fa;
+  --text: #0b2530;
+  --text-2: #38596a;
+  --line: #b3c5cd;
+  --line-strong: #2b7a8f;
+  --accent-soft: color-mix(in srgb, var(--accent) 10%, #f4f8fa);
+  --focus: #0b2530;
+  --ok: #087338;
+  --warn: #a45300;
+  --grid: color-mix(in srgb, var(--line-strong) 13%, transparent);
+  --glow: 0 0 0 transparent; /* no glow in light */
+  --code-bg: #0a1a22;
+}
+
+/* accent swatch: set by the settings panel */
+html[data-accent="0"] { --accent: var(--sw0); }
+html[data-accent="1"] { --accent: var(--sw1); }
+html[data-accent="2"] { --accent: var(--sw2); }
+html[data-accent="3"] { --accent: var(--sw3); }
+html[data-accent="4"] { --accent: var(--sw4); }
+html[data-accent="5"] { --accent: var(--sw5); }
+
+/* text size: rem everywhere, so this scales the whole page */
+html[data-size="s"] { --scale: 0.9; }
+html[data-size="l"] { --scale: 1.15; }
+html[data-size="xl"] { --scale: 1.32; }
+
+/* font choice; "instrument" (default) keeps the tokens above */
+html[data-font="sans"] { --font-head: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; --font-body: var(--font-head); --head-case: none; --track-head: -0.01em; }
+html[data-font="serif"] { --font-head: Georgia, "Iowan Old Style", "Palatino Linotype", "DejaVu Serif", serif; --font-body: var(--font-head); --head-case: none; --track-head: 0; }
+html[data-font="mono"] { --font-head: var(--font-mono); --font-body: var(--font-mono); --head-case: none; --track-head: -0.02em; }
+html[data-font="legible"] { --font-head: "Atkinson Hyperlegible", Verdana, Tahoma, "DejaVu Sans", sans-serif; --font-body: var(--font-head); --head-case: none; --track-head: 0; --lh: 1.8; }

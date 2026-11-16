@@ -1,0 +1,27 @@
+---
+// One resume line. With a project slug it links to /projects/<slug>/ and drives the reveal panel.
+import type { Bullet } from '../../data/resume';
+import { effectiveDisclosure, projectHref, type Project } from '../../lib/content';
+
+interface Props { item: Bullet; projects: Map<string, Project> }
+const { item, projects } = Astro.props;
+const project = item.slug ? projects.get(item.slug) : undefined;
+if (item.slug && !project) throw new Error(`resume: unknown project "${item.slug}"`);
+const marks = { text: '●', diagram: '◆', demo: '▶', 'write-up': '○' } as const;
+---
+<li class:list={['item', !project && 'item--plain']}>
+  {project ? (
+    <a href={projectHref(project.id)} data-reveal={project.id}>
+      {item.text}<span class="item__mk" aria-hidden="true">{marks[effectiveDisclosure(project)]}</span>
+    </a>
+  ) : item.text}
+</li>
+
+<style>
+  .item { position: relative; padding-left: 1.1rem; margin-top: 0.3rem; font-size: 0.93rem; }
+  .item::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.32rem; height: 0.32rem; background: var(--accent); transform: rotate(45deg); }
+  .item a { color: var(--text); text-decoration: none; padding: 0.1em 0.25em; margin: 0 -0.25em; border-bottom: var(--line-w) dashed var(--line-strong); box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background var(--dur-fast), border-color var(--dur-fast); }
+  .item a:hover, .item a.is-on { background: var(--accent-soft); border-bottom-style: solid; border-color: var(--accent); }
+  .item__mk { margin-left: 0.4em; font-size: 0.7em; color: var(--accent); opacity: 0.6; vertical-align: 0.1em; }
+  .item a:hover .item__mk, .item a:focus-visible .item__mk { opacity: 1; }
+</style>

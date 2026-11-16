@@ -1,0 +1,86 @@
+/* Shared components (used on 2+ pages). Page-specific layout lives in the component's own <style>.
+   Inventory and usage rules: docs/design-guidelines.md. */
+
+/* ---- panel: corner-bracket frame. Variants: --warn (confidential), --quiet (smaller brackets) ---- */
+.panel, .readout {
+  --c: var(--accent);
+  --cl: var(--bracket-len);
+  --cw: var(--bracket-w);
+  position: relative;
+  border: var(--line-w) solid var(--line);
+  background-color: var(--surface);
+  background-image: linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c)), linear-gradient(var(--c), var(--c));
+  background-repeat: no-repeat;
+  background-size: var(--cl) var(--cw), var(--cw) var(--cl), var(--cl) var(--cw), var(--cw) var(--cl), var(--cl) var(--cw), var(--cw) var(--cl), var(--cl) var(--cw), var(--cw) var(--cl);
+  background-position: 0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%;
+  box-shadow: var(--glow);
+  transition: background-color var(--dur-fast), border-color var(--dur-fast);
+}
+.panel { padding: 1.4rem; }
+.panel--warn { --c: var(--warn); }
+.panel--quiet { --c: var(--line-strong); --cl: 10px; --cw: 1px; box-shadow: none; }
+a.panel { display: block; color: var(--text); text-decoration: none; }
+a.panel:hover, a.panel:focus-visible { background-color: var(--accent-soft); border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+
+/* ---- readout tile: small instrument value. Variants: --warn, --emph ---- */
+.readout { --c: var(--line-strong); --cl: 7px; --cw: 1px; display: grid; gap: 0.1rem; padding: 0.4rem 0.7rem 0.45rem; box-shadow: none; font-variant-numeric: tabular-nums; }
+.readout__label { font: 600 0.6rem var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; color: var(--text-2); }
+.readout__value { font: 500 1.2rem / 1.1 var(--font-mono); color: var(--text); }
+.readout--emph { --c: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.readout--emph .readout__value { color: var(--accent); text-shadow: var(--glow); }
+.readout--warn { --c: var(--warn); }
+.readout--warn .readout__value { color: var(--warn); }
+
+/* ---- tick ruler: decorative graduation marks. Exactly one under the nav; one under each section head ---- */
+.tick-ruler { display: block; height: 12px; pointer-events: none; opacity: 0.7;
+  background: linear-gradient(90deg, var(--line-strong) 1px, transparent 1px) 0 100% / 8px 6px repeat-x, linear-gradient(90deg, var(--accent) 1px, transparent 1px) 0 100% / 40px 12px repeat-x; }
+
+/* ---- section head: number, title, meta, ruler ---- */
+.sec { padding: var(--space-6) 0; position: relative; }
+.sec-head { display: flex; align-items: center; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 1.8rem; }
+.sec-head__n { font: 700 1.5rem var(--font-head); letter-spacing: 0.06em; color: var(--accent); text-shadow: var(--glow); font-variant-numeric: tabular-nums; }
+.sec-head__t { font-size: 0.95rem; letter-spacing: 0.2em; }
+.sec-head__m { margin-left: auto; font: var(--fs-xs) var(--font-mono); color: var(--text-2); }
+.sec-head .tick-ruler { flex: 1 1 100%; margin-top: 0.3rem; }
+
+/* ---- page head: eyebrow, title, lead (top of every inner page) ---- */
+.page-head { padding: var(--space-5) 0 var(--space-4); display: grid; gap: 0.7rem; }
+.page-head__eyebrow { font: 600 var(--fs-xs) var(--font-head); text-transform: uppercase; letter-spacing: 0.24em; color: var(--accent); }
+.page-head__eyebrow::before { content: "\25B8\00a0\00a0"; color: var(--text-2); }
+.page-head__lead { font-size: var(--fs-lead); color: var(--text); max-width: var(--measure); line-height: 1.5; }
+
+/* ---- buttons: default, --primary, --ghost ---- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5em; min-height: 2.5rem; padding: 0.7em 1.1em; font: 600 0.8rem / 1.2 var(--font-head); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--text); background: transparent; border: var(--line-w) solid var(--line-strong); text-decoration: none; cursor: pointer; transition: background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast); }
+.btn:hover { background: var(--accent-soft); color: var(--accent); text-shadow: var(--glow); }
+.btn:active { background: var(--accent); color: var(--on-accent); transform: scale(0.97); }
+.btn--primary { background: var(--accent); color: var(--on-accent); border-color: var(--accent); box-shadow: var(--glow); }
+.btn--primary:hover { background: color-mix(in srgb, var(--accent) 82%, #fff); color: var(--on-accent); text-shadow: none; }
+.btn--ghost { border-color: transparent; }
+.btn[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ---- tag: stack / topic label ---- */
+.tag { display: inline-block; padding: 0.4em 0.6em; font: 500 0.7rem / 1 var(--font-head); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text); border: var(--line-w) solid var(--line-strong); }
+.tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+/* ---- badge: disclosure / status pill with a lit dot. Variants by tone ---- */
+.badge { display: inline-flex; align-items: center; gap: 0.45em; padding: 0.45em 0.7em; font: 700 0.7rem / 1 var(--font-head); text-transform: uppercase; letter-spacing: 0.14em; border: var(--line-w) solid currentColor; white-space: nowrap; color: var(--text-2); }
+.badge::before { content: ""; width: 0.5rem; height: 0.5rem; background: currentColor; border-radius: 50%; box-shadow: 0 0 8px currentColor; }
+.badge--text { color: var(--warn); }
+.badge--diagram, .badge--demo { color: var(--accent); }
+.badge--write-up { color: var(--text-2); }
+
+/* ---- filter chip: toggle button for lists ---- */
+.chip { display: inline-flex; align-items: center; gap: 0.5em; min-height: 2.2rem; padding: 0.4em 0.8em; font: 600 0.72rem / 1 var(--font-head); text-transform: uppercase; letter-spacing: 0.12em; color: var(--text); background: transparent; border: var(--line-w) solid var(--line-strong); cursor: pointer; transition: background var(--dur-fast), color var(--dur-fast); }
+.chip small { font: var(--fs-xs) var(--font-mono); color: var(--text-2); }
+.chip:hover { background: var(--accent-soft); color: var(--accent); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+.chip[aria-pressed="true"] small { color: inherit; }
+
+/* ---- breadcrumb / back link ---- */
+.crumbs { font: var(--fs-xs) var(--font-mono); letter-spacing: 0.04em; color: var(--text-2); }
+.crumbs a { color: var(--text-2); }
+.crumbs a:hover { color: var(--accent); }
+
+/* ---- figure with caption inside any panel/page ---- */
+.cap { font: var(--fs-xs) / 1.5 var(--font-mono); color: var(--text-2); }

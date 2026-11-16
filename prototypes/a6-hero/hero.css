@@ -32,7 +32,6 @@ html[data-theme=light] .pgrid{--g:color-mix(in srgb,var(--line-strong) 13%,trans
    linear-gradient(0deg,var(--bg) 0,color-mix(in srgb,var(--bg) 70%,transparent) 6.5rem,transparent 12rem),
    linear-gradient(180deg,color-mix(in srgb,var(--bg) 70%,transparent) 0,transparent 5rem)}
 .rulers .ru{position:absolute;pointer-events:none;opacity:.55}
-.ru-t{left:0;right:0;top:0;height:9px;background:linear-gradient(90deg,var(--line-strong) 1px,transparent 1px) 0 0/12px 4px repeat-x,linear-gradient(90deg,var(--accent) 1px,transparent 1px) 0 0/120px 9px repeat-x}
 .ru-r{top:0;bottom:0;right:0;width:9px;background:linear-gradient(180deg,var(--line-strong) 1px,transparent 1px) 100% 0/4px 12px repeat-y,linear-gradient(180deg,var(--accent) 1px,transparent 1px) 100% 0/9px 120px repeat-y}
 .stage-play{position:absolute;left:50%;top:44%;transform:translateX(-50%);z-index:4;background:color-mix(in srgb,var(--bg) 80%,transparent)}
 .stage-play[hidden]{display:none}
@@ -46,30 +45,29 @@ html[data-theme=light] .pgrid{--g:color-mix(in srgb,var(--line-strong) 13%,trans
 .hero .hero-pos{font-size:1.14rem;line-height:1.5;padding:.85rem 1.05rem;max-width:33rem;min-height:5.4rem}
 html[data-theme=light] .hero .hero-pos{background-color:color-mix(in srgb,var(--surface) 92%,transparent)}
 
-/* lens: segmented radio group */
-.lens{border:0;margin:0;padding:0;min-width:0;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
-.lens legend{float:left;padding:0;margin-right:.2rem;font:600 .7rem var(--font-head);text-transform:uppercase;letter-spacing:.2em;color:var(--text-2)}
-.lens legend::after{content:" \25B8";color:var(--accent)}
-.lens-row{display:flex;flex-wrap:wrap;border:1px solid var(--line-strong);background:color-mix(in srgb,var(--bg) 70%,transparent)}
-.lens-row input{position:absolute;opacity:0;width:1px;height:1px}
-.lens-row label{cursor:pointer;padding:.42rem .72rem;font:600 .72rem var(--font-head);text-transform:uppercase;letter-spacing:.13em;color:var(--text);border-right:1px solid var(--line);min-height:2.1rem;display:flex;align-items:center;transition:background .12s,color .12s}
-.lens-row label:last-of-type{border-right:0}
-.lens-row label:hover{color:var(--accent);background:var(--accent-soft)}
-.lens-row input:checked+label{background:var(--accent);color:var(--on-accent)}
-.lens-row input:focus-visible+label{outline:3px solid var(--focus);outline-offset:2px;position:relative;z-index:1}
+/* lens: two-way toggle; pressing the active one returns to the general view */
+.lens{display:inline-flex;align-self:start;justify-self:start;border:1px solid var(--line-strong);background:color-mix(in srgb,var(--bg) 70%,transparent)}
+.lens-b{all:unset;box-sizing:border-box;cursor:pointer;display:inline-flex;align-items:center;gap:.5em;min-height:2.2rem;padding:.4rem .9rem;font:600 .74rem var(--font-head);text-transform:uppercase;letter-spacing:.15em;color:var(--text);transition:background .12s,color .12s}
+.lens-b+.lens-b{border-left:1px solid var(--line-strong)}
+.lens-b::before{content:"";width:.5rem;height:.5rem;border:1px solid currentColor;transform:rotate(45deg) scale(.85);opacity:.7}
+.lens-b:hover{color:var(--accent);background:var(--accent-soft)}
+.lens-b[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.lens-b[aria-pressed=true]::before{background:currentColor;opacity:1}
+.lens-b:focus-visible{outline:3px solid var(--focus);outline-offset:2px;position:relative;z-index:1}
 
-/* proof points */
-.proofs{display:grid;gap:.45rem;margin:0;padding:0;list-style:none}
-.proof{display:grid;grid-template-columns:6.4rem 1fr auto;grid-template-rows:auto auto;column-gap:.9rem;align-items:baseline;padding:.55rem .8rem .6rem;text-decoration:none;color:var(--text);border:1px solid var(--line);border-left:2px solid var(--accent);background:color-mix(in srgb,var(--bg) 78%,transparent);transition:background .12s,border-color .12s}
+/* proof points: 2 x 2 */
+.proofs{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin:0;padding:0;list-style:none}
+.proofs li{display:flex}
+.proof{flex:1;display:grid;grid-template-columns:1fr auto;align-content:start;row-gap:.2rem;padding:.55rem .75rem .6rem;text-decoration:none;color:var(--text);border:1px solid var(--line);border-left:2px solid var(--accent);background:color-mix(in srgb,var(--bg) 80%,transparent);transition:background .12s,border-color .12s}
 html[data-theme=light] .proof{background:color-mix(in srgb,var(--surface) 88%,transparent)}
 .proof:hover,.proof:focus-visible{background:var(--accent-soft);border-color:var(--accent)}
-.pf-n{grid-row:1/3;align-self:center;font:600 1.35rem/1 var(--font-mono);color:var(--accent);letter-spacing:-.01em;text-shadow:var(--glow);white-space:nowrap}
+.pf-n{font:600 1.3rem/1.05 var(--font-mono);color:var(--accent);letter-spacing:-.01em;text-shadow:var(--glow);white-space:nowrap}
 .pf-n small{font-size:.62em;color:var(--text-2);margin-left:.1em}
-.pf-t{font:600 .8rem var(--font-head);text-transform:uppercase;letter-spacing:.12em}
-.pf-w{grid-row:1;grid-column:3;font:.66rem var(--font-mono);color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
-.pf-d{grid-column:2/4;font-size:.84rem;line-height:1.4;color:var(--text-2);margin-top:.15rem}
+.pf-w{align-self:center;font:.62rem var(--font-mono);color:var(--text-2);text-transform:uppercase;letter-spacing:.08em}
+.pf-t{grid-column:1/-1;font:600 .74rem/1.3 var(--font-head);text-transform:uppercase;letter-spacing:.11em}
+.pf-d{grid-column:1/-1;font-size:.8rem;line-height:1.38;color:var(--text-2)}
 .proofs.swap li{animation:pf-in .38s ease both}
-.proofs.swap li:nth-child(2){animation-delay:.05s}.proofs.swap li:nth-child(3){animation-delay:.1s}
+.proofs.swap li:nth-child(2){animation-delay:.04s}.proofs.swap li:nth-child(3){animation-delay:.08s}.proofs.swap li:nth-child(4){animation-delay:.12s}
 @keyframes pf-in{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
 .hero-pos.swap{animation:pf-in .38s ease both}
 .hero-cta{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.2rem}
@@ -121,11 +119,11 @@ html[data-theme=light] .chart{background:color-mix(in srgb,var(--surface) 90%,tr
 .chart .ch-w{margin-left:auto;font-family:var(--font-mono);letter-spacing:.04em;text-transform:none}
 .chart canvas{display:block;width:100%;height:3.6rem}
 .ro-cap{font:.6rem/1.45 var(--font-mono);color:var(--text-2);margin:.05rem .1rem 0}
-/* data lens pulls the chart forward */
-html[data-lens=data] .readouts .chart{order:-1;border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
-html[data-lens=data] .readouts .ro-head{order:-2}
-html[data-lens=data] .chart canvas{height:6.2rem}
-html[data-lens=data] .chart figcaption{color:var(--text)}
+/* full-stack lens pulls the chart forward */
+html[data-lens=fullstack] .readouts .chart{order:-1;border-color:color-mix(in srgb,var(--accent) 55%,var(--line))}
+html[data-lens=fullstack] .readouts .ro-head{order:-2}
+html[data-lens=fullstack] .chart canvas{height:4.8rem}
+html[data-lens=fullstack] .chart figcaption{color:var(--text)}
 
 /* 3D labels */
 .tags3d{position:absolute;inset:0;pointer-events:none;overflow:hidden}
@@ -234,10 +232,8 @@ html.bare .hero-grid,html.bare .scrim,html.bare .era-cap{visibility:hidden}
   .track{height:2.4rem}
   .era-tick{font-size:0;letter-spacing:0}
   .era-tick b{font-size:.6rem}
-  .lens{order:8;margin:1.1rem var(--pad) 0;display:block}
-  .lens legend{float:none;margin-bottom:.4rem}
-  .lens-row{display:grid;grid-template-columns:repeat(5,auto)}
-  .lens-row label{padding:.5rem .45rem;justify-content:center;letter-spacing:.06em;font-size:.66rem;min-height:2.6rem}
+  .lens{order:8;margin:1.1rem var(--pad) 0}
+  .lens-b{min-height:2.6rem}
   .proofs{order:9;margin:.8rem var(--pad) 0}
   .hero-cta{order:10;margin:1rem var(--pad) 1.6rem}
   .rulers{display:none}
@@ -247,13 +243,20 @@ html.bare .hero-grid,html.bare .scrim,html.bare .era-cap{visibility:hidden}
   .plist .prow::before{grid-row:1/4;grid-column:1}
 }
 @media (max-width:420px){
-  .proof{grid-template-columns:4.9rem 1fr;padding:.5rem .6rem}
-  .pf-n{font-size:1.1rem}
-  .pf-w{display:none}
-  .pf-d{grid-column:2}
+  .proofs{grid-template-columns:1fr}
+  .pf-n{font-size:1.15rem}
 }
 @media (prefers-reduced-motion:reduce){.ro-live i{animation:none}}
 .sec .sec-n::after{content:"/03"}
 html[data-theme=dark] .sp{background-color:#08141b}html[data-theme=light] .sp{background-color:#f4f8fa}
 .stage-play{left:62%;top:62%}@media (max-width:860px){.stage-play{left:50%;top:40%}}
 .static-mode .ro-live{font-size:0}.static-mode .ro-live::after{content:"Still";font-size:.6rem}
+
+/* rolling title: the slot eases to each word's width so the rest of the line slides */
+.hero .eyebrow::before{content:"\25B8  "}
+.roll{display:inline-block;vertical-align:bottom;overflow:hidden;white-space:nowrap;color:var(--text);transition:width .4s ease}
+.roll-meas{position:absolute;visibility:hidden;white-space:nowrap;pointer-events:none}
+.eb-v{white-space:nowrap}
+
+.modes{grid-template-columns:repeat(3,1fr)}
+@media (max-width:860px){.modes{grid-template-columns:1fr}}

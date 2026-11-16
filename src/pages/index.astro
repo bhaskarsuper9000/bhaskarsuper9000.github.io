@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Capabilities from '../components/home/Capabilities.astro';
+import ExploreLinks from '../components/home/ExploreLinks.astro';
+import { getEras, getProjects, topProjects } from '../lib/content';
+
+const [eras, projects] = await Promise.all([getEras(), getProjects()]);
+const proofSets = {
+  all: topProjects(projects, 'all'),
+  robotics: topProjects(projects, 'robotics'),
+  fullstack: topProjects(projects, 'fullstack'),
+};
+---
+<BaseLayout>
+  <Hero eras={eras} proofSets={proofSets} />
+  <Capabilities projects={projects} />
+  <ExploreLinks />
+</BaseLayout>

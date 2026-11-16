@@ -1,0 +1,44 @@
+---
+import '../styles/tokens.css';
+import '../styles/base.css';
+import '../styles/components.css';
+import { bootLens, bootPrefs } from '../scripts/boot';
+import { defaultLens } from '../data/lenses';
+import { site } from '../data/site';
+import Nav from '../components/site/Nav.astro';
+import Footer from '../components/site/Footer.astro';
+import SettingsPanel from '../components/site/SettingsPanel.astro';
+
+interface Props { title?: string; description?: string; type?: 'website' | 'article'; noindex?: boolean }
+const { title, description = site.description, type = 'website', noindex = false } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : site.title;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+// Runs in <head> before first paint so theme, font, size, accent and lens never flash.
+const boot = `(${bootPrefs})();(${bootLens})();`;
+---
+<!doctype html>
+<html lang="en" data-theme="dark" data-font="instrument" data-size="m" data-accent="0" data-lens={defaultLens}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta name="color-scheme" content="dark light" />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name}: blog`} href="/rss.xml" />
+    <script is:inline set:html={boot} />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Nav />
+    <main id="main"><slot /></main>
+    <Footer />
+    <SettingsPanel />
+  </body>
+</html>

@@ -1,0 +1,45 @@
+---
+import { capabilities } from '../../data/lenses';
+import { projectHref, type Project } from '../../lib/content';
+import SectionHead from '../site/SectionHead.astro';
+
+interface Props { projects: Project[] }
+const { projects } = Astro.props;
+const byId = new Map(projects.map((p) => [p.id, p]));
+const find = (slug: string) => {
+  const p = byId.get(slug);
+  if (!p) throw new Error(`capabilities: unknown project "${slug}"`);
+  return p;
+};
+---
+<section class="sec" aria-labelledby="good-h">
+  <div class="wrap">
+    <SectionHead n="01" title="What I'm good at" meta="six areas · two projects each" id="good-h" />
+    <ul class="caps">
+      {capabilities.map((c) => (
+        <li class="panel panel--quiet cap-item" data-lenses={c.lenses.join(' ')}>
+          <h3>{c.title}</h3>
+          <p>{c.blurb}</p>
+          <p class="cap-item__links">
+            {c.projects.map((s) => <a href={projectHref(s)}>{find(s).data.metric ? `${find(s).data.title}, ${find(s).data.metric?.value}` : find(s).data.title}</a>)}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .caps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .cap-item { padding: 1rem 1.1rem; }
+  .cap-item h3 { font-size: 0.95rem; letter-spacing: 0.14em; margin-bottom: 0.45rem; }
+  .cap-item p { font-size: 0.9rem; color: var(--text-2); }
+  .cap-item__links { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; margin-top: 0.6rem; }
+  .cap-item__links a { font: 0.78rem var(--font-mono); }
+  /* highlight the areas that match the active lens */
+  :global(html[data-lens="robotics"]) .cap-item[data-lenses~="robotics"],
+  :global(html[data-lens="fullstack"]) .cap-item[data-lenses~="fullstack"] { --c: var(--accent); --cl: 14px; border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); background-color: var(--accent-soft); }
+  :global(html[data-lens="robotics"]) .cap-item[data-lenses~="robotics"] h3,
+  :global(html[data-lens="fullstack"]) .cap-item[data-lenses~="fullstack"] h3 { color: var(--accent); }
+  @media (max-width: 860px) { .caps { grid-template-columns: 1fr; } }
+</style>

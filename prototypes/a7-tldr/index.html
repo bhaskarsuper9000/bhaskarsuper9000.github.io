@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-default-theme="dark" data-swatches="Cyan,Green,Amber,Orange,Sky,Magenta">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A7: two TL;DR resume concepts | Bhaskar Bandyopadhyay</title>
+<script src="settings.js"></script>
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="tldr.css">
+<style>
+.pick{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin:1.2rem 0 2rem}
+.pc{display:grid;grid-template-rows:auto auto 1fr auto;gap:.7rem;padding:1.1rem;color:var(--text);text-decoration:none;--cl:14px}
+.pc:hover,.pc:focus-visible{background-color:var(--accent-soft);border-color:var(--accent)}
+.pc .n{font:700 .8rem var(--font-mono);color:var(--accent)}
+.pc h2{font-size:1.3rem;letter-spacing:.12em}
+.pc img{width:100%;height:auto;display:block;border:1px solid var(--line)}
+.pc p{font-size:.9rem;line-height:1.5}
+.pc .t{font:.78rem/1.5 var(--font-mono);color:var(--text-2)}
+.pc .t b{color:var(--text);font-weight:600}
+.pc .go{font:600 .75rem var(--font-head);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.lead{max-width:50rem;color:var(--text-2)}
+@media(max-width:860px){.pick{grid-template-columns:1fr}}
+</style>
+<script src="data.js"></script>
+<script src="shell.js"></script>
+</head>
+<body>
+<script>BB.top('index.html')</script>
+<main id="main" class="wrap">
+  <p class="eyebrow" style="padding-top:1.4rem">Prototype A7</p>
+  <h1 style="font-size:2rem;letter-spacing:.1em;margin:.3rem 0 .6rem">TL;DR resume: two concepts</h1>
+  <p class="lead">Same data (<code>data.js</code>: 42 projects, 7 areas, 7 employers and schools), same HUD language, same settings panel. Every figure, tile, node and mark links to a project page. Pick one to compare.</p>
+  <div class="pick">
+    <a class="pc hp" href="bento.html"><span class="n">A</span><h2>Flat bento</h2>
+      <img src="shots/bento-rest-1440.png" alt="Concept A at rest: a grid of number tiles">
+      <p>Sixteen instrument tiles: big number, label, tiny gauge or ruler. Hover or focus a tile for its breakdown; each line links to a project.</p>
+      <p class="t"><b>Best at:</b> 20-second scan, phones, accessibility.<br><b>Gives up:</b> shows no relationships; least surprising.</p><span class="go">Open concept A &rarr;</span></a>
+    <a class="pc hp" href="graph.html"><span class="n">B</span><h2>Knowledge graph</h2>
+      <img src="shots/graph2-rest-1440.png" alt="Concept B: force-layout graph with all 42 projects visible">
+      <p>You at the centre, capability areas around you, all 42 projects visible and draggable. Employer chips highlight their projects.</p>
+      <p class="t"><b>Best at:</b> memorability, showing connections.<br><b>Gives up:</b> needs interaction before it says much; heaviest on touch and for assistive tech.</p><span class="go">Open concept B &rarr;</span></a>
+  </div>
+  <p class="lab">Params: <code>?theme=light|dark &amp;accent=0-5</code> &middot; A <code>?open=saved|mrc|years|teams|ros2|scry|awards|papers|stack|people|edu</code> &middot; B <code>?focus=&lt;id&gt; &amp;area=&lt;id&gt; &amp;emp=&lt;id&gt; &amp;lens=robotics|fullstack &amp;view=list</code></p>
+</main>
+<script>document.write(BB.foot('Prototype A7. Design language from A6 (instrument panel / HUD).'))</script>
+</body>
+</html>

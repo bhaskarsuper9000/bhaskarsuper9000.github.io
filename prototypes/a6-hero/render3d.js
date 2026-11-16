@@ -1,8 +1,9 @@
-/* render3d.js: draws Sim items with three.js. Classic script; THREE is passed in after the
-   ES module has been imported from the CDN, so the page works from file:// as well. */
+/* render3d.js: BB.render3d.create(THREE, canvas, BB.sim) draws sim items with three.js.
+   THREE is passed in (imported from the CDN by hero.js) so this stays a classic script. */
 (function () {
   'use strict';
-  window.Render3D = function (THREE, canvas, Sim) {
+  var BB = window.BB = window.BB || {};
+  BB.render3d = { create: function (THREE, canvas, Sim) {
     var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: 'low-power' });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.setClearColor(0x000000, 0);
@@ -145,5 +146,5 @@
         return renderer.info.render;
       }
     };
-  };
+  } };
 })();

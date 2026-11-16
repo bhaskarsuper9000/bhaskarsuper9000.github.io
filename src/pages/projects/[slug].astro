@@ -1,0 +1,87 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Panel from '../../components/site/Panel.astro';
+import DisclosureBadge from '../../components/projects/DisclosureBadge.astro';
+import { registry } from '../../components/projects/registry';
+import { effectiveDisclosure, getEras, getProjects, kindLabels, projectHref } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const projects = await getProjects(); // newest first
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: { project, later: projects[i - 1], earlier: projects[i + 1] },
+  }));
+}
+
+const { project, later, earlier } = Astro.props;
+const { data } = project;
+const eras = await getEras();
+const era = eras.find((e) => e.id === data.era.id)!;
+const disclosure = effectiveDisclosure(project);
+const Interactive = (disclosure === 'demo' || disclosure === 'diagram') && data.component ? registry[data.component] : undefined;
+const { Content } = await render(project);
+const hasBody = !!project.body?.trim();
+const role = data.role ?? era.data.role;
+---
+<BaseLayout title={data.title} description={data.summary}>
+  <article class="wrap proj">
+    <p class="crumbs"><a href="/projects/">Projects</a> / <a href={`/projects/#era-${era.id}`}>{era.data.title}, {era.data.years}</a></p>
+
+    <header class="proj__head">
+      <div class="proj__badges"><DisclosureBadge disclosure={disclosure} /><span class="label">{kindLabels[data.kind]}</span></div>
+      <h1>{data.title}</h1>
+      <p class="page-head__lead">{data.summary}</p>
+      {data.metric && (
+        <div class="readout readout--emph proj__metric"><span class="readout__label">{data.metric.label}</span><b class="readout__value">{data.metric.value}</b></div>
+      )}
+    </header>
+
+    <Panel tone="quiet" class="facts">
+      <dl>
+        <div><dt>Year</dt><dd>{data.year}</dd></div>
+        {role && <div><dt>Role</dt><dd>{role}</dd></div>}
+        {data.stack.length > 0 && <div><dt>Stack</dt><dd><ul class="tags">{data.stack.map((s) => <li class="tag">{s}</li>)}</ul></dd></div>}
+        {data.links.length > 0 && <div><dt>Links</dt><dd class="facts__links">{data.links.map((l) => <a href={l.url}>{l.label}</a>)}</dd></div>}
+      </dl>
+    </Panel>
+
+    {disclosure === 'text' && (
+      <Panel tone="warn" class="notice">
+        <p class="label">Confidential</p>
+        <p><strong>Details are confidential.</strong> This is work for an employer, so there are no screenshots, diagrams or demos of it. The summary above is all I can share. I am happy to talk about it in general terms.</p>
+      </Panel>
+    )}
+
+    {Interactive && <div class="proj__interactive"><Interactive /></div>}
+
+    {hasBody && <div class="prose proj__body"><Content /></div>}
+
+    <nav class="pn" aria-label="Neighbouring projects">
+      {earlier ? <a class="panel" href={projectHref(earlier.id)}><small>&larr; Earlier</small><span>{earlier.data.title}</span><em>{earlier.data.year}</em></a> : <span />}
+      {later ? <a class="panel pn__later" href={projectHref(later.id)}><small>Later &rarr;</small><span>{later.data.title}</span><em>{later.data.year}</em></a> : <span />}
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .proj { padding-top: var(--space-5); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .proj__head { display: grid; gap: 0.9rem; justify-items: start; }
+  .proj__badges { display: flex; align-items: center; gap: 1rem; }
+  .proj__metric { padding: 0.6rem 1rem; }
+  .proj__metric .readout__value { order: -1; font-size: 1.8rem; }
+  .facts { padding: 1rem 1.2rem; }
+  .facts dl { display: grid; gap: 0.7rem; }
+  .facts dl > div { display: grid; grid-template-columns: 6rem 1fr; gap: 1rem; align-items: baseline; }
+  .facts dt { font: 600 var(--fs-xs) var(--font-head); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--text-2); }
+  .facts__links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.2rem; }
+  .notice { display: grid; gap: 0.5rem; padding: 1.1rem 1.3rem; max-width: var(--measure); }
+  .notice .label { color: var(--warn); }
+  .proj__body { margin-top: var(--space-3); }
+  .pn { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: var(--space-5); }
+  .pn a { display: grid; gap: 0.2rem; padding: 0.9rem 1.1rem; }
+  .pn small { font: 600 var(--fs-xs) var(--font-head); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--accent); }
+  .pn em { font: normal var(--fs-xs) var(--font-mono); color: var(--text-2); }
+  .pn__later { text-align: right; }
+  @media (max-width: 520px) { .facts dl > div { grid-template-columns: 1fr; gap: 0.2rem; } .pn { grid-template-columns: 1fr; } .pn__later { text-align: left; } }
+</style>

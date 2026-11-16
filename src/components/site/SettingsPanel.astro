@@ -1,0 +1,64 @@
+---
+// Display settings popover. Behaviour: scripts/settings.ts. Persistence: scripts/boot.ts.
+import Panel from './Panel.astro';
+
+const groups = [
+  { name: 'theme', legend: 'Theme', kind: 'seg', items: [['light', 'Light'], ['dark', 'Dark'], ['system', 'System']] },
+  { name: 'font', legend: 'Font', kind: 'seg', items: [['instrument', 'Instrument'], ['sans', 'Sans'], ['serif', 'Serif'], ['mono', 'Mono'], ['legible', 'Easy read']] },
+  { name: 'size', legend: 'Text size', kind: 'size', items: [['s', 'Small'], ['m', 'Default'], ['l', 'Large'], ['xl', 'Extra large']] },
+  { name: 'accent', legend: 'Accent colour', kind: 'swatch', items: ['Cyan', 'Green', 'Amber', 'Orange', 'Sky', 'Magenta'].map((n, i) => [String(i), n]) },
+];
+---
+<Panel as="div" class="sp" id="settings-panel" role="dialog" aria-label="Display settings" hidden>
+  <div class="sp__head">
+    <h2>Display settings</h2>
+    <button class="sp__close" type="button" data-settings-close aria-label="Close settings">×</button>
+  </div>
+  {groups.map((g) => (
+    <fieldset class={`sp__group sp__group--${g.kind}`}>
+      <legend>{g.legend}</legend>
+      <div class="sp__row">
+        {g.items.map(([value, label], i) => (
+          <>
+            <input type="radio" name={g.name} id={`sp-${g.name}-${value}`} value={value} />
+            <label for={`sp-${g.name}-${value}`} class="sp__opt" title={label}>
+              {g.kind === 'swatch' ? <span class="sp__dot" style={`--i: var(--sw${i})`} /> : g.kind === 'size' ? <span class={`sp__a sp__a--${value}`} aria-hidden="true">A</span> : label}
+              {g.kind !== 'seg' && <span class="vh">{label}</span>}
+            </label>
+          </>
+        ))}
+      </div>
+    </fieldset>
+  ))}
+  <div class="sp__foot">
+    <button type="button" class="btn btn--ghost" data-settings-reset>Reset to defaults</button>
+    <span class="cap">Saved on this device</span>
+  </div>
+</Panel>
+
+<script>
+  import '../../scripts/settings';
+</script>
+
+<style is:global>
+  .sp { position: fixed; z-index: 60; top: 4.4rem; right: max(0.8rem, calc((100vw - var(--maxw)) / 2 + var(--pad))); width: min(21rem, calc(100vw - 1.6rem)); max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem 1.1rem 1.1rem; background-color: var(--surface-solid); border-color: var(--line-strong); font: var(--fs-sm) / 1.4 var(--font-body); letter-spacing: 0; word-spacing: 0; text-transform: none; }
+  .sp[hidden] { display: none; }
+  .sp__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+  .sp__head h2 { font-size: var(--fs-body); letter-spacing: 0.16em; }
+  .sp__close { width: 2rem; height: 2rem; display: grid; place-items: center; font-size: 1.4rem; color: var(--text); background: none; border: 0; cursor: pointer; }
+  .sp__close:hover { color: var(--accent); }
+  .sp__group { border: 0; margin: 0 0 0.9rem; padding: 0; min-width: 0; }
+  .sp__group legend { padding: 0; margin-bottom: 0.35rem; font: 600 var(--fs-xs) var(--font-head); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--text-2); }
+  .sp__row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .sp__row input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .sp__opt { display: inline-flex; align-items: center; justify-content: center; min-height: 2.2rem; padding: 0.45em 0.75em; cursor: pointer; color: var(--text); border: var(--line-w) solid var(--line-strong); font: 600 var(--fs-sm) var(--font-head); text-transform: uppercase; letter-spacing: 0.1em; }
+  .sp__opt:hover { background: var(--accent-soft); }
+  .sp__row input:checked + .sp__opt { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
+  .sp__row input:focus-visible + .sp__opt { outline: var(--focus-w) solid var(--focus); outline-offset: 2px; }
+  .sp__a { font-family: var(--font-body); font-weight: 700; line-height: 1; text-transform: none; }
+  .sp__a--s { font-size: 0.8rem; } .sp__a--m { font-size: 1rem; } .sp__a--l { font-size: 1.2rem; } .sp__a--xl { font-size: 1.45rem; }
+  .sp__group--swatch .sp__opt { width: 2.4rem; height: 2.4rem; padding: 0; border-radius: 50%; border-color: transparent; }
+  .sp__group--swatch input:checked + .sp__opt { background: transparent; border-color: var(--text); }
+  .sp__dot { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--i); border: var(--line-w) solid var(--line-strong); }
+  .sp__foot { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+</style>

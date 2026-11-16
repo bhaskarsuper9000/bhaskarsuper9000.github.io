@@ -1,0 +1,11 @@
+---
+import TickRuler from './TickRuler.astro';
+interface Props { n: string; title: string; meta?: string; id?: string }
+const { n, title, meta, id } = Astro.props;
+---
+<header class="sec-head">
+  <span class="sec-head__n">{n}</span>
+  <h2 class="sec-head__t" id={id}>{title}</h2>
+  {meta && <span class="sec-head__m">{meta}</span>}
+  <TickRuler />
+</header>

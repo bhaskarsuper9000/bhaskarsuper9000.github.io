@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHead from '../../components/site/PageHead.astro';
+import PostRow from '../../components/blog/PostRow.astro';
+import { getPosts } from '../../lib/content';
+
+const posts = await getPosts();
+---
+<BaseLayout title="Blog" description="Occasional articles by Bhaskar Bandyopadhyay.">
+  <div class="wrap">
+    <PageHead eyebrow="Blog" title="Occasional articles" lead="Notes on things I build and learn. Newest first." />
+    {posts.length === 0 ? <p class="muted">Nothing here yet.</p> : <ul class="posts">{posts.map((p) => <PostRow post={p} />)}</ul>}
+  </div>
+</BaseLayout>
+
+<style>
+  .posts { display: grid; gap: 1rem; margin-top: var(--space-3); }
+</style>

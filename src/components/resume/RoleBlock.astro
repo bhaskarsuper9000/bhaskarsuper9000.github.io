@@ -1,0 +1,35 @@
+---
+import type { Role } from '../../data/resume';
+import type { Project } from '../../lib/content';
+import Panel from '../site/Panel.astro';
+import ResumeItem from './ResumeItem.astro';
+
+interface Props { role: Role; projects: Map<string, Project> }
+const { role, projects } = Astro.props;
+---
+<Panel as="article" tone={role.confidential ? 'warn' : undefined} class="role" id={role.id}>
+  <details open data-fold>
+    <summary>
+      <h3>{role.org} <span>· {role.title}</span></h3>
+      {role.confidential && <span class="badge badge--text">Confidential</span>}
+      <time>{role.dates}</time>
+    </summary>
+    <p class="role__hl">{role.headline}</p>
+    <ul>{role.bullets.map((b) => <ResumeItem item={b} projects={projects} />)}</ul>
+  </details>
+</Panel>
+
+<style>
+  .role { padding: 1.1rem 1.3rem; }
+  summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 0.9rem; cursor: pointer; list-style: none; position: relative; padding-left: 1.6rem; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "+"; position: absolute; left: 0.2rem; top: 0; font: 700 1rem var(--font-mono); color: var(--accent); }
+  details[open] > summary::before { content: "\2212"; }
+  summary h3 { font-size: 1.05rem; letter-spacing: 0.1em; }
+  summary h3 span { font-weight: 400; color: var(--text-2); letter-spacing: 0.04em; text-transform: none; }
+  summary time { margin-left: auto; font: var(--fs-xs) var(--font-mono); color: var(--text-2); }
+  summary:hover h3 { color: var(--accent); }
+  .role__hl { margin: 0.5rem 0 0.4rem 1.6rem; font-size: 0.88rem; color: var(--text-2); }
+  ul { margin-left: 1.6rem; }
+  @media (max-width: 520px) { summary time { margin-left: 0; flex-basis: 100%; } .role { padding: 1rem; } }
+</style>

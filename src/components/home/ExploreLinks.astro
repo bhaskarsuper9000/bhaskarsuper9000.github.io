@@ -1,0 +1,37 @@
+---
+import SectionHead from '../site/SectionHead.astro';
+const items = [
+  { n: '01', title: 'Resume', text: 'One page. Hover, focus or tap a line to see the project behind it.', href: '/resume/' },
+  { n: '02', title: 'Projects', text: 'Everything I have built, newest first, with filters.', href: '/projects/' },
+  { n: '03', title: 'Blog', text: 'Occasional articles.', href: '/blog/' },
+];
+---
+<section class="sec" aria-labelledby="explore-h">
+  <div class="wrap">
+    <SectionHead n="02" title="Explore" meta="pick one" id="explore-h" />
+    <ul class="explore">
+      {items.map((i) => (
+        <li>
+          <a class="panel explore__card" href={i.href}>
+            <span class="explore__n">{i.n}</span>
+            <strong>{i.title}</strong>
+            <span>{i.text}</span>
+            <span class="explore__go" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .explore { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .explore > li { display: flex; }
+  .explore__card { flex: 1; display: grid; grid-template-columns: 3.2rem 1fr; grid-template-rows: auto 1fr auto; column-gap: 0.9rem; row-gap: 0.4rem; padding: 1.1rem; }
+  .explore__n { grid-row: 1; width: 3.2rem; height: 3.2rem; border-radius: 50%; display: grid; place-items: center; font: 700 0.85rem var(--font-mono); background: radial-gradient(circle, var(--surface-solid) 0 58%, transparent 60%), conic-gradient(from 225deg, var(--accent) 0 270deg, var(--line) 270deg 360deg); }
+  .explore__card strong { align-self: center; font: var(--head-weight) 1.15rem var(--font-head); text-transform: var(--head-case); letter-spacing: 0.14em; }
+  .explore__card:hover strong { color: var(--accent); }
+  .explore__card > span:nth-of-type(2) { grid-column: 1 / -1; font-size: var(--fs-sm); color: var(--text-2); }
+  .explore__go { grid-column: 1 / -1; color: var(--accent); font: 1rem var(--font-mono); }
+  @media (max-width: 860px) { .explore { grid-template-columns: 1fr; } }
+</style>
