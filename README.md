@@ -12,7 +12,7 @@ npm run resume:pdf # regenerate public/resume.pdf (needs Chromium), then rebuild
 ```
 
 ## Deploy
-Push to `main`. `.github/workflows/deploy.yml` builds with the official Astro action and publishes to Pages. In the repository settings, set **Pages > Source** to **GitHub Actions** once.
+Push to `main`. `.github/workflows/deploy.yml` builds with the official Astro action and publishes to Pages. The workflow runs `npm run ci` (type check, build, private-data check) and also builds pull requests without deploying. Pages source is set to GitHub Actions.
 
 ## Add a blog post
 Add `src/content/blog/my-post.md` with `title`, `date`, `summary` (and optional `tags`, `draft`), commit, push. See `src/content/blog/example-post.md`.

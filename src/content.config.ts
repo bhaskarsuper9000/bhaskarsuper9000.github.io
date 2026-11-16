@@ -12,7 +12,7 @@ const eras = defineCollection({
     end: z.number(),
     caption: z.string(),
     order: z.number(), // 1 = newest
-    scene: z.string().optional(), // key in src/scripts/hero/sim.ts `scenes`; eras without one are skipped by the hero scrubber
+    scene: z.string().optional(), // key of `scenes` in src/scripts/hero/sim/index.ts; eras without one are skipped by the hero scrubber
     ego: z.string().optional(), // what the hero readouts call the moving thing
     tick: z.string().optional(), // short scrubber label; defaults to title
   }),

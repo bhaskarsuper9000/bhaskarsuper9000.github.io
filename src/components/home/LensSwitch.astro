@@ -2,7 +2,7 @@
 import { defaultLens, lenses } from '../../data/lenses';
 ---
 <div class="lens" role="group" aria-label="Focus the page on">
-  {lenses.map((l) => <button type="button" class="lens__btn" data-lens-btn={l.id} aria-pressed={String(l.id === defaultLens)}>{l.label}</button>)}
+  {lenses.map((l) => <button type="button" class="lens__btn" data-lens-btn={l.id} aria-pressed={l.id === defaultLens ? 'true' : 'false'}>{l.label}</button>)}
 </div>
 
 <script>

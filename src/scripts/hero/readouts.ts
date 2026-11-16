@@ -1,5 +1,5 @@
 /** Instrument tiles and the 20 s streaming chart, fed from scene.metrics() and scene.hist. Builds its own DOM inside the mount. */
-import type { Scene } from './sim';
+import type { Scene } from './sim/index';
 import type { Palette } from './palette';
 
 const SLOTS = ['speed', 'lane', 'ttc', 'gap', 'tracked'];

@@ -1,5 +1,5 @@
 /** 2D-canvas line drawing of a scene: first paint, and the still for no-WebGL, reduced motion and ?static=1. */
-import { bathy, models, projector, rot, type Cam, type Cls, type Item, type Scene, type Vec3 } from './sim';
+import { bathy, models, projector, rot, type Cam, type Cls, type Item, type Scene, type Vec3 } from './sim/index';
 import type { Palette } from './palette';
 
 type Seg = [Vec3, Vec3];

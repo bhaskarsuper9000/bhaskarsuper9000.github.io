@@ -18,6 +18,11 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "resume:pdf": "astro build && node scripts/resume-pdf.mjs"
+    "resume:pdf": "astro build && node scripts/resume-pdf.mjs",
+    "check:private": "node scripts/check-private.mjs",
+    "ci": "astro check && astro build && node scripts/check-private.mjs"
+  },
+  "engines": {
+    "node": ">=22.23.4"
   }
 }

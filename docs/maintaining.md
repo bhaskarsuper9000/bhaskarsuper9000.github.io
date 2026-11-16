@@ -19,13 +19,13 @@ Content is markdown plus a few data files. After any change run `npm run check &
 2. Set the previous job's end date in its era, in `src/data/resume.ts` (`roles[].dates`), and in any project `year` labels that said "present".
 3. `src/data/resume.ts`: add a role with bullets (use `slug` to link a bullet to a project), update `headline` numbers and `summary` if they changed.
 4. Add the projects (above) and give them lens ranks (below). Update `capabilities` in `src/data/lenses.ts` if a new strength appears.
-5. The hero era strip and scrubber read the eras collection. To show the era in the hero scene, set `scene:` (a key of `scenes` in `src/scripts/hero/sim.ts`), `ego:` (readout label) and optionally `tick:` (short scrubber label). Eras without `scene` are skipped by the live scrubber.
+5. The hero era strip and scrubber read the eras collection. To show the era in the hero scene, set `scene:` (a key of `scenes` in `src/scripts/hero/sim/index.ts`), `ego:` (readout label) and optionally `tick:` (short scrubber label). Eras without `scene` are skipped by the live scrubber.
 6. Update `src/data/site.ts` (`tagline`, `roles`, `positioning`) if the title changed.
 7. Regenerate the one-page resume: `npm run resume:pdf`, then `npm run build`; confirm 1 page with `pdfinfo public/resume.pdf`. If it overflows, trim bullets in `resume.ts` or `classicExtras`.
 
 ## New hero scene
-1. In `src/scripts/hero/sim.ts`, build models with `model('key', (g) => { g.box(...); g.cyl(...); g.seg(...) })` (metres, y up, forward +z) and add a class implementing `Scene` (copy `OracleEra`, the smallest): `step`, `metrics` (5 tiles; keys speed, lane, ttc, gap, tracked are slot names only), `objects`, `labels`, `cam`, `ground`, `ring`, `describe`, `chart`.
-2. Register it in `scenes` and set `scene: <key>` in the era's markdown.
+1. Add `src/scripts/hero/sim/scenes/<name>.ts` (copy `scenes/oracle.ts`, the smallest). Register its models there with `model('key', (g) => { g.box(...); g.cyl(...); g.seg(...) })` from `../geo` (metres, y up, forward +z; models used by several scenes go in `sim/shared-models.ts`), and export a class implementing `Scene` (`types.ts`): `step`, `metrics` (5 tiles; keys speed, lane, ttc, gap, tracked are slot names only), `objects`, `labels`, `cam`, `ground`, `ring`, `describe`, `chart`.
+2. Import it and register it in `scenes` in `sim/index.ts`, and set `scene: <key>` in the era's markdown.
 3. Check `/?era=<id>`, `/?era=<id>&static=1`, light theme and phone; `?debug=1` shows errors and draw counts.
 
 ## Change the rolling title
@@ -44,10 +44,10 @@ Set `disclosure: text`, remove `component`, `links` and screenshots, keep the bo
 Set `draft: true` (hidden from production, still in the repo) or delete the file. Remove its slug from `resume.ts` and `capabilities` first, or the build fails on the unknown slug.
 
 ## Deploy
-Push to `main`; the GitHub Action builds and publishes. One-time: repository Settings > Pages > Source = GitHub Actions. Local check: `npm run build && npm run preview`.
+Push to `main`; the GitHub Action builds and publishes. Pages source is GitHub Actions (repository Settings > Pages). Local check: `npm run build && npm run preview`.
 
 ## Privacy checklist before pushing
-After a build, `grep -r` `dist/` for the phone number, date of birth and any grades; the PDF text too (`pdftotext public/resume.pdf -`).
+`npm run ci` (type check, build, `scripts/check-private.mjs`) is what GitHub Actions runs on every push and pull request; run it before pushing. The check scans built pages for phone-like numbers, date of birth, grades and removed lines; it does not read the PDF, so also run `pdftotext public/resume.pdf -` after `npm run resume:pdf`.
 
 ## Facts to confirm
 - Open-source items (indicator-multiload, Apollo Auto fix, flip-dot driver, Grafana flamegraph): the dates are approximate ("c. 2019-20", "date unconfirmed" for multiload) and the Apollo repo link points to the upstream project.

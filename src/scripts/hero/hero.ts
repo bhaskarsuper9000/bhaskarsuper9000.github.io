@@ -1,7 +1,7 @@
 /** Hero orchestrator. Text and lens are server-rendered; this adds, in order: 2D still, then (if WebGL,
     no reduced motion, no ?static=1) a lazily loaded three.js scene that crossfades in. Owns framing, 3D
     labels, era fades, the loop and pausing (hidden tab, off screen, pause button). ?debug=1 shows an overlay. */
-import { camera, DT, projector, scenes, type Cam, type Scene } from './sim';
+import { camera, DT, projector, scenes, type Cam, type Scene } from './sim/index';
 import { draw2D } from './fallback2d';
 import { readPalette, type Palette } from './palette';
 import { createReadouts } from './readouts';

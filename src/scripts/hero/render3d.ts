@@ -2,7 +2,7 @@
 import {
   BufferAttribute, BufferGeometry, Color, DoubleSide, Group, Line, LineBasicMaterial, LineSegments, Mesh, MeshBasicMaterial, PerspectiveCamera, Plane, PlaneGeometry, Raycaster, Scene, ShaderMaterial, Vector2, Vector3, Vector4, WebGLRenderer,
 } from 'three';
-import { getModel, type Cam, type Cls, type Ground, type Item, type Ring, type Vec3 } from './sim';
+import { getModel, type Cam, type Cls, type Ground, type Item, type Ring, type Vec3 } from './sim/index';
 import type { Palette } from './palette';
 
 export interface Frame { cam: Cam; items: Item[]; ground: Ground; focus: Vec3; ring: Ring | null; ptr: Vec3 | null; fade: number }
