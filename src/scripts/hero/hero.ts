@@ -6,6 +6,7 @@ import { draw2D } from './fallback2d';
 import { readPalette, type Palette } from './palette';
 import { createReadouts } from './readouts';
 import { createScrubber, type HeroEra } from './scrubber';
+import { createScrollPin } from './scrollpin';
 import type { Renderer3D } from './render3d';
 import { heroText, readoutEmphasis } from '../../data/hero';
 import type { LensView } from '../../data/lenses';
@@ -43,7 +44,8 @@ export function initHero(root: HTMLElement): void {
 
   let shown = -1, target = startIdx, fade = 1, cur: Scene | null = null, cpuMs = 0;
   let R3: Renderer3D | null = null, mode: 'still' | 'loading' | 'gl' = 'still', running = false, userPaused = false, visible = !document.hidden, inView = true;
-  const scrub = createScrubber($('[data-hero-scrubber]'), eras, startIdx, (i) => { target = i; if (mode !== 'gl' && cur) swapTo(i); }, () => kick());
+  const scrub = createScrubber($('[data-hero-scrubber]'), eras, startIdx, (i) => { target = i; if (mode !== 'gl' && cur) swapTo(i); }, (p) => pin.scrollTo(p));
+  const pin = createScrollPin(root, eras.length, (p) => scrub.setProgress(p));
 
   // stage, framing, labels
   const stage = $('[data-hero-stage]'), still = $<HTMLCanvasElement>('[data-hero-still]'), gl = $<HTMLCanvasElement>('[data-hero-gl]'), tags = $('[data-hero-tags]');
@@ -117,11 +119,10 @@ export function initHero(root: HTMLElement): void {
   }
   const want = () => mode === 'gl' && visible && inView && !userPaused;
   let last = 0, acc = 0, simT = 0, fpsN = 0, fpsT = 0, fps = 0, uiT = 0, info = { calls: 0, triangles: 0, lines: 0 };
-  function kick() { if (!running && (want() || scrub.playing())) { running = true; last = performance.now(); requestAnimationFrame(loop); } }
+  function kick() { if (!running && want()) { running = true; last = performance.now(); requestAnimationFrame(loop); } }
   function loop(now: number) {
     const dt = Math.min(0.1, (now - last) / 1000); last = now;
-    scrub.tick(dt);
-    if (!want()) { running = scrub.playing(); if (running) requestAnimationFrame(loop); return; }
+    if (!want()) { running = false; return; }
     renderFrame(dt);
     fpsN++; fpsT += dt; if (fpsT >= 0.5) { fps = fpsN / fpsT; fpsN = 0; fpsT = 0; }
     requestAnimationFrame(loop);
@@ -176,7 +177,7 @@ export function initHero(root: HTMLElement): void {
 
   // settings (theme, accent, font, size) and lens changes
   const refresh = () => {
-    COL = readPalette(); layout();
+    COL = readPalette(); layout(); pin.refresh();
     if (R3) { R3.setColors(COL); if (!running) renderFrame(0); } else drawStill();
     if (cur) R.chart(cur, COL, DPR);
   };
@@ -189,7 +190,8 @@ export function initHero(root: HTMLElement): void {
   applyLens();
   requestAnimationFrame(() => setTimeout(() => {
     layout(); swapTo(target); fade = 1;
-    if (Q.get('play') === '1') setTimeout(scrub.start, 50);
+    pin.refresh();
+    if (qe) pin.scrollTo(scrub.progress()); else if (pin.active() && scrollY > 0) dispatchEvent(new Event('scroll')); // restored scroll position
     const fallback = STATIC || !hasWebGL() || reduced;
     if (fallback) { d.classList.add('hero-static'); setPaused(true); if (!hasWebGL()) logErr('WebGL unavailable: still shown'); }
     if (reduced && !STATIC && hasWebGL()) playSim.hidden = false;

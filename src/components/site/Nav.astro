@@ -16,9 +16,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
       <ul>
         {nav.map((i) => <li><a href={i.href} aria-current={isCurrent(i.href) ? 'page' : undefined}>{i.label}</a></li>)}
         <li>
-          <button class="nav__settings" type="button" data-settings-toggle aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-panel">
+          <button class="nav__settings" type="button" data-settings-toggle aria-label="Settings" title="Settings" aria-haspopup="dialog" aria-expanded="false" aria-controls="settings-panel">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" /></svg>
-            <span>Settings</span>
           </button>
         </li>
       </ul>
@@ -37,7 +36,7 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
   .nav__links a:hover, .nav__settings:hover, .nav__settings[aria-expanded="true"] { color: var(--accent); text-shadow: var(--glow); }
   .nav__links a[aria-current="page"] { color: var(--accent); }
   .nav__links a[aria-current="page"]::after { content: ""; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.15rem; height: 2px; background: var(--accent); box-shadow: var(--glow); }
-  .nav__settings svg { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  .nav__settings svg { width: 1.5em; height: 1.5em; fill: none; stroke: currentColor; stroke-width: 1.8; }
   .nav__ruler { position: absolute; left: 0; right: 0; bottom: -8px; height: 7px; opacity: 0.55; }
 
   @media (max-width: 860px) {

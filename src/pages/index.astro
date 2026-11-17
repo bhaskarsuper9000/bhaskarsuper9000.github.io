@@ -13,7 +13,16 @@ const proofSets = {
 };
 ---
 <BaseLayout>
-  <Hero eras={eras} proofSets={proofSets} />
-  <Capabilities projects={projects} />
-  <ExploreLinks />
+  <!-- scripts/hero/scrollpin.ts holds the whole page still while scroll drives the hero timeline -->
+  <div class="hero-pin">
+    <div class="hero-pin__body">
+      <Hero eras={eras} proofSets={proofSets} />
+      <Capabilities projects={projects} />
+      <ExploreLinks />
+    </div>
+  </div>
 </BaseLayout>
+
+<style>
+  .hero-pin.is-pinned .hero-pin__body { position: sticky; }
+</style>

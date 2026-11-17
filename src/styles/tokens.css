@@ -49,7 +49,7 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   /* accent swatches (index = data-accent) and theme colours: dark is the default */
-  --sw0: #35e0ff; --sw1: #5dff9a; --sw2: #ffb938; --sw3: #ff7a45; --sw4: #80b4ff; --sw5: #ff70d3;
+  --sw0: #6cc4d6; --sw1: #7fd3a0; --sw2: #e2b25c; --sw3: #e58a63; --sw4: #8fb0e8; --sw5: #df8cc6;
   --accent: var(--sw0);
   --on-accent: #031116;
   --bg: #060b0f;
@@ -57,16 +57,16 @@
   --surface: rgb(8 20 27 / 0.82);
   --surface-2: rgb(16 36 46 / 0.9);
   --surface-solid: #08141b; /* for overlays that sit on top of content */
-  --text: #dcf2f7;
+  --text: #d5e3e7;
   --text-2: #86adb8; /* secondary text, >= 4.5:1 on --bg */
   --line: #17333d; /* hairlines, quiet */
-  --line-strong: #2a8397; /* borders, rulers */
+  --line-strong: #2b6675; /* borders, rulers */
   --accent-soft: color-mix(in srgb, var(--accent) 13%, #08141b);
   --focus: #fff;
   --ok: #5dff9a;
   --warn: #ffb938; /* confidential / caution */
   --grid: color-mix(in srgb, var(--line-strong) 16%, transparent);
-  --glow: 0 0 18px -4px color-mix(in srgb, var(--accent) 60%, transparent);
+  --glow: 0 0 14px -6px color-mix(in srgb, var(--accent) 35%, transparent); /* kept faint: lines, not neon */
   --code-bg: #030a0e;
   --code-text: #d6eef3;
 }

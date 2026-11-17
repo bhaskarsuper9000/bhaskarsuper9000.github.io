@@ -85,11 +85,14 @@ import { heroText } from '../../data/hero';
   /* scrubber */
   .hero__scrub:has(.scrub) { border-top: var(--line-w) solid var(--line); }
   .scrub { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: center; padding-top: 0.7rem; padding-bottom: 0.55rem; }
-  .scrub__play { min-width: 15.5rem; justify-content: flex-start; }
-  .scrub__ic { font-size: 0.7rem; letter-spacing: -0.15em; margin-right: 0.2em; }
+  .scrub__hint { white-space: nowrap; }
+  .scrub__hint::before { content: "\2193\00a0\00a0"; color: var(--accent); }
+  .hero-pin:not(.is-pinned) .scrub__hint { display: none; }
+  .hero-pin:not(.is-pinned) .scrub { grid-template-columns: 1fr auto; }
   .scrub__pause { min-width: 2.6rem; padding-inline: 0.6rem; }
   .scrub__wrap { position: relative; padding-top: 0.9rem; }
-  .scrub__track { position: relative; height: 1.7rem; cursor: pointer; touch-action: none; }
+  .scrub__track { position: relative; height: 1.7rem; cursor: pointer; touch-action: none; outline: none; }
+  .scrub__track.is-kbd:focus { outline: var(--line-w-strong) solid var(--accent); outline-offset: 0.35rem; }
   .scrub__ticks { position: absolute; left: 0; right: 0; bottom: 0.35rem; height: 0.9rem; border-bottom: var(--line-w) solid var(--line-strong); }
   .scrub__ticks i { position: absolute; bottom: 0; width: var(--line-w); height: 0.3rem; background: var(--line-strong); }
   .scrub__ticks i.mj { height: 0.9rem; background: var(--accent); box-shadow: var(--glow); }
@@ -110,7 +113,9 @@ import { heroText } from '../../data/hero';
     .hero__stage { position: relative; inset: auto; height: 15.5rem; margin-top: 0.9rem; border-block: var(--line-w) solid var(--line); -webkit-mask: none; mask: none; }
     .hero__scrim { background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 80%, transparent) 0, transparent 3.6rem), linear-gradient(180deg, color-mix(in srgb, var(--bg) 50%, transparent) 0, transparent 2.5rem); }
     .hero__playsim { left: 50%; top: 40%; }
-    .hero__readouts.is-live { display: block; margin-top: -3.55rem; }
+    /* live tiles sit over the bottom of the scene without taking space, so the era caption starts below it */
+    .hero__readouts.is-live { display: block; height: 0; margin-top: 0; }
+    .is-live .ro-list { grid-column: 1 / -1; transform: translateY(calc(-100% - 1.3rem)); }
     .is-live .ro-head, .is-live .ro-chart, .is-live .ro-cap { display: none; }
     .is-live .ro-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
     .is-live .ro:nth-child(n + 4) { display: none; }
@@ -119,8 +124,8 @@ import { heroText } from '../../data/hero';
     .ro-v b, .ro--emph .ro-v b { font-size: 1.02rem; }
     .ro-n, .ro-g { display: none !important; }
     .ro-l { font-size: 0.55rem; letter-spacing: 0.08em; white-space: normal; line-height: 1.2; }
-    .scrub { grid-template-columns: 1fr auto; grid-template-areas: "track track" "play pause"; row-gap: 0.5rem; padding-top: 0.3rem; }
-    .scrub__wrap { grid-area: track; } .scrub__play { grid-area: play; min-width: 0; } .scrub__pause { grid-area: pause; }
+    .scrub { grid-template-columns: 1fr auto; padding-top: 0.3rem; }
+    .scrub__hint { grid-column: 1 / -1; grid-row: 2; }
     .scrub__track { height: 2.4rem; }
     .scrub__era { font-size: 0; letter-spacing: 0; }
     .scrub__era b { font-size: 0.6rem; }

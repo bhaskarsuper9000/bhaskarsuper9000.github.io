@@ -16,7 +16,7 @@ Personal portfolio of Bhaskar Bandyopadhyay. Astro 7, static output, deployed to
 - `src/layouts/` BaseLayout (head, nav, footer, settings), PostLayout
 - `src/components/` site/ (chrome and primitives), home/ (hero, lens, proof points), resume/ (TL;DR and classic), projects/ (rows, filters, demos/, diagrams/, registry.ts), blog/
 - `src/scripts/` boot.ts (pre-paint prefs and lens), settings.ts, lens.ts, filters.ts
-- `src/scripts/hero/` home hero: sim/ (index.ts scene registry; scenes/ one file per era with its models; geo, camera, math, types), fallback2d.ts, render3d.ts (three.js, lazy chunk), readouts.ts, scrubber.ts, rolltitle.ts, hero.ts (wiring); copy in `src/data/hero.ts`
+- `src/scripts/hero/` home hero: sim/ (index.ts scene registry; scenes/ one file per era with its models; geo, camera, math, types), fallback2d.ts, render3d.ts (three.js, lazy chunk), readouts.ts, scrubber.ts, scrollpin.ts (scroll drives the timeline), rolltitle.ts, hero.ts (wiring); copy in `src/data/hero.ts`
 - `src/lib/content.ts` collection queries and helpers
 - `src/pages/` routes; `public/` static files (favicon, resume.pdf, images); `scripts/` build-time helpers
 - `prototypes/` old throwaway drafts; not part of the build, do not edit
