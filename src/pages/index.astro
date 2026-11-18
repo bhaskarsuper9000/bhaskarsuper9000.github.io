@@ -3,26 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/home/Hero.astro';
 import Capabilities from '../components/home/Capabilities.astro';
 import ExploreLinks from '../components/home/ExploreLinks.astro';
-import { getEras, getProjects, topProjects } from '../lib/content';
+import { featuredProjects, getEras, getProjects } from '../lib/content';
 
 const [eras, projects] = await Promise.all([getEras(), getProjects()]);
-const proofSets = {
-  all: topProjects(projects, 'all'),
-  robotics: topProjects(projects, 'robotics'),
-  fullstack: topProjects(projects, 'fullstack'),
-};
 ---
 <BaseLayout>
-  <!-- scripts/hero/scrollpin.ts holds the whole page still while scroll drives the hero timeline -->
-  <div class="hero-pin">
-    <div class="hero-pin__body">
-      <Hero eras={eras} proofSets={proofSets} />
-      <Capabilities projects={projects} />
-      <ExploreLinks />
-    </div>
-  </div>
+  <Hero eras={eras} proofs={featuredProjects(projects)} />
+  <Capabilities projects={projects} />
+  <ExploreLinks />
 </BaseLayout>
-
-<style>
-  .hero-pin.is-pinned .hero-pin__body { position: sticky; }
-</style>

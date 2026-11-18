@@ -7,8 +7,6 @@ summary: "REST API 3x faster by moving data in memory (SWIG); core algorithm to 
 kind: work
 disclosure: write-up
 stack: ["C++","SWIG","neo4j","sigma.js"]
-lenses: ["fullstack"]
-rank: {fullstack: 3}
 metric: { value: "20×", label: "core algorithm speed-up" }
 ---
 

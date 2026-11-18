@@ -7,5 +7,4 @@ summary: "Remote-control capability, one of the projects expedited for the CPUC 
 kind: work
 disclosure: diagram
 stack: ["Embedded","Networking"]
-lenses: ["robotics"]
 ---

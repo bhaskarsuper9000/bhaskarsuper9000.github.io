@@ -7,7 +7,7 @@ interface Tile { el: HTMLElement; l: HTMLElement; v: HTMLElement; u: HTMLElement
 
 export interface Readouts {
   root: HTMLElement;
-  emphasise(keys: string[], lens: string): void;
+  emphasise(keys: string[]): void;
   setEgo(label: string): void;
   update(scene: Scene, cpuMs: number): void;
   labels(scene: Scene): void;
@@ -39,9 +39,9 @@ export function createReadouts(mount: HTMLElement, caption: string): Readouts {
 
   return {
     root: mount,
-    emphasise(E, lens) {
+    emphasise(E) {
       const showCpu = E.includes('cpu');
-      for (const k of [...SLOTS, 'cpu']) { tiles[k].el.classList.toggle('ro--emph', E.includes(k)); tiles[k].el.classList.toggle('ro--dim', lens !== 'all' && !E.includes(k)); }
+      for (const k of [...SLOTS, 'cpu']) { tiles[k].el.classList.toggle('ro--emph', E.includes(k)); }
       tiles.cpu.el.hidden = !showCpu;
       // emphasised tiles first; the phone layout shows only the first three
       const order = [...E.filter((k) => k !== 'cpu' || showCpu), ...SLOTS.filter((k) => !E.includes(k))];

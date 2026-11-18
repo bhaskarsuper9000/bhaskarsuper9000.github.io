@@ -7,7 +7,6 @@ summary: "A treasure hunt, a competitive-coding site, a conference site, a chat 
 kind: personal
 disclosure: write-up
 stack: ["Web","Tools"]
-lenses: ["fullstack"]
 ---
 
 Web projects built from scratch: a treasure hunt, a competitive-coding site with Facebook-style commenting, and a conference site. Small utilities included a chat server, a vCard reader and a YouTube audio player that saves bandwidth.

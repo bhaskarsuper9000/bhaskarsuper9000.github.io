@@ -7,8 +7,6 @@ summary: "Embedded flip-dot display that helped secure a driverless permit from 
 kind: work
 disclosure: diagram
 stack: ["Embedded","RS-485"]
-lenses: ["robotics"]
-rank: {robotics: 4}
 metric: { value: "Permit", label: "driverless, DMV" }
 ---
 

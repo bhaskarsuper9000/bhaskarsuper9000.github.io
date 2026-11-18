@@ -7,8 +7,7 @@ summary: "A lighter ROS2 stack for an embedded safety platform, so autonomy team
 kind: work
 disclosure: diagram
 stack: ["C++","ROS2","QNX","NXP S32G"]
-lenses: ["robotics"]
-rank: {robotics: 2, all: 4}
+rank: 4
 metric: { value: "10 days", label: "for teams to port a module" }
 featured: true
 ---

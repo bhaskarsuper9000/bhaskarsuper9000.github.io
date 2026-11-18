@@ -1,14 +1,16 @@
-/** Career timeline scrubber. Equal-width era segments, x in [0, eras.length]; drag, arrows/Home/End and
-    era tick buttons. Page scroll drives it too (scrollpin.ts) through progress(): 0 = today, 1 = oldest era. */
+/** Career timeline scrubber. Equal-width era segments, x in [0, eras.length]. Plays backwards from today
+    on its own and loops; dragging, clicking a time, an era tick or the arrow keys stops it. */
 import { heroText } from '../../data/hero';
 
 export interface HeroEra { id: string; title: string; tick: string; years: string; start: number; end: number; caption: string; ego: string; scene: string }
-export interface Scrubber { era(): number; progress(): number; setProgress(p: number): void }
+export interface Scrubber { era(): number; playing(): boolean; tick(dt: number): void }
 
-export function createScrubber(mount: HTMLElement, eras: HeroEra[], startEra: number, onEra: (i: number) => void, onUser: (p: number) => void): Scrubber {
+const ERA_S = 5; // seconds of playback per era
+
+export function createScrubber(mount: HTMLElement, eras: HeroEra[], startEra: number, onEra: (i: number) => void, autoplay: boolean): Scrubber {
   const NE = eras.length, X_END = NE - 0.001, X_OLD = 0.5;
   mount.innerHTML = `<div class="wrap scrub">
-    <p class="scrub__hint label" aria-hidden="true">${heroText.scrollHint}</p>
+    <button class="btn btn--ghost scrub__play" type="button"><span aria-hidden="true">◀◀</span><span class="vh"></span></button>
     <div class="scrub__wrap">
       <div class="scrub__track" role="slider" tabindex="0" aria-label="Career timeline" aria-valuemin="${eras[0].start}" aria-valuemax="${eras[NE - 1].end}">
         <div class="scrub__ticks" aria-hidden="true"></div><div class="scrub__fill" aria-hidden="true"></div>
@@ -20,12 +22,12 @@ export function createScrubber(mount: HTMLElement, eras: HeroEra[], startEra: nu
   </div>`;
   const q = <T extends HTMLElement>(s: string) => mount.querySelector(s) as T;
   const track = q('.scrub__track'), handle = q('.scrub__handle'), fill = q('.scrub__fill'), hy = q('.scrub__handle b');
-  let x = X_END, era = NE - 1, dragging = false;
+  const play = q<HTMLButtonElement>('.scrub__play');
+  let x = X_END, era = NE - 1, dragging = false, playing = autoplay;
 
   const yrs = (e: HeroEra) => Math.max(1, e.end - e.start + 1);
   const year = (v: number) => { const i = Math.min(NE - 1, Math.floor(v)), e = eras[i]; return Math.min(e.end, Math.floor(e.start + (v - i) * yrs(e))); };
   const mid = (i: number) => (i === NE - 1 ? X_END : i + 0.5);
-  const progress = () => Math.max(0, Math.min(1, (X_END - x) / (X_END - X_OLD)));
 
   let ticks = '';
   eras.forEach((e, i) => {
@@ -49,7 +51,12 @@ export function createScrubber(mount: HTMLElement, eras: HeroEra[], startEra: nu
     eraBtns.forEach((b, k) => b.classList.toggle('cur', k === i));
     if (i !== era) { era = i; onEra(i); }
   }
-  const user = (nx: number) => { set(nx); onUser(progress()); };
+  function setPlaying(p: boolean) {
+    playing = p; play.setAttribute('aria-pressed', String(p)); play.title = p ? heroText.pauseStory : heroText.playStory;
+    play.querySelector('.vh')!.textContent = play.title;
+  }
+  const user = (nx: number) => { setPlaying(false); set(nx); };
+  play.addEventListener('click', () => setPlaying(!playing));
 
   // the focus ring is for keyboard use only; a click or drag never shows it
   const fromPointer = (e: PointerEvent) => { const r = track.getBoundingClientRect(); return (e.clientX - r.left) / r.width * NE; };
@@ -68,6 +75,9 @@ export function createScrubber(mount: HTMLElement, eras: HeroEra[], startEra: nu
     if (nx !== null) { track.classList.add('is-kbd'); user(nx); e.preventDefault(); }
   });
 
-  era = startEra; set(mid(startEra));
-  return { era: () => era, progress, setProgress: (p) => set(X_END - Math.max(0, Math.min(1, p)) * (X_END - X_OLD)) };
+  era = startEra; set(mid(startEra)); setPlaying(playing);
+  return {
+    era: () => era, playing: () => playing,
+    tick(dt) { if (playing && !dragging) set(x - dt / ERA_S < 0.02 ? X_END : x - dt / ERA_S); }, // past the oldest era, loop to today
+  };
 }

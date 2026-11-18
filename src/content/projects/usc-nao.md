@@ -7,5 +7,4 @@ summary: "Inverse kinematics and dynamics so a Nao robot could draw and walk."
 kind: academic
 disclosure: write-up
 stack: ["Robotics","Kinematics"]
-lenses: ["robotics"]
 ---

@@ -11,7 +11,6 @@ stack: ["Python","MySQL","Embedded","PCB"]
 links:
   - { label: "hub repo", url: "https://github.com/bhaskarsuper9000/smartstreetlights-hub" }
   - { label: "server repo", url: "https://github.com/bhaskarsuper9000/smartstreetlights-server" }
-lenses: ["robotics","fullstack"]
 component: streetlights
 ---
 

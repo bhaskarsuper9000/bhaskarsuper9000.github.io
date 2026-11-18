@@ -7,7 +7,6 @@ summary: "Customised ChibiOS on a Raspberry Pi to drop the extra Arduino from a 
 kind: academic
 disclosure: write-up
 stack: ["RTOS","Raspberry Pi"]
-lenses: ["robotics"]
 ---
 
 For an embedded-systems course I customised ChibiOS for the Raspberry Pi to reduce the Arduino-Pi interface to sensors, then used it to build a reliable smart door without an extra Arduino.

@@ -7,7 +7,6 @@ summary: "Final-year project: a web app for programming and controlling robots, 
 kind: academic
 disclosure: write-up
 stack: ["Web","Robotics","Protocol"]
-lenses: ["robotics","fullstack"]
 ---
 
 My B.Eng. final-year project, June 2011 to June 2012: a scalable web application for controlling mobile robots. I created a registration protocol and a mechanism to multiplex communication, and added remote code burning, hardware control and mapping.

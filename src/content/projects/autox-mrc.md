@@ -7,8 +7,7 @@ summary: "Led a team of 4 on graceful recovery from failures; handles 93% of fai
 kind: work
 disclosure: diagram
 stack: ["C++","Functional safety","ISO 26262"]
-lenses: ["robotics"]
-rank: {robotics: 1, all: 1}
+rank: 1
 metric: { value: "93%", label: "failure cases recovered" }
 featured: true
 ---

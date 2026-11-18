@@ -11,12 +11,12 @@ Personal portfolio of Bhaskar Bandyopadhyay. Astro 7, static output, deployed to
 ## Structure
 - `docs/` design-guidelines.md, maintaining.md
 - `src/content/` markdown: `eras/`, `projects/` (one file per project), `blog/` (one file per post); schemas in `src/content.config.ts`
-- `src/data/` site.ts (name, links, nav), lenses.ts (lenses, capabilities), resume.ts (resume text, skills, headline numbers), hero.ts (rolling title words, readout emphasis per lens, hero labels)
+- `src/data/` site.ts (name, links, nav), capabilities.ts (areas of interest), resume.ts (resume text, skills, headline numbers), hero.ts (rolling title words, readout emphasis, hero labels)
 - `src/styles/` tokens.css (all raw values), base.css (reset, prose), components.css (shared components)
 - `src/layouts/` BaseLayout (head, nav, footer, settings), PostLayout
-- `src/components/` site/ (chrome and primitives), home/ (hero, lens, proof points), resume/ (TL;DR and classic), projects/ (rows, filters, demos/, diagrams/, registry.ts), blog/
-- `src/scripts/` boot.ts (pre-paint prefs and lens), settings.ts, lens.ts, filters.ts
-- `src/scripts/hero/` home hero: sim/ (index.ts scene registry; scenes/ one file per era with its models; geo, camera, math, types), fallback2d.ts, render3d.ts (three.js, lazy chunk), readouts.ts, scrubber.ts, scrollpin.ts (scroll drives the timeline), rolltitle.ts, hero.ts (wiring); copy in `src/data/hero.ts`
+- `src/components/` site/ (chrome and primitives), home/ (hero, proof points, areas of interest), resume/ (TL;DR and classic), projects/ (rows, filters, demos/, diagrams/, registry.ts), blog/
+- `src/scripts/` boot.ts (pre-paint prefs), settings.ts, filters.ts
+- `src/scripts/hero/` home hero: sim/ (index.ts scene registry; scenes/ one file per era with its models; geo, camera, math, types), fallback2d.ts, render3d.ts (three.js, lazy chunk), readouts.ts, scrubber.ts, rolltitle.ts, hero.ts (wiring); copy in `src/data/hero.ts`
 - `src/lib/content.ts` collection queries and helpers
 - `src/pages/` routes; `public/` static files (favicon, resume.pdf, images); `scripts/` build-time helpers
 - `prototypes/` old throwaway drafts; not part of the build, do not edit
@@ -26,7 +26,7 @@ Personal portfolio of Bhaskar Bandyopadhyay. Astro 7, static output, deployed to
 - Use tokens only; no raw colours, px sizes or fonts outside `tokens.css` (exception: the classic resume paper and canvas scenes).
 - Content lives in markdown and `src/data`, never hard-coded in components.
 - Comments only where the why is not obvious; keep them terse.
-- Visitor prefs persist under localStorage key `bb-site-prefs-v1`; lens under `bb-lens-v1`. Do not rename.
+- Visitor prefs persist under localStorage key `bb-site-prefs-v1`. Do not rename. Defaults: light theme, green accent.
 
 ## Read first
 - Before changing any UI or adding a component, read `docs/design-guidelines.md`.

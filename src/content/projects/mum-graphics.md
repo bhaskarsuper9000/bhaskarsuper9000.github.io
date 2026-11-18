@@ -7,7 +7,6 @@ summary: "SVGA programs, an image editor and a BMP codec."
 kind: personal
 disclosure: write-up
 stack: ["Turbo C","Assembly"]
-lenses: ["fullstack"]
 ---
 
 Programs written in 16-bit Turbo C and assembly: SVGA graphics programs, an image editor and a 4-bit BMP codec.

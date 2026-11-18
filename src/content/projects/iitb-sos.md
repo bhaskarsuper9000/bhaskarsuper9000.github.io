@@ -7,7 +7,6 @@ summary: "GIS client over WMS, with Sensor Observation Service data and a SPARQL
 kind: academic
 disclosure: write-up
 stack: ["GIS","WMS","SPARQL"]
-lenses: ["fullstack"]
 ---
 
 A rich GIS web client that uses a WMS-enabled web service. It loads sensor data through a Sensor Observation Service as well as from GeoServer, and supports a SPARQL query evaluator.

@@ -7,7 +7,6 @@ summary: "Point-to-point routing with web APIs for stress tests and investor dem
 kind: work
 disclosure: diagram
 stack: ["Python","websockets","ORB-SLAM"]
-lenses: ["robotics"]
 ---
 
 I added auto path routing to AutoX's mini delivery robot: point-to-point routing software with web APIs, used for stress testing and for polishing investor demos ahead of a successful Series B (Python, websockets, ORB-SLAM).

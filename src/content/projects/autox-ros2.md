@@ -7,5 +7,4 @@ summary: "Moved the AI stack from an in-house middleware to ROS2 / cyber."
 kind: work
 disclosure: diagram
 stack: ["C++","ROS2"]
-lenses: ["robotics"]
 ---

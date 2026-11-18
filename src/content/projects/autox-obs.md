@@ -7,8 +7,7 @@ summary: "KPI visualisation for AI and ops teams; about $300K of developer time 
 kind: work
 disclosure: diagram
 stack: ["Grafana","InfluxDB","Airflow"]
-lenses: ["fullstack"]
-rank: {fullstack: 2, all: 3}
+rank: 3
 metric: { value: "$300K/yr", label: "developer time saved" }
 featured: true
 component: observability

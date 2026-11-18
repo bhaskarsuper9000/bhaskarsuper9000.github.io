@@ -7,8 +7,6 @@ summary: "Full-stack SaaS app bringing company data from several sources into to
 kind: work
 disclosure: text
 stack: ["Full-stack","Dashboards"]
-lenses: ["fullstack"]
-rank: {fullstack: 4}
 ---
 
 A full-stack SaaS application that integrates company data from multiple sources into tools, processes and dashboards used by leadership.

@@ -1,5 +1,4 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import type { Lens, LensView } from '../data/lenses';
 import { registry } from '../components/projects/registry';
 
 export type Project = CollectionEntry<'projects'>;
@@ -47,11 +46,9 @@ export const disclosureLabels: Record<Disclosure, string> = {
   'write-up': 'Write-up',
 };
 
-/** Top projects for a lens: ranked first (lower = better), then newest. */
-export function topProjects(projects: Project[], view: LensView, n = 4): Project[] {
-  const rankOf = (p: Project) => p.data.rank[view] ?? Infinity;
-  const pool = projects.filter((p) => (view === 'all' ? p.data.featured : p.data.lenses.includes(view as Lens)));
-  return [...pool].sort((a, b) => rankOf(a) - rankOf(b) || b.data.sort - a.data.sort).slice(0, n);
+/** Featured projects for the home page: ranked first (lower = better), then newest. */
+export function featuredProjects(projects: Project[], n = 4): Project[] {
+  return projects.filter((p) => p.data.featured).sort((a, b) => (a.data.rank ?? Infinity) - (b.data.rank ?? Infinity) || b.data.sort - a.data.sort).slice(0, n);
 }
 
 export const projectHref = (slug: string) => `/projects/${slug}/`;

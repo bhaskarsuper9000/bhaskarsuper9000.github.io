@@ -7,7 +7,6 @@ summary: "Updated the panel for newer Grafana APIs, fixed sizing and made it wor
 kind: open-source
 disclosure: write-up
 stack: ["Grafana","D3","Angular"]
-lenses: ["fullstack"]
 ---
 
 I updated the Grafana API usage, recompiled the plugin and fixed the InfluxDB data source. Dates for the open-source items are approximate.

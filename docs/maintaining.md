@@ -9,7 +9,7 @@ Content is markdown plus a few data files. After any change run `npm run check &
 4. Commit and push to `main`. Drafts show in `npm run dev` only.
 
 ## New project
-1. Create `src/content/projects/<slug>.md`; copy an existing file. Fields: `title`, `era` (an id from `src/content/eras/`), `year` (display label, e.g. "2018-24" or "c. 2019-20"), `sort` (number, higher = newer; only used for ordering), `summary` (one line), `kind` (work, academic, hackathon, open-source, personal), `disclosure` (text, diagram, demo, write-up), optional `role`, `stack`, `links`, `lenses`, `rank`, `metric`, `featured`, `component`, `draft`.
+1. Create `src/content/projects/<slug>.md`; copy an existing file. Fields: `title`, `era` (an id from `src/content/eras/`), `year` (display label, e.g. "2018-24" or "c. 2019-20"), `sort` (number, higher = newer; only used for ordering), `summary` (one line), `kind` (work, academic, hackathon, open-source, personal), `disclosure` (text, diagram, demo, write-up), optional `role`, `stack`, `links`, `rank`, `metric`, `featured`, `component`, `draft`.
 2. The body is the write-up in markdown. Keep to facts; if there is nothing more than the summary, leave the body empty.
 3. `disclosure: diagram|demo` only takes effect when `component` names a key registered in `src/components/projects/registry.ts`. Until then the project is shown (and badged) as a write-up. To add one: create the component in `components/projects/demos/` or `diagrams/` (vanilla TS in a component `<script>`), register it, set `component:` in the project.
 4. Employer work: use `disclosure: text`.
@@ -18,7 +18,7 @@ Content is markdown plus a few data files. After any change run `npm run check &
 1. Add `src/content/eras/<id>.md` (`title`, `role`, `years`, `start`, `end`, `caption`, `order`; order 1 is newest; bump the order of older eras).
 2. Set the previous job's end date in its era, in `src/data/resume.ts` (`roles[].dates`), and in any project `year` labels that said "present".
 3. `src/data/resume.ts`: add a role with bullets (use `slug` to link a bullet to a project), update `headline` numbers and `summary` if they changed.
-4. Add the projects (above) and give them lens ranks (below). Update `capabilities` in `src/data/lenses.ts` if a new strength appears.
+4. Add the projects (above) and mark the best as featured (below). Update `capabilities` in `src/data/capabilities.ts` if a new area appears.
 5. The hero era strip and scrubber read the eras collection. To show the era in the hero scene, set `scene:` (a key of `scenes` in `src/scripts/hero/sim/index.ts`), `ego:` (readout label) and optionally `tick:` (short scrubber label). Eras without `scene` are skipped by the live scrubber.
 6. Update `src/data/site.ts` (`tagline`, `roles`, `positioning`) if the title changed.
 7. Regenerate the one-page resume: `npm run resume:pdf`, then `npm run build`; confirm 1 page with `pdfinfo public/resume.pdf`. If it overflows, trim bullets in `resume.ts` or `classicExtras`.
@@ -31,8 +31,8 @@ Content is markdown plus a few data files. After any change run `npm run check &
 ## Change the rolling title
 Edit `rollingTitle` in `src/data/hero.ts` (words, seconds each, the rest of the line, and the screen-reader label). Test with `/?roll=fast` or `/?roll=hold&t=<seconds>`.
 
-## Change lens rankings
-In each project's frontmatter: `lenses: [robotics, fullstack]` puts it in a lens; `rank: { robotics: 1, fullstack: 2, all: 3 }` orders it (lower first). The home page shows the top 4 per lens; first-time visitors get `defaultLens` (`src/data/lenses.ts`); with no lens selected it shows `featured: true` projects ordered by `rank.all`. Unranked projects follow by recency.
+## Change the home page proof points
+The four tiles under the name are the projects with `featured: true`, ordered by `rank` (a number, lower first), then recency. Edit those two fields in the project's frontmatter.
 
 ## Change headline numbers
 `src/data/resume.ts` `headline` (hero readouts and TL;DR stats). Per-project numbers are `metric: { value, label }` in the project (used by the hero proof points and the project page). Keep values short ("$800K/yr", "93%", "10 days").
@@ -58,4 +58,3 @@ Push to `main`; the GitHub Action builds and publishes. Pages source is GitHub A
 - Satellite classifier, web GIS/SOS, RTOS, TCP and AI coursework: years are course-period guesses ("2013-15").
 - Resurrect: "top 10% of 200+" (an older resume says top 20 of 200+).
 - Gatik end date (Oct 2026) and the "~$60k Foxglove plugin" bullet are carried over from the earlier drafts.
-- Lens top-4 choices (Robotics: MRC, QNX, simulator, flip-dot; Full stack: Binary Deployment, Observability, Scry, leadership platform) need the owner's sign-off.

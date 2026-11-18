@@ -7,7 +7,6 @@ summary: "Sensor hub streaming four cameras with PTP for lidar-camera time synch
 kind: work
 disclosure: diagram
 stack: ["Embedded","PTP","GMSL"]
-lenses: ["robotics"]
 ---
 
 A sensor hub that streams four cameras and uses PTP to keep lidar and cameras time-synchronised. It was one of the projects I expedited for the CPUC permit.

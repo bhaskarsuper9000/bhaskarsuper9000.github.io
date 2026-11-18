@@ -7,8 +7,6 @@ summary: "In-house simulator: core backend, reliability, playback, users, browse
 kind: work
 disclosure: text
 stack: ["Simulation","Platform","LLM"]
-lenses: ["robotics","fullstack"]
-rank: {robotics: 3, fullstack: 5}
 ---
 
 I designed core backend functionality for the in-house autonomous-vehicle simulator and improved its reliability. I also added playback, user accounts, browser-based metrics computation, and LLM features such as on-the-fly safety analysis.

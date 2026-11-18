@@ -78,17 +78,14 @@ import { heroText } from '../../data/hero';
   .ro-chart__w { margin-left: auto; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: none; }
   .ro-chart canvas { display: block; width: 100%; height: 3.6rem; }
   .ro-cap { margin: 0.05rem 0.1rem 0; font: 0.6rem / 1.45 var(--font-mono); color: var(--text-2); }
-  html[data-lens="fullstack"] .ro-chart { order: -1; border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
-  html[data-lens="fullstack"] .ro-head { order: -2; }
-  html[data-lens="fullstack"] .ro-chart canvas { height: 4.8rem; }
 
   /* scrubber */
   .hero__scrub:has(.scrub) { border-top: var(--line-w) solid var(--line); }
   .scrub { display: grid; grid-template-columns: auto 1fr auto; gap: 1.2rem; align-items: center; padding-top: 0.7rem; padding-bottom: 0.55rem; }
-  .scrub__hint { white-space: nowrap; }
-  .scrub__hint::before { content: "\2193\00a0\00a0"; color: var(--accent); }
-  .hero-pin:not(.is-pinned) .scrub__hint { display: none; }
-  .hero-pin:not(.is-pinned) .scrub { grid-template-columns: 1fr auto; }
+  .scrub__play { min-width: 2.6rem; padding-inline: 0.6rem; }
+  .scrub__play span[aria-hidden] { font-size: 0.7rem; letter-spacing: -0.12em; }
+  .scrub__play[aria-pressed="true"] { color: var(--accent); border-color: var(--line-strong); }
+  .scrub__play[aria-pressed="false"] { color: var(--text-2); }
   .scrub__pause { min-width: 2.6rem; padding-inline: 0.6rem; }
   .scrub__wrap { position: relative; padding-top: 0.9rem; }
   .scrub__track { position: relative; height: 1.7rem; cursor: pointer; touch-action: none; outline: none; }
@@ -124,8 +121,7 @@ import { heroText } from '../../data/hero';
     .ro-v b, .ro--emph .ro-v b { font-size: 1.02rem; }
     .ro-n, .ro-g { display: none !important; }
     .ro-l { font-size: 0.55rem; letter-spacing: 0.08em; white-space: normal; line-height: 1.2; }
-    .scrub { grid-template-columns: 1fr auto; padding-top: 0.3rem; }
-    .scrub__hint { grid-column: 1 / -1; grid-row: 2; }
+    .scrub { gap: 0.5rem; padding-top: 0.3rem; }
     .scrub__track { height: 2.4rem; }
     .scrub__era { font-size: 0; letter-spacing: 0; }
     .scrub__era b { font-size: 0.6rem; }

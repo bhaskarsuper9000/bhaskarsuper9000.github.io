@@ -7,8 +7,7 @@ summary: "Proposed and led (team of 3) a way to ship binaries to vehicles; about
 kind: work
 disclosure: diagram
 stack: ["Docker-in-Docker","Node.js"]
-lenses: ["fullstack"]
-rank: {fullstack: 1, all: 2}
+rank: 2
 metric: { value: "$800K/yr", label: "saved annually" }
 featured: true
 ---

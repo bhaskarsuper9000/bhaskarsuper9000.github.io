@@ -21,7 +21,7 @@ export function bootPrefs(): void {
     size: ['s', 'm', 'l', 'xl'],
     accent: ['0', '1', '2', '3', '4', '5'],
   };
-  const DEFAULTS: PrefView = { theme: 'dark', font: 'instrument', size: 'm', accent: '0' };
+  const DEFAULTS: PrefView = { theme: 'light', font: 'instrument', size: 'm', accent: '1' }; // keep in step with <html> in BaseLayout
   const root = document.documentElement;
   const listeners: Array<() => void> = [];
   const mq = matchMedia('(prefers-color-scheme: dark)');
@@ -70,15 +70,4 @@ export function bootPrefs(): void {
     try { saved = JSON.parse(e.newValue || '{}') || {}; } catch { saved = {}; }
     apply();
   });
-}
-
-/** Audience lens -> data-lens on <html>. ?lens= wins over the saved choice; otherwise the
-    server-rendered default (data/lenses.ts) stays. */
-export function bootLens(): void {
-  const ok = /^(robotics|fullstack|all)$/;
-  let lens: string | null = new URLSearchParams(location.search).get('lens');
-  if (!lens || !ok.test(lens)) {
-    try { lens = localStorage.getItem('bb-lens-v1'); } catch { /* ignore */ }
-  }
-  if (lens && ok.test(lens)) document.documentElement.setAttribute('data-lens', lens);
 }

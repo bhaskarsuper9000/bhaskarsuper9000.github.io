@@ -4,7 +4,7 @@ Every page must look like it belongs to the same cockpit. If you are unsure, cop
 
 ## Principles
 1. Instrument, not poster: thin luminous lines, small-caps mono and condensed labels, square corners, data as readouts.
-2. Dark first, with a deliberate light theme. Both must work on every page; check both.
+2. Light theme with the green accent is the default; dark is one click away in settings. Both must work on every page; check both.
 3. One accent at a time (visitor-selectable). Accent marks interaction and key numbers, never body text blocks.
 4. Calm: no motion that is not responding to the visitor, except tiny status blips. Nothing loops loudly.
 5. Static first: pages must be complete without JavaScript, except the interactive demos and diagrams.
@@ -20,7 +20,7 @@ Every page must look like it belongs to the same cockpit. If you are unsure, cop
 - Use `rem` for everything that should scale with the visitor's text size. Never use raw hex, `px` font sizes or font names outside `tokens.css`.
 
 ## Visitor settings (apply to every page)
-Set as attributes on `<html>` before first paint (`scripts/boot.ts`): `data-theme` light/dark, `data-font` instrument/sans/serif/mono/legible, `data-size` s/m/l/xl (scales root font size), `data-accent` 0-5, plus `data-lens` on the home page. Never hard-code a colour that ignores these. Components that must keep a fixed look (the print resume paper, canvas scenes) say so in a comment.
+Set as attributes on `<html>` before first paint (`scripts/boot.ts`): `data-theme` light/dark, `data-font` instrument/sans/serif/mono/legible, `data-size` s/m/l/xl (scales root font size), `data-accent` 0-5. Never hard-code a colour that ignores these. Components that must keep a fixed look (the print resume paper, canvas scenes) say so in a comment.
 
 ## Components (global ones are in `components.css`)
 - **Panel** (`Panel.astro`, `.panel`): corner-bracket frame, the default container. `tone="warn"` for confidential content, `tone="quiet"` for small inline frames. Do not nest panels more than one level.
@@ -30,17 +30,16 @@ Set as attributes on `<html>` before first paint (`scripts/boot.ts`): `data-them
 - **Buttons** (`.btn`): default outline; `.btn--primary` (one per view); `.btn--ghost` for tertiary actions. Labels are short, uppercase by style.
 - **Tag** (`.tag`): stack/topic labels, not clickable. **Chip** (`.chip`): toggle filter, uses `aria-pressed`.
 - **Badge** (`.badge--text|diagram|demo|write-up`): the disclosure type of a project. Amber = confidential text-only.
-- **Lens switch** (`LensSwitch.astro`): two segments, clicking the active one clears it to the general view. Default is `defaultLens` in `src/data/lenses.ts` (Robotics). State: `?lens=robotics|fullstack|all`, `bb-lens-v1`.
 - **Settings panel** (`SettingsPanel.astro`): a popover opened from the nav; never duplicate it inline.
 - **Prose** (`.prose`): markdown body styling (headings, code, tables, figures, quotes). Use it for any long-form text.
 
 ## Hero scene, logo, rolling title
 - **Scene** (`scripts/hero/`): a toy simulation per era, drawn as thin lines with translucent fills: ego in `--accent`, other agents in `--text-2`, world in `--line-strong`, warnings in `--warn`. Colours are read from the tokens at runtime (`palette.ts`), so theme and accent changes apply; no colour constants in scene code. No bloom, no post-processing, no external models or textures.
 - **Motion limits**: calm chase/orbit camera, slight pointer parallax, one lidar/sonar sweep; 0.28 s fade out and 0.45 s fade in between eras. Pixel ratio capped at 2; rendering pauses when the tab is hidden, the hero is off screen, or the visitor presses pause.
-- **Timeline**: on wide screens the home page (hero and the sections under it) is held still and page scroll moves the timeline from today back to the oldest era (`scrollpin.ts`), then the page scrolls on. Dragging, era ticks and arrow keys work too and keep the scroll position in step. On narrow screens the page is held once the scene reaches the top, so scene and timeline stay in view. Its focus ring shows for keyboard use only.
+- **Timeline**: plays backwards from today on its own (5 s per era, `ERA_S` in `scrubber.ts`) and loops. Dragging, clicking a time or an era tick, or the arrow keys stops it; the button left of the track resumes. No autoplay under reduced motion, `?static=1`, `?era=` or `?play=0`. Its focus ring shows for keyboard use only.
 - **Dark theme is calm, not neon**: muted accents and a faint `--glow`. Do not add stronger glows or more saturated accents.
-- **Fallbacks**: text, lens and proof points are server-rendered and never wait for the scene. Order: 2D-canvas still (`fallback2d.ts`), then three.js crossfades in. No WebGL, `?static=1` or reduced motion keep the still (reduced motion adds a Play button). Without JS: a faint grid, headline numbers and an era strip.
-- **Readouts** are computed from the scene each frame (textbook TTC, gap, lane offset); never fake them. The lens only changes which tiles are emphasised.
+- **Fallbacks**: text and proof points are server-rendered and never wait for the scene. Order: 2D-canvas still (`fallback2d.ts`), then three.js crossfades in. No WebGL, `?static=1` or reduced motion keep the still (reduced motion adds a Play button). Without JS: a faint grid, headline numbers and an era strip.
+- **Readouts** are computed from the scene each frame (textbook TTC, gap, lane offset); never fake them.
 - **Logo** (`Logo.astro`): static "BB" monogram on an accent-filled hexagon. No animation.
 - **Rolling title**: one word in front of "software engineer", ~400 ms decode; the slot eases its width so nothing jumps. Screen readers get one stable label. Static first word under reduced motion.
 

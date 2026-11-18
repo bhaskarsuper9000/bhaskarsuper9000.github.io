@@ -76,8 +76,3 @@ code, pre, kbd { font-family: var(--font-mono); }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
 @media print { .nav, .foot, .sp, .skip, .no-print { display: none !important; } body { background: #fff !important; } }
-
-/* lens-conditional content: <x data-for="all|robotics|fullstack"> shows only for the active lens */
-html[data-lens="all"] [data-for]:not([data-for="all"]),
-html[data-lens="robotics"] [data-for]:not([data-for="robotics"]),
-html[data-lens="fullstack"] [data-for]:not([data-for="fullstack"]) { display: none; }

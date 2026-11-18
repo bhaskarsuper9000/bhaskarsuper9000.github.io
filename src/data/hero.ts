@@ -1,6 +1,4 @@
 /** Hero copy and settings that are not era or project content. Era captions live in src/content/eras/. */
-import type { LensView } from './lenses';
-
 /** Word rolled in front of `rest`; seconds each word stays. Reduced motion shows the first word only. */
 export const rollingTitle = {
   words: [
@@ -15,15 +13,12 @@ export const rollingTitle = {
   label: 'Senior software engineer, 8+ years', // what screen readers hear
 };
 
-/** Readout tiles emphasised per lens (keys: speed, lane, ttc, gap, tracked, cpu). The full-stack lens also brings the chart forward (CSS). */
-export const readoutEmphasis: Record<LensView, string[]> = {
-  all: ['speed', 'ttc'],
-  robotics: ['ttc', 'gap', 'tracked'],
-  fullstack: ['speed', 'cpu'],
-};
+/** Readout tiles shown first and emphasised (keys: speed, lane, ttc, gap, tracked, cpu). */
+export const readoutEmphasis = ['speed', 'ttc'];
 
 export const heroText = {
   readoutsCaption: 'Toy simulation running in your browser. Metrics are computed live from the scene.',
-  scrollHint: 'Scroll to go back in time',
+  playStory: 'Play the timeline backwards',
+  pauseStory: 'Pause the timeline',
   playSim: 'Play simulation',
 };

@@ -1,5 +1,5 @@
 /* Design tokens: the only place raw values live. See docs/design-guidelines.md.
-   Visitor prefs set attributes on <html>: data-theme, data-font, data-size, data-accent, data-lens. */
+   Visitor prefs set attributes on <html>: data-theme, data-font, data-size, data-accent. */
 
 :root {
   /* type */
@@ -48,7 +48,7 @@
   --dur-slow: 0.45s;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
-  /* accent swatches (index = data-accent) and theme colours: dark is the default */
+  /* accent swatches (index = data-accent) and theme colours. These are the dark values; light (the default theme) overrides below */
   --sw0: #6cc4d6; --sw1: #7fd3a0; --sw2: #e2b25c; --sw3: #e58a63; --sw4: #8fb0e8; --sw5: #df8cc6;
   --accent: var(--sw0);
   --on-accent: #031116;

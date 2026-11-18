@@ -1,19 +1,16 @@
 ---
 import { site } from '../../data/site';
 import { headline } from '../../data/resume';
-import { lenses, type LensView } from '../../data/lenses';
 import { rollingTitle } from '../../data/hero';
 import type { Era, Project } from '../../lib/content';
 import HeroScene from './HeroScene.astro';
-import LensSwitch from './LensSwitch.astro';
 import ProofPoints from './ProofPoints.astro';
 
-interface Props { eras: Era[]; proofSets: Record<LensView, Project[]> }
-const { eras, proofSets } = Astro.props;
+interface Props { eras: Era[]; proofs: Project[] }
+const { eras, proofs } = Astro.props;
 const [first, ...rest] = site.name.split(' ');
 const current = eras[0]; // newest era is shown until the scrubber takes over
 const timeline = [...eras].reverse(); // oldest to newest, left to right
-const positioning: Record<LensView, string> = { all: site.positioning, ...Object.fromEntries(lenses.map((l) => [l.id, l.positioning])) } as Record<LensView, string>;
 // eras with a 3D scene, oldest first, for the live scrubber
 const sceneEras = timeline.filter((e) => e.data.scene).map((e) => ({
   id: e.id, title: e.data.title, tick: e.data.tick ?? e.data.title, years: e.data.years, start: e.data.start, end: e.data.end,
@@ -31,10 +28,9 @@ const sceneEras = timeline.filter((e) => e.data.scene).map((e) => ({
       </p>
       <h1 id="hero-name" class="hero__name"><span>{first}</span> <span>{rest.join(' ')}</span></h1>
       <div class="panel hero__pos">
-        {(Object.keys(positioning) as LensView[]).map((v) => <p data-for={v}>{positioning[v]}</p>)}
+        <p>{site.positioning}</p>
       </div>
-      <LensSwitch />
-      <ProofPoints sets={proofSets} eras={eras} />
+      <ProofPoints projects={proofs} eras={eras} />
       <div class="hero__cta">
         <a class="btn btn--primary" href="/resume/">Read the resume</a>
         <a class="btn" href={site.resumePdf} download>Download 1-page resume (PDF)</a>
@@ -133,7 +129,6 @@ const sceneEras = timeline.filter((e) => e.data.scene).map((e) => ({
     .hero__era { order: 6; justify-content: flex-start; text-align: left; max-width: none; padding: 0.6rem var(--pad) 0.2rem; }
     .hero__scrub { order: 7; background: transparent; backdrop-filter: none; border-top: 0; }
     .hero__eras { grid-template-columns: repeat(4, 1fr); row-gap: 0.4rem; }
-    :global(.lens) { order: 8; margin: 1.1rem var(--pad) 0; }
     :global(.proofs) { order: 9; margin: 0.8rem var(--pad) 0; }
     .hero__cta { order: 10; margin: 1rem var(--pad) 1.6rem; }
   }

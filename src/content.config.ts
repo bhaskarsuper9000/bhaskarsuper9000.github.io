@@ -31,10 +31,7 @@ const projects = defineCollection({
     role: z.string().optional(),
     stack: z.array(z.string()).default([]),
     links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
-    lenses: z.array(z.enum(['robotics', 'fullstack'])).default([]),
-    rank: z // lower = more prominent
-      .object({ all: z.number().optional(), robotics: z.number().optional(), fullstack: z.number().optional() })
-      .default({}),
+    rank: z.number().optional(), // order among featured projects on the home page; lower = first
     metric: z.object({ value: z.string(), label: z.string() }).optional(),
     featured: z.boolean().default(false),
     component: z.string().optional(), // key in components/projects/registry.ts
